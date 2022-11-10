@@ -14,14 +14,12 @@ const ROUTES = {
   },
 };
 
-function getRouteByUrl(url) {
-  return Object.values(ROUTES).find((x) => x.url === url);
-}
-
-function getValidRoute(route, defaultRoute = ROUTES.HOME) {
-  const newRoute = route.toLowerCase();
-  const validRoute = getRouteByUrl(newRoute) || defaultRoute;
-  return validRoute.url;
+function getValidRouteByUrl(url, defaultRoute = ROUTES.HOME) {
+  const standardizedUrl = url.toLowerCase();
+  const validRoute = Object.values(ROUTES).find(
+    (x) => x.url === standardizedUrl
+  );
+  return validRoute || defaultRoute;
 }
 
 function NavigatorProvider({ children }) {
@@ -29,32 +27,32 @@ function NavigatorProvider({ children }) {
   const [currentRoute, setCurrentRoute] = useState(null);
 
   useEffect(() => {
-    console.log("current route", currentRoute);
     if (currentRoute === null) return;
+    console.log("current route", currentRoute.title);
     setHistory((prev) => {
-      console.log("history changed:", [...prev, currentRoute]);
-      return [...prev, currentRoute];
+      console.log("history changed:", [...prev, currentRoute.url]);
+      return [...prev, currentRoute.url];
     });
   }, [currentRoute]);
 
   useEffect(() => {
-    navigate(getValidRoute(window.location.pathname));
+    navigate(getValidRouteByUrl(window.location.pathname));
   }, []);
 
   const navigate = (route, dontChangeState) => {
-    console.log("navigating to", route);
-    document.title = getRouteByUrl(route).title;
+    console.log("navigating to", route.title);
+    document.title = route.title;
     if (dontChangeState) {
-      window.history.replaceState({}, "", route);
+      window.history.replaceState({}, "", route.url);
     } else {
-      window.history.pushState({}, "", route);
+      window.history.pushState({}, "", route.url);
     }
     setCurrentRoute(route);
   };
 
   const onPopState = () => {
-    const newRoute = getValidRoute(window.location.pathname);
-    console.log("popstate:", newRoute);
+    const newRoute = getValidRouteByUrl(window.location.pathname);
+    console.log("popstate:", newRoute.title);
     navigate(newRoute, true);
   };
 
@@ -63,13 +61,18 @@ function NavigatorProvider({ children }) {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
+  const checkCurrentRoute = (route) => {
+    return currentRoute?.url === route.url;
+  };
+
   const navigatorContextValue = useMemo(
     () => ({
       history,
       currentRoute,
       navigate,
+      checkCurrentRoute,
     }),
-    [history, currentRoute, navigate]
+    [history, currentRoute, navigate, checkCurrentRoute]
   );
 
   return (

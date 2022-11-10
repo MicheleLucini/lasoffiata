@@ -1,0 +1,32 @@
+.home {
+  display: grid;
+  gap: 20px;
+}
+
+.home > span {
+  text-align: center;
+}
+
+.home .search-form-wrapper {
+  display: grid;
+  background-color: #f5f5f5;
+  padding: 12px 20px;
+  border-radius: 48px;
+}
+
+.home .search-form-wrapper > .header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.home .search-form-wrapper > .header > .material-symbols-rounded {
+  color: #212121;
+  font-size: 22px;
+}
+
+.home .search-form-wrapper > .header > .title {
+  color: #999;
+  font-size: 16px;
+}

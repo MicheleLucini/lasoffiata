@@ -4,12 +4,12 @@ import Login from "../login";
 import Home from "../home";
 
 const Navigator = () => {
-  const { currentRoute } = useNavigator();
+  const { checkCurrentRoute } = useNavigator();
 
   return (
     <>
-      {currentRoute === ROUTES.HOME.url && <Home />}
-      {currentRoute === ROUTES.LOGIN.url && <Login />}
+      {checkCurrentRoute(ROUTES.HOME) && <Home />}
+      {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
     </>
   );
 };
