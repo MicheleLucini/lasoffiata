@@ -9,24 +9,24 @@
 
 .home .search-form-wrapper {
   display: grid;
-  background-color: #f5f5f5;
+  background-color: var(--peachade);
   padding: 12px 20px;
-  border-radius: 48px;
+  border-radius: 16px;
 }
 
 .home .search-form-wrapper > .header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .home .search-form-wrapper > .header > .material-symbols-rounded {
-  color: #212121;
+  color: var(--desert-gold);
   font-size: 22px;
 }
 
 .home .search-form-wrapper > .header > .title {
-  color: #999;
+  color: var(--desert-gold);
   font-size: 16px;
 }

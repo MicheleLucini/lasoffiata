@@ -7,8 +7,13 @@ import "./App.css";
 const App = () => {
   return (
     <NavigatorProvider>
-      <Header />
-      <Navigator />
+      <div className="page">
+        <Header />
+        <div className="body">
+          <Navigator />
+        </div>
+      </div>
+      <div className="footer"></div>
     </NavigatorProvider>
   );
 };
