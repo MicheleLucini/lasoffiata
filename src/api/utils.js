@@ -5,7 +5,7 @@ const API_BASE_URL = "https://79.44.229.126/api";
 const DEFAULT_TIMEOUT = 30000;
 
 export async function post(url, body) {
-  const userToken = getLocal("user", "token")
+  const userToken = getLocal("user", "token");
   const response = await axios({
     method: "post",
     baseURL: API_BASE_URL,

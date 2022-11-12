@@ -15,3 +15,8 @@ export const logout = () => async (dispatch) => {
   await dispatch(storeUser.logout());
   delLocal("user", "token");
 };
+
+export const restoreSignIn = ({ id }) => async (dispatch) => {
+  const user = await apiUser.RestoreSignIn({ id });
+  await dispatch(storeUser.login(user));
+};

@@ -62,7 +62,7 @@ const AppTopBar = () => {
       </div >
       <div className={styles.topBarSub}>
         {showCurrentUserGreeting && (
-          <span className={styles.logged}>Ciao {user.email}! ✨</span>
+          <span className={styles.logged}>Ciao {user.name || user.email}! ✨</span>
         )}
         {showLoginHero && (
           <span className={styles.login}>
