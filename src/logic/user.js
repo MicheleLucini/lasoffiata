@@ -1,5 +1,6 @@
 import * as apiUser from "@api/user";
 import * as storeUser from "@store/userSlice";
+import { setLocal, delLocal } from "./localStorage"
 
 export const login = ({ email, password }) => async (dispatch) => {
   if (!email || !password) {
@@ -7,10 +8,10 @@ export const login = ({ email, password }) => async (dispatch) => {
   }
   const user = await apiUser.SignIn({ email, password });
   await dispatch(storeUser.login(user));
+  setLocal("user", "token", { token: user.token, id: user.id });
 };
 
-// export const logout = ({ accessToken }) => async (dispatch) => {
-//   await apiUser.accountLogout(accessToken);
-//   await dispatch(userStore.logout());
-//   await storage.resetKeychain();
-// };
+export const logout = () => async (dispatch) => {
+  await dispatch(storeUser.logout());
+  delLocal("user", "token");
+};

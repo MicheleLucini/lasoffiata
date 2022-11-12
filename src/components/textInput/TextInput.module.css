@@ -30,7 +30,7 @@
 
 .textInput > input {
   background-color: var(--floral-white);
-  border: 1px solid var(--raisin-black);
+  border: 2px solid var(--light-brown);
   color: var(--coarse-wool);
 }
 
@@ -41,7 +41,7 @@
 }
 
 .textInput.active > input {
-  box-shadow: 0px 0px 0px 3px var(--brown);
+  box-shadow: 0px 0px 0px 1px var(--brown);
 }
 
 .textInput.disabled > input {

@@ -5,6 +5,7 @@
   --peachade: #f8e0c6;
   --bundaberg-sand: #ffc586;
   --desert-gold: #d5a168;
+  --light-brown: #ba8343;
   --brown: #885200;
   --raisin-black: #2c2e38;
   --coarse-wool: #171924;
@@ -31,6 +32,12 @@ body {
   color: var(--coarse-wool);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+span,
+label,
+p {
+  word-break: break-word;
 }
 
 * {
