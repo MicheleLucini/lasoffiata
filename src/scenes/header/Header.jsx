@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import LogoHeader from "@assets/logo_header_white.png";
+import Icon from "@components/icon";
 import "./header.css";
 
 const Header = () => {
@@ -24,10 +25,22 @@ const Header = () => {
         {checkCurrentRoute(ROUTES.HOME) && (
           <>
             <a onClick={() => navigate(ROUTES.LOGIN)}>
-              <span className={"material-symbols-rounded" + (user.isLogged ? " fill" : "")}>person</span>
+              <Icon
+                name="person"
+                fill={user.isLogged ? 1 : 0}
+                weight={400}
+                grade={0}
+                opticalSize={24}
+              />
             </a>
             <a onClick={() => navigate(ROUTES.LOGIN)}>
-              <span className="material-symbols-rounded">shopping_basket</span>
+              <Icon
+                name="shopping_basket"
+                fill={0}
+                weight={400}
+                grade={0}
+                opticalSize={24}
+              />
             </a>
           </>
         )}
