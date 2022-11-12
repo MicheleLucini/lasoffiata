@@ -10,40 +10,54 @@
   color: var(--floral-white);
   background-color: var(--coarse-wool);
 }
-.app-bar > * {
+
+.app-bar>* {
   height: 64px;
   display: grid;
   grid-gap: 20px;
   align-content: center;
 }
-.app-bar > .abl {
+
+.app-bar>.abl {
   grid-gap: 10px;
   grid-auto-flow: column;
   justify-content: start;
 }
-.app-bar > .abc {
+
+.app-bar>.abc {
   grid-auto-flow: column;
   justify-content: center;
 }
-.app-bar > .abr {
+
+.app-bar>.abr {
   grid-auto-flow: column;
   justify-content: end;
 }
-.app-bar > .absub {
+
+.app-bar>.absub {
   height: unset;
   grid-column: span 3;
 }
 
-.app-bar > .absub > .login {
+.app-bar>.absub>.login {
   padding: 20px 0 36px;
   font-size: 26px;
   line-height: 32px;
 }
-.app-bar > .absub > .logged {
+
+.app-bar>.absub>.logged {
   padding-bottom: 20px;
   font-size: 16px;
 }
 
 .app-bar a {
   display: grid;
+}
+
+.app-bar .material-symbols-rounded.fill {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }

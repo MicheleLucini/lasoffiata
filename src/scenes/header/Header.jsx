@@ -1,10 +1,14 @@
 import React from "react";
-import { ROUTES, useNavigator } from "../../contexts/NavigatorContext";
+import { useSelector } from 'react-redux';
+import { selectUser } from '@store/userSlice';
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import LogoHeader from "@assets/logo_header_white.png";
 import "./header.css";
-import LogoHeader from "../../assets/logo_header_white.png";
 
 const Header = () => {
   const { navigate, checkCurrentRoute } = useNavigator();
+  const user = useSelector(selectUser);
+
   return (
     <div className="app-bar">
       <div className="abl">
@@ -20,7 +24,7 @@ const Header = () => {
         {checkCurrentRoute(ROUTES.HOME) && (
           <>
             <a onClick={() => navigate(ROUTES.LOGIN)}>
-              <span className="material-symbols-rounded">person</span>
+              <span className={"material-symbols-rounded" + (user.isLogged ? " fill" : "")}>person</span>
             </a>
             <a onClick={() => navigate(ROUTES.LOGIN)}>
               <span className="material-symbols-rounded">shopping_basket</span>
@@ -29,17 +33,17 @@ const Header = () => {
         )}
       </div>
       <div className="absub">
-        {checkCurrentRoute(ROUTES.LOGIN) ? (
+        {checkCurrentRoute(ROUTES.LOGIN) && !user.isLogged ? (
           <span className="login">
             Ciao!
             <br />
             Accedi al tuo account la soffiata.
           </span>
         ) : (
-          <span className="logged">Ciao Michele! ✨</span>
+          <span className="logged">Ciao {user.email}! ✨</span>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
