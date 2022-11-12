@@ -7,26 +7,26 @@
   text-align: center;
 }
 
-.home .search-form-wrapper {
+.home .searchFormWrapper {
   display: grid;
   background-color: var(--peachade);
   padding: 12px 20px;
   border-radius: 16px;
 }
 
-.home .search-form-wrapper > .header {
+.home .searchFormWrapper > .header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 10px;
 }
 
-.home .search-form-wrapper > .header > .material-symbols-rounded {
+.home .searchFormWrapper > .header > .icon {
   color: var(--desert-gold);
   font-size: 22px;
 }
 
-.home .search-form-wrapper > .header > .title {
+.home .searchFormWrapper > .header > .title {
   color: var(--desert-gold);
   font-size: 16px;
 }

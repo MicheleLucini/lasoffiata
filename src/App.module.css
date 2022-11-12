@@ -1,0 +1,12 @@
+.page {
+  min-height: 100vh;
+}
+
+.body {
+  padding: 20px;
+}
+
+.footer {
+  padding: 40px 20px;
+  background-color: var(--peachade);
+}

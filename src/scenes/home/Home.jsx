@@ -1,15 +1,26 @@
-import React from "react";
-// import { useNavigator } from "../../contexts/NavigatorContext";
-import "./home.css";
+import React, { useEffect } from "react";
+import Icon from "@components/icon";
+// import * as userApi from "../../api/user";
+import styles from "./Home.module.css";
 
 const Home = () => {
-  // const { navigate } = useNavigator();
+  // useEffect(() => {
+  //   userApi.GetFeaturedAdvertisements();
+  // }, []);
+
   return (
-    <div className="home">
-      <div className="search-form-wrapper">
-        <div className="header">
-          <span className="material-symbols-rounded">search</span>
-          <span className="title">Cosa stai cercando?</span>
+    <div className={styles.home}>
+      <div className={styles.searchFormWrapper}>
+        <div className={styles.header}>
+          <Icon
+            name="search"
+            className={styles.icon}
+            fill={0}
+            weight={400}
+            grade={0}
+            opticalSize={24}
+          />
+          <span className={styles.title}>Cosa stai cercando?</span>
         </div>
       </div>
       <span>Benvenuto nella home del sito!</span>

@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
-import "./login.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,7 +16,7 @@ const Login = () => {
         setLoading(false);
         navigate(ROUTES.HOME);
       });
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   // useEffect(() => {
   //   loginUser("admin", "admin");

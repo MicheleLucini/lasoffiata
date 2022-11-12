@@ -1,4 +1,4 @@
-.top-bar {
+.topBar {
   /* position: fixed;
   top: 0;
   left: 0;
@@ -11,45 +11,45 @@
   background-color: var(--coarse-wool);
 }
 
-.top-bar>* {
+.topBar > * {
   height: 64px;
   display: grid;
   grid-gap: 20px;
   align-content: center;
 }
 
-.top-bar>.top-bar-left {
+.topBar > .topBarLeft {
   grid-gap: 10px;
   grid-auto-flow: column;
   justify-content: start;
 }
 
-.top-bar>.top-bar-center {
+.topBar > .topBarCenter {
   grid-auto-flow: column;
   justify-content: center;
 }
 
-.top-bar>.top-bar-right {
+.topBar > .topBarRight {
   grid-auto-flow: column;
   justify-content: end;
 }
 
-.top-bar>.top-bar-sub {
+.topBar > .topBarSub {
   height: unset;
   grid-column: span 3;
 }
 
-.top-bar>.top-bar-sub>.login {
+.topBar > .topBarSub > .login {
   padding: 20px 0 36px;
   font-size: 26px;
   line-height: 32px;
 }
 
-.top-bar>.top-bar-sub>.logged {
+.topBar > .topBarSub > .logged {
   padding-bottom: 20px;
   font-size: 16px;
 }
 
-.top-bar a {
+.topBar a {
   display: grid;
 }

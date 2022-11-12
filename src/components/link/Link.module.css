@@ -1,0 +1,7 @@
+.reset:link,
+.reset:visited,
+.reset:hover,
+.reset:active {
+  color: inherit;
+  text-decoration: none;
+}

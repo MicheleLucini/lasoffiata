@@ -1,30 +1,45 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import LogoHeader from "@assets/logo_header_white.png";
 import Icon from "@components/icon";
-import "./AppTopBar.css";
+import Link from "@components/link";
+import styles from "./AppTopBar.module.css";
 
 const AppTopBar = () => {
-  const { navigate, checkCurrentRoute } = useNavigator();
+  const { checkCurrentRoute } = useNavigator();
   const user = useSelector(selectUser);
 
+  const showCurrentUserGreeting = useMemo(() => (
+    user.isLogged
+  ), [user.isLogged]);
+
+  const showLoginHero = useMemo(() => (
+    checkCurrentRoute(ROUTES.LOGIN)
+  ), [checkCurrentRoute]);
+
   return (
-    <div className="top-bar">
-      <div className="top-bar-left">
-        {/* <a onClick={() => navigate(ROUTES.HOME)}>
-          <span className="material-symbols-rounded">arrow_back</span>
-        </a> */}
-        <a onClick={() => navigate(ROUTES.HOME)}>
-          <img className="logo" src={LogoHeader} />
-        </a>
+    <div className={styles.topBar}>
+      <div className={styles.topBarLeft}>
+        {/* <Link route={ROUTES.HOME}>
+          <Icon
+            name="arrow_back"
+            fill={0}
+            weight={400}
+            grade={0}
+            opticalSize={24}
+          />
+        </Link> */}
+        <Link route={ROUTES.HOME}>
+          <img alt='Logo soffiata' className={styles.logo} src={LogoHeader} />
+        </Link>
       </div>
-      <div className="top-bar-center"></div>
-      <div className="top-bar-right">
+      <div className={styles.topBarCenter}></div>
+      <div className={styles.topBarRight}>
         {checkCurrentRoute(ROUTES.HOME) && (
           <>
-            <a onClick={() => navigate(ROUTES.LOGIN)}>
+            <Link route={ROUTES.LOGIN}>
               <Icon
                 name="person"
                 fill={user.isLogged ? 1 : 0}
@@ -32,8 +47,8 @@ const AppTopBar = () => {
                 grade={0}
                 opticalSize={24}
               />
-            </a>
-            <a onClick={() => navigate(ROUTES.LOGIN)}>
+            </Link>
+            <Link route={ROUTES.LOGIN}>
               <Icon
                 name="shopping_basket"
                 fill={0}
@@ -41,21 +56,22 @@ const AppTopBar = () => {
                 grade={0}
                 opticalSize={24}
               />
-            </a>
+            </Link>
           </>
         )}
-      </div>
-      <div className="top-bar-sub">
-        {checkCurrentRoute(ROUTES.LOGIN) && !user.isLogged ? (
-          <span className="login">
+      </div >
+      <div className={styles.topBarSub}>
+        {showCurrentUserGreeting && (
+          <span className={styles.logged}>Ciao {user.email}! ✨</span>
+        )}
+        {showLoginHero && (
+          <span className={styles.login}>
             Ciao!
             <br />
             Accedi al tuo account la soffiata.
           </span>
-        ) : (
-          <span className="logged">Ciao {user.email}! ✨</span>
         )}
-      </div>
+      </div >
     </div >
   );
 };

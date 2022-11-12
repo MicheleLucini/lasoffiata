@@ -4,19 +4,19 @@ import store from "@store/store";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
 import AppTopBar from "./AppTopBar";
 import AppRouting from "./AppRouting";
-import "./App.css";
+import styles from "./App.module.css";
 
 const App = () => {
   return (
     <Provider store={store}>
       <NavigatorProvider>
-        <div className="page">
+        <div className={styles.page}>
           <AppTopBar />
-          <div className="body">
+          <div className={styles.body}>
             <AppRouting />
           </div>
         </div>
-        <div className="footer"></div>
+        <div className={styles.footer}></div>
       </NavigatorProvider>
     </Provider>
   );
