@@ -2,31 +2,59 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
+import TextInput from '@components/textInput';
+import Button from '@components/button';
+import styles from './Login.module.css';
 
 const Login = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigator();
+  const [formEmail, setFormEmail] = useState("");
+  const [formPassword, setFormPassword] = useState("");
+  const [formErrors, setFormErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const loginUser = useCallback((email, password) => {
     setLoading(true);
     dispatch(logicUser.login({ email, password }))
-      .catch((e) => console.error("Login error", e.message))
+      .then(() => {
+        navigate(ROUTES.HOME);
+      })
+      .catch((e) => {
+        setFormErrors(e.message);
+      })
       .finally(() => {
         setLoading(false);
-        navigate(ROUTES.HOME);
       });
   }, [dispatch, navigate]);
 
-  // useEffect(() => {
-  //   loginUser("admin", "admin");
-  // }, []);
+  const onAccediClick = useCallback(() => {
+    loginUser(formEmail, formPassword);
+  }, [loginUser, formEmail, formPassword]);
 
   return (
-    <>
-      <span>Login</span>
-      {loading && <span>Loading</span>}
-    </>
+    <div className={styles.loginPage}>
+      <span>Accedi</span>
+      <TextInput
+        label="Email"
+        value={formEmail}
+        setValue={setFormEmail}
+        disabled={loading}
+      />
+      <TextInput
+        label="Password"
+        value={formPassword}
+        setValue={setFormPassword}
+        disabled={loading}
+      />
+      <Button
+        text="Accedi"
+        onClick={onAccediClick}
+        disabled={loading}
+        className={styles.button}
+      />
+      {formErrors && <span className={styles.error}>{formErrors}</span>}
+    </div>
   );
 };
 
