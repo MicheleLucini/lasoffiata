@@ -1,4 +1,4 @@
-.app-bar {
+.top-bar {
   /* position: fixed;
   top: 0;
   left: 0;
@@ -11,53 +11,45 @@
   background-color: var(--coarse-wool);
 }
 
-.app-bar>* {
+.top-bar>* {
   height: 64px;
   display: grid;
   grid-gap: 20px;
   align-content: center;
 }
 
-.app-bar>.abl {
+.top-bar>.top-bar-left {
   grid-gap: 10px;
   grid-auto-flow: column;
   justify-content: start;
 }
 
-.app-bar>.abc {
+.top-bar>.top-bar-center {
   grid-auto-flow: column;
   justify-content: center;
 }
 
-.app-bar>.abr {
+.top-bar>.top-bar-right {
   grid-auto-flow: column;
   justify-content: end;
 }
 
-.app-bar>.absub {
+.top-bar>.top-bar-sub {
   height: unset;
   grid-column: span 3;
 }
 
-.app-bar>.absub>.login {
+.top-bar>.top-bar-sub>.login {
   padding: 20px 0 36px;
   font-size: 26px;
   line-height: 32px;
 }
 
-.app-bar>.absub>.logged {
+.top-bar>.top-bar-sub>.logged {
   padding-bottom: 20px;
   font-size: 16px;
 }
 
-.app-bar a {
+.top-bar a {
   display: grid;
-}
-
-.app-bar .material-symbols-rounded.fill {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
 }

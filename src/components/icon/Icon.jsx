@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import "./icon.css";
 
 const Icon = ({ name, type, fill, weight, grade, opticalSize }) => {
   const iconClassName = useMemo(() => (

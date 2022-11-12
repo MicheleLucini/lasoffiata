@@ -4,15 +4,15 @@ import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import LogoHeader from "@assets/logo_header_white.png";
 import Icon from "@components/icon";
-import "./header.css";
+import "./AppTopBar.css";
 
-const Header = () => {
+const AppTopBar = () => {
   const { navigate, checkCurrentRoute } = useNavigator();
   const user = useSelector(selectUser);
 
   return (
-    <div className="app-bar">
-      <div className="abl">
+    <div className="top-bar">
+      <div className="top-bar-left">
         {/* <a onClick={() => navigate(ROUTES.HOME)}>
           <span className="material-symbols-rounded">arrow_back</span>
         </a> */}
@@ -20,8 +20,8 @@ const Header = () => {
           <img className="logo" src={LogoHeader} />
         </a>
       </div>
-      <div className="abc"></div>
-      <div className="abr">
+      <div className="top-bar-center"></div>
+      <div className="top-bar-right">
         {checkCurrentRoute(ROUTES.HOME) && (
           <>
             <a onClick={() => navigate(ROUTES.LOGIN)}>
@@ -45,7 +45,7 @@ const Header = () => {
           </>
         )}
       </div>
-      <div className="absub">
+      <div className="top-bar-sub">
         {checkCurrentRoute(ROUTES.LOGIN) && !user.isLogged ? (
           <span className="login">
             Ciao!
@@ -60,4 +60,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AppTopBar;

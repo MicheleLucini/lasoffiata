@@ -1,9 +1,9 @@
 import React from "react";
-import { ROUTES, useNavigator } from "../../contexts/NavigatorContext";
-import Login from "../login";
-import Home from "../home";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import Home from "@scenes/home";
+import Login from "@scenes/login";
 
-const Navigator = () => {
+const AppRouting = () => {
   const { checkCurrentRoute } = useNavigator();
 
   return (
@@ -14,4 +14,4 @@ const Navigator = () => {
   );
 };
 
-export default Navigator;
+export default AppRouting;
