@@ -12,7 +12,9 @@ const App = () => {
 
   useEffect(() => {
     const userToken = getLocal("user", "token");
-    dispatch(logicUser.restoreSignIn({ id: userToken.id }));
+    if (userToken) {
+      dispatch(logicUser.restoreSignIn({ id: userToken.id }));
+    }
   }, [dispatch]);
 
   return (
