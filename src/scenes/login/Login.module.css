@@ -14,4 +14,5 @@
   font-weight: 400;
   padding: 12px 18px;
   border-radius: 12px;
+  white-space: pre-wrap;
 }
