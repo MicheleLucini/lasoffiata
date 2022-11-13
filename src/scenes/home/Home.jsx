@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Icon from "@components/icon";
 // import * as userApi from "../../api/user";
 import styles from "./Home.module.css";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
 const NavigatorContext = React.createContext();
@@ -26,6 +26,43 @@ function NavigatorProvider({ children }) {
   const [history, setHistory] = useState([]);
   const [currentRoute, setCurrentRoute] = useState(null);
 
+  const navigate = useCallback((route, dontChangeState) => {
+    // console.log("navigating to", route.title);
+    document.title = route.title;
+    if (dontChangeState) {
+      window.history.replaceState({}, "", route.url);
+    } else {
+      window.history.pushState({}, "", route.url);
+    }
+    setCurrentRoute(route);
+  }, []);
+
+  const onPopState = useCallback(() => {
+    const newRoute = getValidRouteByUrl(window.location.pathname);
+    // console.log("popstate:", newRoute.title);
+    navigate(newRoute, true);
+  }, [navigate]);
+
+  const checkCurrentRoute = useCallback((route) => {
+    return currentRoute?.url === route.url;
+  }, [currentRoute]);
+
+  const navigatorContextValue = useMemo(() => ({
+    history,
+    currentRoute,
+    navigate,
+    checkCurrentRoute,
+  }), [history, currentRoute, navigate, checkCurrentRoute]);
+
+  useEffect(() => {
+    navigate(getValidRouteByUrl(window.location.pathname));
+  }, [navigate]);
+
+  useEffect(() => {
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [onPopState]);
+
   useEffect(() => {
     if (currentRoute === null) return;
     console.log("current route", currentRoute.title);
@@ -34,46 +71,6 @@ function NavigatorProvider({ children }) {
       return [...prev, currentRoute.url];
     });
   }, [currentRoute]);
-
-  useEffect(() => {
-    navigate(getValidRouteByUrl(window.location.pathname));
-  }, []);
-
-  const navigate = (route, dontChangeState) => {
-    console.log("navigating to", route.title);
-    document.title = route.title;
-    if (dontChangeState) {
-      window.history.replaceState({}, "", route.url);
-    } else {
-      window.history.pushState({}, "", route.url);
-    }
-    setCurrentRoute(route);
-  };
-
-  const onPopState = () => {
-    const newRoute = getValidRouteByUrl(window.location.pathname);
-    console.log("popstate:", newRoute.title);
-    navigate(newRoute, true);
-  };
-
-  useEffect(() => {
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, []);
-
-  const checkCurrentRoute = (route) => {
-    return currentRoute?.url === route.url;
-  };
-
-  const navigatorContextValue = useMemo(
-    () => ({
-      history,
-      currentRoute,
-      navigate,
-      checkCurrentRoute,
-    }),
-    [history, currentRoute, navigate, checkCurrentRoute]
-  );
 
   return (
     <NavigatorContext.Provider value={navigatorContextValue}>
