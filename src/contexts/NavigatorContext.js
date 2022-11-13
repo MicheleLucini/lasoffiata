@@ -15,10 +15,8 @@ const ROUTES = {
 };
 
 function getValidRouteByUrl(url, defaultRoute = ROUTES.HOME) {
-  const standardizedUrl = url.toLowerCase();
-  const validRoute = Object.values(ROUTES).find(
-    (x) => x.url === standardizedUrl
-  );
+  const standardizedUrl = url.toLowerCase().replace("/lasoffiata", "");
+  const validRoute = Object.values(ROUTES).find((x) => x.url === standardizedUrl);
   return validRoute || defaultRoute;
 }
 
@@ -29,10 +27,12 @@ function NavigatorProvider({ children }) {
   const navigate = useCallback((route, dontChangeState) => {
     // console.log("navigating to", route.title);
     document.title = route.title;
+
+    const baseUrl = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
     if (dontChangeState) {
-      window.history.replaceState({}, "", route.url);
+      window.history.replaceState({}, "", baseUrl + route.url);
     } else {
-      window.history.pushState({}, "", route.url);
+      window.history.pushState({}, "", baseUrl + route.url);
     }
     setCurrentRoute(route);
   }, []);
@@ -43,9 +43,9 @@ function NavigatorProvider({ children }) {
     navigate(newRoute, true);
   }, [navigate]);
 
-  const checkCurrentRoute = useCallback((route) => {
-    return currentRoute?.url === route.url;
-  }, [currentRoute]);
+  const checkCurrentRoute = useCallback((route) => (
+    currentRoute?.url === route.url
+  ), [currentRoute]);
 
   const navigatorContextValue = useMemo(() => ({
     history,
@@ -64,10 +64,12 @@ function NavigatorProvider({ children }) {
   }, [onPopState]);
 
   useEffect(() => {
-    if (currentRoute === null) return;
-    console.log("current route", currentRoute.title);
+    if (currentRoute === null) {
+      return;
+    }
+    // console.log("current route", currentRoute.title);
     setHistory((prev) => {
-      console.log("history changed:", [...prev, currentRoute.url]);
+      // console.log("history changed:", [...prev, currentRoute.url]);
       return [...prev, currentRoute.url];
     });
   }, [currentRoute]);
