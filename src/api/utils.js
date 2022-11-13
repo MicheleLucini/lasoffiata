@@ -11,33 +11,46 @@ var MESSAGE_TYPE = {
   ERROR: 4
 };
 
-function responseHasErrors(response) {
+function responseIsHttpError500(response) {
+  return response?.status === 500;
+}
+
+function responseHasServerErrors(response) {
   if (response?.data?.messages) {
     return response.data.messages.some((x) => x.messageType === MESSAGE_TYPE.ERROR)
   }
   return false;
 }
 
-function formatServerMessages(response) {
+function formatResponseServerMessages(response) {
   return response.data.messages.map((x) => x.description).join("\n");
 }
 
 export async function post(url, body = {}) {
   const userToken = getLocal("user", "token");
-  const response = await axios({
-    method: "post",
-    baseURL: API_BASE_URL,
-    url: url,
-    data: {
-      ...body,
-      t: userToken?.token,
-      u: userToken?.id,
-    },
-    timeout: DEFAULT_TIMEOUT,
-  });
 
-  if (responseHasErrors(response)) {
-    throw new Error(formatServerMessages(response));
+  let response;
+  try {
+    response = await axios({
+      method: "post",
+      baseURL: API_BASE_URL,
+      url: url,
+      data: {
+        ...body,
+        t: userToken?.token,
+        u: userToken?.id,
+      },
+      timeout: DEFAULT_TIMEOUT,
+    });
+  } catch (error) {
+    if (responseIsHttpError500(error.response)) {
+      throw new Error("Qualcosa è andato storto.");
+    }
+    throw error;
+  }
+
+  if (responseHasServerErrors(response)) {
+    throw new Error(formatResponseServerMessages(response));
   }
 
   return response.data.value;
