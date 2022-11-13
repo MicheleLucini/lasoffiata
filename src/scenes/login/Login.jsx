@@ -39,12 +39,14 @@ const Login = () => {
         label="Email"
         value={formEmail}
         setValue={setFormEmail}
+        onKeyPressEnter={onAccediClick}
         disabled={loading}
       />
       <TextInput
         label="Password"
         value={formPassword}
         setValue={setFormPassword}
+        onKeyPressEnter={onAccediClick}
         disabled={loading}
       />
       <Button
