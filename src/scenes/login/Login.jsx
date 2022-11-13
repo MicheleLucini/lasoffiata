@@ -16,6 +16,7 @@ const Login = () => {
 
   const loginUser = useCallback((email, password) => {
     setLoading(true);
+    setFormErrors(null);
     dispatch(logicUser.login({ email, password }))
       .then(() => {
         navigate(ROUTES.HOME);
