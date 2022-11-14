@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getLocal } from "@logic/localStorage"
 
-const API_BASE_URL = "https://79.44.229.126/api";
+export const BASE_URL = "https://79.44.229.126";
 const DEFAULT_TIMEOUT = 30000;
 
 var MESSAGE_TYPE = {
@@ -33,7 +33,7 @@ export async function post(url, body = {}) {
   try {
     response = await axios({
       method: "post",
-      baseURL: API_BASE_URL,
+      baseURL: BASE_URL,
       url: url,
       data: {
         ...body,
