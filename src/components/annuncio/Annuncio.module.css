@@ -1,0 +1,32 @@
+.annuncio {
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid var(--peachade);
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-gap: 0 12px;
+}
+
+.annuncio > img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background-color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.annuncio > div > span {
+  display: block;
+}
+
+.annuncio > div > .title {
+  font-size: 22px;
+}
+
+.annuncio > div > .description {
+  font-size: 18px;
+  font-weight: 400;
+}

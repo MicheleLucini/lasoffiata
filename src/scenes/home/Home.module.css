@@ -4,7 +4,7 @@
 }
 
 .home > span {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .home .searchFormWrapper {
@@ -29,4 +29,9 @@
 .home .searchFormWrapper > .header > .title {
   color: var(--desert-gold);
   font-size: 16px;
+}
+
+.home .wrapperAnnunci {
+  display: grid;
+  gap: 12px;
 }
