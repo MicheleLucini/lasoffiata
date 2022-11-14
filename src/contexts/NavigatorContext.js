@@ -18,9 +18,45 @@ const ROUTES = {
   },
 };
 
-function getValidRouteByUrl(url, defaultRoute = ROUTES.HOME) {
-  const standardizedUrl = url.toLowerCase().replace("/lasoffiata", "");
-  const validRoute = Object.values(ROUTES).find((x) => x.url === standardizedUrl);
+const BASE_URL = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
+
+function getStandardizedWindowLocationPathname() {
+  return window.location.pathname.toLowerCase().replace("/lasoffiata", "");
+}
+
+function getRouteUrlFromWindowLocation() {
+  const standardizedPathname = getStandardizedWindowLocationPathname();
+  if (standardizedPathname === "/") {
+    return "/";
+  }
+
+  const routeFound = Object.entries(ROUTES)
+    .sort((a, b) => b[1].url.length - a[1].url.length)
+    .find(([key, route]) => route.url !== "/" && standardizedPathname.startsWith(route.url));
+
+  if (routeFound) {
+    return routeFound[1].url;
+  }
+
+  return null;
+}
+
+function getRouteParamsFromWindowLocation() {
+  const standardizedPathname = getStandardizedWindowLocationPathname();
+  if (standardizedPathname === "/") {
+    return null;
+  }
+  const routeUrl = getRouteUrlFromWindowLocation();
+  const paramsString = routeUrl ? standardizedPathname.replace(routeUrl + "/", "") : "";
+  if (paramsString === "" || paramsString === "/") {
+    return null;
+  }
+  return paramsString.split("/");
+}
+
+function getRouteFromWindowLocation(defaultRoute = ROUTES.HOME) {
+  const routeUrlFromWindowLocation = getRouteUrlFromWindowLocation();
+  const validRoute = Object.values(ROUTES).find((x) => x.url === routeUrlFromWindowLocation);
   return validRoute || defaultRoute;
 }
 
@@ -28,26 +64,31 @@ function NavigatorProvider({ children }) {
   const [history, setHistory] = useState([]);
   const [currentRoute, setCurrentRoute] = useState(null);
 
-  const navigate = useCallback((route, params, dontChangeState) => {
+  const navigate = useCallback((route, params = null, dontChangeState) => {
     // console.log("navigating to", route.title);
     document.title = route.title;
 
-    const baseUrl = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
-    const formattedParams = params ? `/${encodeURIComponent(params.join("/"))}` : "";
-    const destinationUrl = `${baseUrl}${route.url}${formattedParams}`;
+    const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
+    const destinationUrl = `${BASE_URL}${route.url}${formattedParams}`;
 
     if (dontChangeState) {
       window.history.replaceState({}, "", destinationUrl);
     } else {
       window.history.pushState({}, "", destinationUrl);
     }
-    setCurrentRoute(route);
+
+    setCurrentRoute({
+      ...route,
+      params,
+    });
   }, []);
 
   const onPopState = useCallback(() => {
-    const newRoute = getValidRouteByUrl(window.location.pathname);
-    // console.log("popstate:", newRoute.title);
-    navigate(newRoute, true);
+    navigate(
+      getRouteFromWindowLocation(),
+      getRouteParamsFromWindowLocation(),
+      true,
+    );
   }, [navigate]);
 
   const checkCurrentRoute = useCallback((route) => (
@@ -62,7 +103,10 @@ function NavigatorProvider({ children }) {
   }), [history, currentRoute, navigate, checkCurrentRoute]);
 
   useEffect(() => {
-    navigate(getValidRouteByUrl(window.location.pathname));
+    navigate(
+      getRouteFromWindowLocation(),
+      getRouteParamsFromWindowLocation(),
+    );
   }, [navigate]);
 
   useEffect(() => {
