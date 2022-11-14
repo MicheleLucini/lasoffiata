@@ -12,6 +12,10 @@ const ROUTES = {
     title: "Accedi",
     url: "/login",
   },
+  ANNUNCIO: {
+    title: "Annuncio",
+    url: "/annuncio",
+  },
 };
 
 function getValidRouteByUrl(url, defaultRoute = ROUTES.HOME) {
@@ -24,15 +28,18 @@ function NavigatorProvider({ children }) {
   const [history, setHistory] = useState([]);
   const [currentRoute, setCurrentRoute] = useState(null);
 
-  const navigate = useCallback((route, dontChangeState) => {
+  const navigate = useCallback((route, params, dontChangeState) => {
     // console.log("navigating to", route.title);
     document.title = route.title;
 
     const baseUrl = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
+    const formattedParams = params ? `/${encodeURIComponent(params.join("/"))}` : "";
+    const destinationUrl = `${baseUrl}${route.url}${formattedParams}`;
+
     if (dontChangeState) {
-      window.history.replaceState({}, "", baseUrl + route.url);
+      window.history.replaceState({}, "", destinationUrl);
     } else {
-      window.history.pushState({}, "", baseUrl + route.url);
+      window.history.pushState({}, "", destinationUrl);
     }
     setCurrentRoute(route);
   }, []);

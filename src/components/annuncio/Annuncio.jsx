@@ -16,8 +16,8 @@ const Annuncio = ({ annuncio }) => {
   }, [annuncio]);
 
   const onClickAnnuncio = useCallback(() => {
-    navigate(ROUTES.ANNUNCIO);
-  }, [navigate]);
+    navigate(ROUTES.ANNUNCIO, [annuncio.id]);
+  }, [navigate, annuncio.id]);
 
   return (
     <div className={styles.annuncio} onClick={onClickAnnuncio}>
