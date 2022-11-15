@@ -2,10 +2,16 @@
   min-height: 100vh;
   width: 100vw;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .body {
-  padding: 20px 12px;
+  padding: 20px 12px 50px;
+  display: grid;
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
 }
 
 .footer {

@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
+import Icon from "@components/icon";
 import noPhoto from "@assets/logo_header.png";
 import { BASE_URL } from "@api/utils"
 import styles from "./Annuncio.module.css";
@@ -25,9 +26,34 @@ const Annuncio = ({ annuncio }) => {
         src={photoUrl}
         alt={`Immagine annuncio ${annuncio.title}`}
       />
-      <div>
-        <span className={styles.titolo}>{annuncio.title}</span>
-        <span className={styles.description}>{annuncio.description}</span>
+      <div className={styles.info}>
+        <span className={styles.title}>{annuncio.title}</span>
+        <Icon
+          name="bookmark_add"
+          fill={0}
+          weight={400}
+          grade={0}
+          opticalSize={24}
+          className={styles.addIcon}
+        />
+        <Icon
+          name="location_on"
+          fill={1}
+          weight={400}
+          grade={-25}
+          opticalSize={20}
+          className={styles.icon}
+        />
+        <span className={styles.description}>{`${annuncio.city} (${annuncio.province})`}</span>
+        <Icon
+          name="calendar_month"
+          fill={1}
+          weight={400}
+          grade={-25}
+          opticalSize={20}
+          className={styles.icon}
+        />
+        <span className={styles.description}>{annuncio.publishDate}</span>
       </div>
     </div>
   );

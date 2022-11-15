@@ -1,37 +1,28 @@
-.home {
-  display: grid;
-  gap: 20px;
-}
-
-.home > span {
-  /* text-align: center; */
-}
-
-.home .searchFormWrapper {
+.searchFormWrapper {
   display: grid;
   background-color: var(--peachade);
   padding: 12px 20px;
   border-radius: 16px;
 }
 
-.home .searchFormWrapper > .header {
+.searchFormWrapper > .header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 10px;
 }
 
-.home .searchFormWrapper > .header > .icon {
+.searchFormWrapper > .header > .icon {
   color: var(--desert-gold);
   font-size: 22px;
 }
 
-.home .searchFormWrapper > .header > .title {
+.searchFormWrapper > .header > .title {
   color: var(--desert-gold);
   font-size: 16px;
 }
 
-.home .wrapperAnnunci {
+.wrapperAnnunci {
   display: grid;
   gap: 12px;
 }

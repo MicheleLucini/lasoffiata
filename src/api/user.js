@@ -14,3 +14,9 @@ export async function RestoreSignIn() {
 export async function GetFeaturedAdvertisements() {
   return await post("/api/User.ashx/GetFeaturedAdvertisements");
 }
+
+export async function GetAnnuncio({ idAnnuncio }) {
+  return await post("/api/User.ashx/GetAnnuncio", {
+    iAdvertisementId: idAnnuncio,
+  });
+}

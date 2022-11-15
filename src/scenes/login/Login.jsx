@@ -34,7 +34,7 @@ const Login = () => {
   }, [loginUser, formEmail, formPassword]);
 
   return (
-    <div className={styles.loginPage}>
+    <>
       <span>Accedi</span>
       <TextInput
         label="Email"
@@ -57,7 +57,7 @@ const Login = () => {
         className={styles.button}
       />
       {formErrors && <span className={styles.error}>{formErrors}</span>}
-    </div>
+    </>
   );
 };
 

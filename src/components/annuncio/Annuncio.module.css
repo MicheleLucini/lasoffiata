@@ -5,7 +5,7 @@
   padding: 12px;
   display: grid;
   grid-template-columns: 100px 1fr;
-  grid-gap: 0 12px;
+  grid-gap: 0 8px;
 }
 
 .annuncio > img {
@@ -18,15 +18,38 @@
   font-size: 12px;
 }
 
-.annuncio > div > span {
+.annuncio > .info {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 4px 4px;
+  align-content: start;
+  justify-items: start;
+  align-items: start;
+}
+
+.annuncio > .info > span {
   display: block;
 }
 
-.annuncio > div > .title {
-  font-size: 22px;
+.annuncio > .info > .title {
+  grid-column: span 2;
+  font-size: 20px;
+  color: var(--coarse-wool);
 }
 
-.annuncio > div > .description {
-  font-size: 18px;
+.annuncio > .info > .addIcon {
+  font-size: 20px;
+  color: var(--coarse-wool);
+}
+
+.annuncio > .info > .description {
+  grid-column: span 2;
+  font-size: 16px;
   font-weight: 400;
+  color: var(--light-brown);
+}
+
+.annuncio > .info > .icon {
+  font-size: 14px;
+  color: var(--light-brown);
 }

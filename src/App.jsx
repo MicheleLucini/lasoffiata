@@ -20,8 +20,8 @@ const App = () => {
         <div className={styles.body}>
           <AppRouting />
         </div>
+        <div className={styles.footer}></div>
       </div>
-      <div className={styles.footer}></div>
     </NavigatorProvider>
   );
 };

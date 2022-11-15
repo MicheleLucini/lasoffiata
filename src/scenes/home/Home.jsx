@@ -17,7 +17,7 @@ const Home = () => {
   }, [loadAnnunci]);
 
   return (
-    <div className={styles.home}>
+    <>
       <div className={styles.searchFormWrapper}>
         <div className={styles.header}>
           <Icon
@@ -35,7 +35,7 @@ const Home = () => {
       <div className={styles.wrapperAnnunci}>
         {annunci.map((x) => <Annuncio key={x.id} annuncio={x} />)}
       </div>
-    </div>
+    </>
   );
 };
 

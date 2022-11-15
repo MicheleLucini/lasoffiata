@@ -11,6 +11,10 @@ const AppTopBar = () => {
   const { checkCurrentRoute } = useNavigator();
   const user = useSelector(selectUser);
 
+  const showBackArrow = useMemo(() => (
+    checkCurrentRoute(ROUTES.ANNUNCIO)
+  ), [checkCurrentRoute]);
+
   const showCurrentUserGreeting = useMemo(() => (
     user.isLogged
   ), [user.isLogged]);
@@ -22,22 +26,24 @@ const AppTopBar = () => {
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarLeft}>
-        {/* <Link route={ROUTES.HOME}>
-          <Icon
-            name="arrow_back"
-            fill={0}
-            weight={400}
-            grade={0}
-            opticalSize={24}
-          />
-        </Link> */}
+        {showBackArrow && (
+          <Link route={ROUTES.HOME}>
+            <Icon
+              name="arrow_back"
+              fill={0}
+              weight={400}
+              grade={0}
+              opticalSize={24}
+            />
+          </Link>
+        )}
         <Link route={ROUTES.HOME}>
           <img alt='Logo soffiata' className={styles.logo} src={LogoHeader} />
         </Link>
       </div>
       <div className={styles.topBarCenter}></div>
       <div className={styles.topBarRight}>
-        {checkCurrentRoute(ROUTES.HOME) && (
+        {!checkCurrentRoute(ROUTES.LOGIN) && (
           <>
             <Link route={ROUTES.LOGIN}>
               <Icon
