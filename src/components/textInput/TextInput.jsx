@@ -10,6 +10,7 @@ const TextInput = ({
   placeholder,
   disabled,
   onKeyPressEnter,
+  type,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -47,7 +48,7 @@ const TextInput = ({
     <div className={wrapperClassName}    >
       <label>{label}</label>
       <input
-        type="text"
+        type={type}
         value={value}
         onChange={onChange}
         // validate={validate}
@@ -71,6 +72,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   onKeyPressEnter: PropTypes.func,
+  type: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -80,6 +82,7 @@ TextInput.defaultProps = {
   placeholder: null,
   disabled: false,
   onKeyPressEnter: null,
+  type: "text",
 };
 
 export default TextInput;

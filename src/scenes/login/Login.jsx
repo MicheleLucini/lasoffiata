@@ -49,6 +49,7 @@ const Login = () => {
         setValue={setFormPassword}
         onKeyPressEnter={onAccediClick}
         disabled={loading}
+        type="password"
       />
       <Button
         text="Accedi"

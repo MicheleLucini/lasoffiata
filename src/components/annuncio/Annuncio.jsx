@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from "react";
+import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
 import Icon from "@components/icon";
@@ -53,7 +54,7 @@ const Annuncio = ({ annuncio }) => {
           opticalSize={20}
           className={styles.icon}
         />
-        <span className={styles.description}>{annuncio.publishDate}</span>
+        <span className={styles.description}>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
       </div>
     </div>
   );
