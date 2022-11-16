@@ -30,7 +30,7 @@
 
 .textInput > input {
   background-color: var(--floral-white);
-  border: 2px solid var(--light-brown);
+  border: 1px solid var(--light-brown);
   color: var(--coarse-wool);
 }
 
