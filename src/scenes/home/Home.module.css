@@ -1,26 +1,65 @@
-.searchFormWrapper {
+/* Search recap */
+
+.searchRecap {
   display: grid;
   background-color: var(--peachade);
   padding: 12px 20px;
   border-radius: 16px;
+  cursor: pointer;
 }
 
-.searchFormWrapper > .header {
+.searchRecap > .header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 10px;
 }
 
-.searchFormWrapper > .header > .icon {
+.searchRecap > .header > .icon {
   color: var(--desert-gold);
   font-size: 22px;
 }
 
-.searchFormWrapper > .header > .title {
+.searchRecap > .header > .title {
   color: var(--desert-gold);
   font-size: 16px;
 }
+
+/* Search modal */
+
+.searchModalOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.32);
+}
+
+.searchModalOverlay.active {
+  display: block;
+}
+
+.searchModal {
+  background-color: var(--floral-white);
+  border-radius: 0 0 24px 24px;
+  margin: auto;
+  padding: 20px 12px 50px;
+  max-width: 600px;
+  display: grid;
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.searchModal > .title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+/* Annunci */
 
 .wrapperAnnunci {
   display: grid;
