@@ -3,26 +3,36 @@ import PropTypes from "prop-types";
 import Icon from '../icon';
 import styles from "./Button.module.css";
 
-const Button = ({ text, icon, onClick, disabled, className, size }) => {
+const Button = ({ type, text, icon, onClick, disabled, className, size }) => {
   const buttonClassName = useMemo(() => (
     [
       styles.button,
+      styles[type],
       disabled ? styles.disabled : null,
       !text ? styles.iconOnly : null,
       size,
       className,
     ].filter((x) => !!x).join(" ")
-  ), [disabled, text, size, className]);
+  ), [type, disabled, text, size, className]);
 
   return (
     <button className={buttonClassName} type="button" onClick={onClick}>
-      {icon && <Icon name={icon} />}
+      {icon && (
+        <Icon
+          name={icon}
+          fill={0}
+          weight={400}
+          grade={0}
+          opticalSize={24}
+        />
+      )}
       {text && text}
     </button>
   );
 };
 
 Button.propTypes = {
+  type: PropTypes.oneOf(["elevated", "filled", "filled tonal", "outlined", "text"]),
   text: PropTypes.string,
   icon: PropTypes.string,
   size: PropTypes.string,
@@ -32,6 +42,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  type: "filled",
   text: null,
   icon: null,
   size: null,

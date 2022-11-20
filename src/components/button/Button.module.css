@@ -1,4 +1,5 @@
 .button {
+  cursor: pointer;
   font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -37,41 +38,29 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* .button > .material-icons-round {
-  font-size: 2rem;
-} */
 
 .button.iconOnly {
-  padding: 0 16px;
+  padding: 0 9px;
 }
-.button {
-  background-color: var(--brown);
-  color: var(--floral-white);
-}
-.button:hover {
-  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  background-color: var(--desert-gold);
-}
-.button:active {
-  box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
-}
-
 .button.disabled {
+  cursor: default;
   opacity: 0.5;
   pointer-events: none;
 }
 
-/* .button:hover {
-  box-shadow: 0px 3px 1px -2px rgb(33 150 243 / 20%),
-    0px 2px 2px 0px rgb(33 150 243 / 14%), 0px 1px 5px 0px rgb(33 150 243 / 12%);
+.button.filled {
+  background-color: var(--brown);
+  color: var(--floral-white);
 }
-.button:active {
-  box-shadow: 0px 2px 4px -1px rgb(33 150 243 / 20%),
-    0px 4px 5px 0px rgb(33 150 243 / 14%),
-    0px 1px 10px 0px rgb(33 150 243 / 12%);
-} */
+.button.filled:hover {
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  background-color: var(--desert-gold);
+}
+.button.filled:active {
+  box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
+}
 
-.button.small {
+/* .button.small {
   height: 48px;
   padding: 0 16px;
   gap: 8px;
@@ -80,7 +69,49 @@
 }
 .button.iconOnly.small {
   padding: 0 12px;
-}
-/* .button.small > .material-icons-round {
-  font-size: 1.5rem;
 } */
+
+.button.text {
+  background-color: transparent;
+  color: var(--coarse-wool);
+  position: relative;
+  z-index: 0;
+}
+
+.button.text::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0);
+  transition-duration: 0.15s;
+  transition-property: transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  box-sizing: border-box;
+}
+
+.button.text:hover::before {
+  background-color: rgba(0, 0, 0, 0.059);
+  opacity: 1;
+  transform: scale(1);
+}
+.button.text:active::before {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* This give the button more area */
+.button.text::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  height: calc(100% + 16px);
+  width: calc(100% + 16px);
+  /*background-color: rgba(32,33,36,0.1);*/
+}
