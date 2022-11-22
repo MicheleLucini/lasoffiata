@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getLocal } from "@logic/localStorage"
 
-export const BASE_URL = "https://79.44.229.126";
+export const BASE_URL = "https://apilasoffiata.hopto.org";
 const DEFAULT_TIMEOUT = 30000;
 
 var MESSAGE_TYPE = {

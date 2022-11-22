@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import moment from 'moment';
 import { useNavigator } from "@contexts/NavigatorContext";
-import * as userApi from "@api/user";
+import * as apiPublic from "@api/public";
 import noPhoto from "@assets/logo_header.png";
 import Icon from "@components/icon";
 import { BASE_URL } from "@api/utils"
@@ -19,12 +19,22 @@ const Annuncio = () => {
   const [annuncio, setAnnuncio] = useState(null);
   const [indiceImmagineCorrente, setIndiceImmagineCorrente] = useState(0);
 
-  console.log(currentRoute)
-
   const loadAnnuncio = useCallback(async () => {
-    const data = await userApi.GetAnnuncio({ idAnnuncio: currentRoute.params[0] });
+    const data = await apiPublic.GetAdvertisement({ idAnnuncio: currentRoute.params[0] });
     setAnnuncio(data);
-  }, [setAnnuncio])
+  }, [currentRoute])
+
+  const imagesCarousel = useMemo(() => {
+    return annuncio?.images.map((x, i) => (
+      <img
+        key={x.id}
+        src={getUrlImmagineAnnuncio(annuncio, i)}
+        alt={`Anteprima immagine annuncio numero ${i + 1}`}
+        className={styles.anteprimaImmagine}
+        onClick={() => setIndiceImmagineCorrente(i)}
+      />
+    ));
+  }, [annuncio]);
 
   useEffect(() => {
     loadAnnuncio();
@@ -43,13 +53,7 @@ const Annuncio = () => {
           className={styles.immagineCorrente}
         />
         <div className={styles.wrapperImmagini}>
-          {annuncio.images.map((x, i) => (
-            <img
-              src={getUrlImmagineAnnuncio(annuncio, i)}
-              alt={`Anteprima immagine annuncio numero ${i + 1}`}
-              className={styles.anteprimaImmagine}
-            />
-          ))}
+          {imagesCarousel}
         </div>
       </div>
       <div className={styles.infoPrincipali}>

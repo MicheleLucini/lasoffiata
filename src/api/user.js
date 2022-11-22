@@ -1,22 +1,7 @@
 import { post } from "./utils";
 
-export async function SignIn({ email, password }) {
-  return await post("/api/User.ashx/SignIn", {
-    sEmail: email,
-    sPassword: password,
-  });
-}
+const CONTROLLER_URL = "/api/User.ashx";
 
 export async function RestoreSignIn() {
-  return await post("/api/User.ashx/RestoreSignIn");
-}
-
-export async function GetFeaturedAdvertisements() {
-  return await post("/api/User.ashx/GetFeaturedAdvertisements");
-}
-
-export async function GetAnnuncio({ idAnnuncio }) {
-  return await post("/api/User.ashx/GetAnnuncio", {
-    iAdvertisementId: idAnnuncio,
-  });
+  return await post(`${CONTROLLER_URL}/RestoreSignIn`);
 }

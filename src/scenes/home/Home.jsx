@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Annuncio from "@components/annuncio";
-import * as userApi from "@api/user";
+import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
 import styles from "./Home.module.css";
 
@@ -8,7 +8,7 @@ const Home = () => {
   const [annunci, setAnnunci] = useState([]);
 
   const loadAnnunci = useCallback(async () => {
-    const data = await userApi.GetFeaturedAdvertisements();
+    const data = await apiPublic.GetFeaturedAdvertisements();
     setAnnunci(data);
   }, [setAnnunci])
 
