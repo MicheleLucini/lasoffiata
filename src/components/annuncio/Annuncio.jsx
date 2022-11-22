@@ -3,7 +3,6 @@ import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
 import Icon from "@components/icon";
-import noPhoto from "@assets/logo_header.png";
 import { BASE_URL } from "@api/utils"
 import styles from "./Annuncio.module.css";
 
@@ -12,7 +11,7 @@ const Annuncio = ({ annuncio }) => {
 
   const photoUrl = useMemo(() => {
     if (!annuncio.images || annuncio.images.length === 0) {
-      return noPhoto;
+      return "";
     }
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
   }, [annuncio]);
@@ -23,10 +22,23 @@ const Annuncio = ({ annuncio }) => {
 
   return (
     <div className={styles.annuncio} onClick={onClickAnnuncio}>
-      <img
-        src={photoUrl}
-        alt={`Immagine annuncio ${annuncio.title}`}
-      />
+      <div className={styles.imageContainer}>
+        {(annuncio.images && annuncio.images.length > 0) ? (
+          <img
+            src={photoUrl}
+            alt={`Immagine annuncio ${annuncio.title}`}
+          />
+        ) : (
+          <Icon
+            className={styles.imagePlaceholderIcon}
+            name={"inventory_2"}
+            fill={0}
+            weight={400}
+            grade={0}
+            opticalSize={48}
+          />
+        )}
+      </div>
       <div className={styles.info}>
         <span className={styles.title}>{annuncio.title}</span>
         <Icon

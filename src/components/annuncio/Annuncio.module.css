@@ -8,14 +8,27 @@
   grid-gap: 0 8px;
 }
 
-.annuncio > img {
+.annuncio > .imageContainer {
+  display: grid;
+  place-content: center;
   width: 100%;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
   background-color: #eee;
   border-radius: 4px;
   overflow: hidden;
   font-size: 12px;
+}
+
+.annuncio > .imageContainer > img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.annuncio > .imageContainer > .imagePlaceholderIcon {
+  font-size: 48px;
+  color: var(--raisin-black);
+  opacity: 0.6;
 }
 
 .annuncio > .info {
