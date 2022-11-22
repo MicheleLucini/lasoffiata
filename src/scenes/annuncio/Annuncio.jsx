@@ -20,7 +20,7 @@ const Annuncio = () => {
   const [indiceImmagineCorrente, setIndiceImmagineCorrente] = useState(0);
 
   const loadAnnuncio = useCallback(async () => {
-    const data = await apiPublic.GetAdvertisement({ idAnnuncio: currentRoute.params[0] });
+    const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
     setAnnuncio(data);
   }, [currentRoute])
 
@@ -46,16 +46,18 @@ const Annuncio = () => {
 
   return (
     <>
-      <div>
-        <img
-          src={getUrlImmagineAnnuncio(annuncio, indiceImmagineCorrente)}
-          alt={`Immagine annuncio ${annuncio.title}`}
-          className={styles.immagineCorrente}
-        />
-        <div className={styles.wrapperImmagini}>
-          {imagesCarousel}
+      {annuncio.images && annuncio.images.length > 0 && (
+        <div>
+          <img
+            src={getUrlImmagineAnnuncio(annuncio, indiceImmagineCorrente)}
+            alt={`Immagine annuncio ${annuncio.title}`}
+            className={styles.immagineCorrente}
+          />
+          <div className={styles.wrapperImmagini}>
+            {imagesCarousel}
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.infoPrincipali}>
         <span className={styles.titolo}>{annuncio.title}</span>
         <Icon

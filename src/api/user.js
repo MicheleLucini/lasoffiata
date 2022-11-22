@@ -2,9 +2,8 @@ import { post } from "./utils";
 
 const CONTROLLER_URL = "/api/User.ashx";
 
-export async function RestoreSignIn({ }) {
-  return await post(`${CONTROLLER_URL}/RestoreSignIn`, {
-  });
+export async function RestoreSignIn() {
+  return await post(`${CONTROLLER_URL}/RestoreSignIn`);
 }
 
 export async function CreateAdvertisement({ title, description, categoryId, province, city, imageBlob }) {
@@ -117,7 +116,6 @@ export async function ExecutePayment({ paymentID, payerID }) {
   });
 }
 
-export async function GetMyPayments({ }) {
-  return await post(`${CONTROLLER_URL}/GetMyPayments`, {
-  });
+export async function GetMyPayments() {
+  return await post(`${CONTROLLER_URL}/GetMyPayments`);
 }

@@ -61,9 +61,8 @@ export async function DeletePaperCategory({ paperCategoryId }) {
   });
 }
 
-export async function GetAdvertismentsWaitingForValidation({ }) {
-  return await post(`${CONTROLLER_URL}/GetAdvertismentsWaitingForValidation`, {
-  });
+export async function GetAdvertismentsWaitingForValidation() {
+  return await post(`${CONTROLLER_URL}/GetAdvertismentsWaitingForValidation`);
 }
 
 export async function ValidateAdvertisement({ id }) {
@@ -85,14 +84,12 @@ export async function GetExportFile({ from, to }) {
   });
 }
 
-export async function GetPayments({ }) {
-  return await post(`${CONTROLLER_URL}/GetPayments`, {
-  });
+export async function GetPayments() {
+  return await post(`${CONTROLLER_URL}/GetPayments`);
 }
 
-export async function GetUsers({ }) {
-  return await post(`${CONTROLLER_URL}/GetUsers`, {
-  });
+export async function GetUsers() {
+  return await post(`${CONTROLLER_URL}/GetUsers`);
 }
 
 export async function AddEdition({ date }) {
