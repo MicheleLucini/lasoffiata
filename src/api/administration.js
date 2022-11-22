@@ -1,6 +1,6 @@
 import { post } from "./utils";
 
-const CONTROLLER_URL = "/api/Administration.ashx"
+const CONTROLLER_URL = "/api/Administration.ashx";
 
 export async function CreateCategory({ name, parentCategoryId, paperCategoryId }) {
   return await post(`${CONTROLLER_URL}/CreateCategory`, {

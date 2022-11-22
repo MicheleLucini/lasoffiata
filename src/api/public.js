@@ -1,6 +1,6 @@
 import { post } from "./utils";
 
-const CONTROLLER_URL = "/api/Public.ashx"
+const CONTROLLER_URL = "/api/Public.ashx";
 
 export async function GetCategories({ }) {
   return await post(`${CONTROLLER_URL}/GetCategories`, {
