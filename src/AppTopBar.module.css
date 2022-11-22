@@ -24,6 +24,10 @@
   justify-content: start;
 }
 
+.topBar > .topBarLeft > .logo path {
+  fill: var(--floral-white);
+}
+
 .topBar > .topBarCenter {
   grid-auto-flow: column;
   justify-content: center;

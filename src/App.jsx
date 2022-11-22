@@ -4,6 +4,7 @@ import { NavigatorProvider } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
 import AppTopBar from "./AppTopBar";
 import AppRouting from "./AppRouting";
+import AppFooter from "./AppFooter";
 import styles from "./App.module.css";
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
         <div className={styles.body}>
           <AppRouting />
         </div>
-        <div className={styles.footer}></div>
+        <AppFooter />
       </div>
     </NavigatorProvider>
   );

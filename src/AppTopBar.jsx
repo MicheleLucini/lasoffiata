@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import LogoHeader from "@assets/logo_header_white.svg";
+import Logo from "@components/svgs/Logo";
 import Icon from "@components/icon";
 import Link from "@components/link";
 import styles from "./AppTopBar.module.css";
@@ -38,7 +38,7 @@ const AppTopBar = () => {
           </Link>
         )}
         <Link route={ROUTES.HOME}>
-          <img alt='Logo soffiata' className={styles.logo} src={LogoHeader} />
+          <Logo className={styles.logo} />
         </Link>
       </div>
       <div className={styles.topBarCenter}></div>

@@ -18,6 +18,38 @@
 }
 
 .footer {
-  padding: 40px 20px;
   background-color: var(--peachade);
+}
+
+.footer > .footerContent {
+  max-width: 900px;
+  display: grid;
+  padding: 40px 20px 50px;
+  margin: auto;
+  gap: 20px;
+}
+
+.footer > .footerContent > .logo {
+  margin-bottom: 15px;
+}
+
+.footer > .footerContent > .logo path {
+  fill: var(--brown);
+}
+
+.footer > .footerContent > div {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+  gap: 10px;
+  color: var(--light-brown);
+}
+
+.footer > .footerContent > div > .icon {
+  font-size: 20px;
+}
+
+.footer > .footerContent > div > span {
+  font-size: 16px;
+  line-height: 20px;
 }
