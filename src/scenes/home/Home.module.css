@@ -6,6 +6,7 @@
   padding: 12px 20px;
   border-radius: 16px;
   cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .searchRecap > .header {
@@ -28,13 +29,14 @@
 /* Search modal */
 
 .searchModalOverlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  display: none;
   background-color: rgba(0, 0, 0, 0.32);
+  z-index: 10;
 }
 
 .searchModalOverlay.active {
@@ -42,18 +44,31 @@
 }
 
 .searchModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  margin: auto;
   background-color: var(--floral-white);
   border-radius: 0 0 24px 24px;
-  margin: auto;
-  padding: 20px 12px 50px;
   max-width: 600px;
+  z-index: 11;
+}
+
+.searchModal.active {
+  display: block;
+}
+
+.searchModal > .searchModalBody {
   display: grid;
   align-content: start;
   grid-template-columns: minmax(0, 1fr);
   gap: 20px;
+  padding: 20px 12px 50px;
 }
 
-.searchModal > .title {
+.searchModal > .searchModalBody > .title {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;

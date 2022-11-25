@@ -34,6 +34,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.modal_open {
+  overflow: hidden;
+}
+
 span,
 label,
 p {

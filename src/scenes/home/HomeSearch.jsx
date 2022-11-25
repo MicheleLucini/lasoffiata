@@ -1,24 +1,43 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Icon from "@components/icon";
 import Button from "@components/button";
+import SelectCategory from "@templates/selectCategory";
 import styles from "./Home.module.css";
 
 const HomeSearch = () => {
-  const [isSearchModalOpen, setIisSearchModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [category, setCategory] = useState(null);
 
   const openSearchModal = useCallback(() => {
-    setIisSearchModalOpen(true)
+    setIsSearchModalOpen(true)
   }, [],);
 
   const closeSearchModal = useCallback(() => {
-    setIisSearchModalOpen(false)
+    setIsSearchModalOpen(false)
   }, [],);
 
-
-  const searchModalClass = useMemo(() => [
+  const searchModalOverlayClass = useMemo(() => [
     styles.searchModalOverlay,
     isSearchModalOpen ? styles.active : null,
   ].filter((x) => !!x).join(" "), [isSearchModalOpen]);
+
+  const searchModalClass = useMemo(() => [
+    styles.searchModal,
+    isSearchModalOpen ? styles.active : null,
+  ].filter((x) => !!x).join(" "), [isSearchModalOpen]);
+
+  useEffect(() => {
+    if (isSearchModalOpen) {
+      document.body.classList.add("modal_open");
+    } else {
+      document.body.classList.remove("modal_open");
+    }
+    return () => {
+      document.body.classList.remove("modal_open");
+    }
+  }, [isSearchModalOpen])
+
 
   return (
     <>
@@ -35,8 +54,9 @@ const HomeSearch = () => {
           <span className={styles.title}>Cosa stai cercando?</span>
         </div>
       </div>
-      <div className={searchModalClass} onClick={closeSearchModal}>
-        <div className={styles.searchModal}>
+      <div className={searchModalOverlayClass} onClick={closeSearchModal} />
+      <div className={searchModalClass}>
+        <div className={styles.searchModalBody}>
           <span className={styles.title}>
             Filtri di ricerca
             <Button
@@ -45,6 +65,11 @@ const HomeSearch = () => {
               onClick={closeSearchModal}
             />
           </span>
+          <SelectCategory
+            value={category}
+            setValue={setCategory}
+            disabled={loading}
+          />
         </div>
       </div>
     </>
