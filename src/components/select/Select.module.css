@@ -1,0 +1,81 @@
+.select > select {
+  font-size: 18px;
+  /* text-decoration: none; */
+
+  /* height: 64px; */
+  width: 100%;
+  padding: 12px 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+
+  border: none;
+  outline: none;
+  user-select: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+
+  -webkit-transition: box-shadow 0.2s linear,
+    border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.2s linear, border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.select > select {
+  background-color: var(--floral-white);
+  border: 1px solid var(--light-brown);
+  color: var(--coarse-wool);
+}
+
+.select:not(.disabled) > select:hover,
+.select:not(.disabled) > select:active,
+.select.active > select {
+  border-color: var(--brown);
+}
+
+.select.active > select {
+  box-shadow: 0px 0px 0px 1px var(--brown);
+}
+
+.select.disabled > select {
+  background-color: var(--peachade);
+  border-color: var(--peachade);
+  pointer-events: none;
+}
+
+/***************************************/
+
+.select > label {
+  position: absolute;
+  z-index: 2;
+  background-color: var(--floral-white);
+  color: var(--raisin-black);
+  font-weight: 300;
+  font-size: 18px;
+  transform: translate(6px, 17px);
+  transform-origin: top left;
+  -webkit-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  will-change: transform;
+  padding: 3px 6px;
+  border-radius: 3px;
+}
+
+.select.active > label,
+.select.filled > label {
+  transform: translate(8px, -5px) scale(0.85);
+  /* font-weight: 500; */
+}
+
+.select.disabled > label {
+  background-color: var(--peachade);
+  pointer-events: none;
+}
