@@ -9,6 +9,7 @@ module.exports = function override(config) {
     "@logic": "src/logic",
     "@scenes": "src/scenes",
     "@store": "src/store",
+    "@templates": "src/templates",
   })(config);
 
   return config;
