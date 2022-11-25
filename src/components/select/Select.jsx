@@ -23,7 +23,7 @@ const Select = ({
   ), [isActive, value, disabled]);
 
   const onChange = useCallback((e) => {
-    setValue(e.target.value);
+    setValue(e.target.value || null);
   }, [setValue]);
 
   const onFocus = useCallback(() => {

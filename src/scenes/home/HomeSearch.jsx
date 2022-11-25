@@ -2,12 +2,14 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import Icon from "@components/icon";
 import Button from "@components/button";
 import SelectCategory from "@templates/selectCategory";
+import SelectProvince from "@templates/selectProvince";
 import styles from "./Home.module.css";
 
 const HomeSearch = () => {
   const [loading, setLoading] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [category, setCategory] = useState(null);
+  const [province, setProvince] = useState(null);
 
   const openSearchModal = useCallback(() => {
     setIsSearchModalOpen(true)
@@ -38,7 +40,6 @@ const HomeSearch = () => {
     }
   }, [isSearchModalOpen])
 
-
   return (
     <>
       <div className={styles.searchRecap} onClick={openSearchModal}>
@@ -68,6 +69,11 @@ const HomeSearch = () => {
           <SelectCategory
             value={category}
             setValue={setCategory}
+            disabled={loading}
+          />
+          <SelectProvince
+            value={province}
+            setValue={setProvince}
             disabled={loading}
           />
         </div>
