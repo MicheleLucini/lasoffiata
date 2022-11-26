@@ -59,19 +59,20 @@
   color: var(--raisin-black);
   font-weight: 300;
   font-size: 18px;
+  line-height: 20px;
   transform: translate(6px, 17px);
   transform-origin: top left;
   -webkit-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   will-change: transform;
-  padding: 3px 6px;
+  padding: 0 6px;
   border-radius: 3px;
 }
 
 .textInput.active > label,
 .textInput.filled > label {
-  transform: translate(8px, -5px) scale(0.85);
+  transform: translate(8px, -3px) scale(0.85);
   /* font-weight: 500; */
 }
 
