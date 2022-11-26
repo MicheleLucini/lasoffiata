@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import * as logicUser from "@logic/public";
+import * as logicUser from "@logic/user";
 import TextInput from '@components/textInput';
 import Button from '@components/button';
 import styles from './Register.module.css';
