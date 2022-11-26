@@ -1,0 +1,13 @@
+.button {
+  width: 100%;
+}
+
+.error {
+  background-color: #ffb4ab;
+  color: #690005;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 12px 18px;
+  border-radius: 12px;
+  white-space: pre-wrap;
+}

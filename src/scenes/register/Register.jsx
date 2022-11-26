@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import * as logicUser from "@logic/user";
+import * as logicUser from "@logic/public";
 import TextInput from '@components/textInput';
 import Button from '@components/button';
-import styles from './Login.module.css';
+import styles from './Register.module.css';
 
-const Login = () => {
+const Register = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigator();
   const [formEmail, setFormEmail] = useState("");
@@ -14,10 +14,10 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const loginUser = useCallback((email, password) => {
+  const registerUser = useCallback((email, password) => {
     setLoading(true);
     setFormErrors(null);
-    dispatch(logicUser.login({ email, password }))
+    dispatch(logicUser.register({ email, password }))
       .then(() => {
         navigate(ROUTES.HOME);
       })
@@ -29,42 +29,42 @@ const Login = () => {
       });
   }, [dispatch, navigate]);
 
-  const onAccediClick = useCallback(() => {
-    loginUser(formEmail, formPassword);
-  }, [loginUser, formEmail, formPassword]);
+  const onRegisterClick = useCallback(() => {
+    registerUser(formEmail, formPassword);
+  }, [registerUser, formEmail, formPassword]);
 
-  const onNonHoUnAccountClick = useCallback(() => {
-    navigate(ROUTES.REGISTER);
+  const onHoGiàUnAccountClick = useCallback(() => {
+    navigate(ROUTES.LOGIN);
   }, [navigate]);
 
   return (
     <>
-      <span>Accedi</span>
+      <span>Registrati</span>
       <TextInput
         label="Email"
         value={formEmail}
         setValue={setFormEmail}
-        onKeyPressEnter={onAccediClick}
+        onKeyPressEnter={onRegisterClick}
         disabled={loading}
       />
       <TextInput
         label="Password"
         value={formPassword}
         setValue={setFormPassword}
-        onKeyPressEnter={onAccediClick}
+        onKeyPressEnter={onRegisterClick}
         disabled={loading}
         type="password"
       />
       <Button
         text="Accedi"
-        onClick={onAccediClick}
+        onClick={onRegisterClick}
         disabled={loading}
         className={styles.button}
       />
       <Button
         type="text"
-        text="Non hai un account? Registrati!"
-        onClick={onNonHoUnAccountClick}
+        text="Hai già un account? Accedi!"
+        onClick={onHoGiàUnAccountClick}
         disabled={loading}
         className={styles.button}
       />
@@ -73,4 +73,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

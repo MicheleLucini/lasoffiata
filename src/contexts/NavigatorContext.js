@@ -12,6 +12,10 @@ const ROUTES = {
     title: "Accedi",
     url: "/login",
   },
+  REGISTER: {
+    title: "Registrati",
+    url: "/register",
+  },
   ANNUNCIO: {
     title: "Annuncio",
     url: "/annuncio",

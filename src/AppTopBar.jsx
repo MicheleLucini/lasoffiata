@@ -23,6 +23,10 @@ const AppTopBar = () => {
     checkCurrentRoute(ROUTES.LOGIN)
   ), [checkCurrentRoute]);
 
+  const showRegisterHero = useMemo(() => (
+    checkCurrentRoute(ROUTES.REGISTER)
+  ), [checkCurrentRoute]);
+
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarLeft}>
@@ -43,7 +47,7 @@ const AppTopBar = () => {
       </div>
       <div className={styles.topBarCenter}></div>
       <div className={styles.topBarRight}>
-        {!checkCurrentRoute(ROUTES.LOGIN) && (
+        {!showLoginHero && !showRegisterHero && (
           <>
             <Link route={ROUTES.LOGIN}>
               <Icon
@@ -71,11 +75,10 @@ const AppTopBar = () => {
           <span className={styles.logged}>Ciao {user.name || user.email}! ✨</span>
         )}
         {showLoginHero && (
-          <span className={styles.login}>
-            Ciao!
-            <br />
-            Accedi al tuo account la soffiata.
-          </span>
+          <span className={styles.hero}>Ciao!<br />Accedi al tuo account la soffiata.</span>
+        )}
+        {showRegisterHero && (
+          <span className={styles.hero}>Ciao!<br />Crea il tuo account la soffiata.</span>
         )}
       </div >
     </div >
