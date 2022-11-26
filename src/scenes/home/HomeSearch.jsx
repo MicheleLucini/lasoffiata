@@ -1,23 +1,15 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
 import Icon from "@components/icon";
 import Button from "@components/button";
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
 import styles from "./Home.module.css";
 
-const HomeSearch = () => {
-  const [loading, setLoading] = useState(false);
+const HomeSearch = ({ loading, onSearch }) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [category, setCategory] = useState(null);
   const [province, setProvince] = useState(null);
-
-  const openSearchModal = useCallback(() => {
-    setIsSearchModalOpen(true)
-  }, [],);
-
-  const closeSearchModal = useCallback(() => {
-    setIsSearchModalOpen(false)
-  }, [],);
 
   const searchModalOverlayClass = useMemo(() => [
     styles.searchModalOverlay,
@@ -28,6 +20,19 @@ const HomeSearch = () => {
     styles.searchModal,
     isSearchModalOpen ? styles.active : null,
   ].filter((x) => !!x).join(" "), [isSearchModalOpen]);
+
+  const openSearchModal = useCallback(() => {
+    setIsSearchModalOpen(true)
+  }, []);
+
+  const closeSearchModal = useCallback(() => {
+    setIsSearchModalOpen(false)
+  }, []);
+
+  const onSearchClick = useCallback(() => {
+    onSearch({ category, province });
+    setIsSearchModalOpen(false)
+  }, [onSearch, category, province]);
 
   useEffect(() => {
     if (isSearchModalOpen) {
@@ -76,10 +81,20 @@ const HomeSearch = () => {
             setValue={setProvince}
             disabled={loading}
           />
+          <Button
+            icon="search"
+            text="Cerca"
+            onClick={onSearchClick}
+          />
         </div>
       </div>
     </>
   );
+};
+
+HomeSearch.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default HomeSearch;

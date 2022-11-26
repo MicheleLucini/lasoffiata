@@ -1,27 +1,65 @@
-import React, { useState, useCallback, useEffect } from "react";
-import Annuncio from "@components/annuncio";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import Annuncio, { AnteprimaAnnuncio } from "@components/annuncio";
 import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const [annunci, setAnnunci] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [advertisements, setAdvertisements] = useState([]);
 
-  const loadAnnunci = useCallback(async () => {
-    const data = await apiPublic.GetFeaturedAdvertisements();
-    setAnnunci(data);
-  }, [setAnnunci])
+  const anteprimaAnnunciList = useMemo(() => (
+    [...Array(20)].map((_, i) => <AnteprimaAnnuncio key={i} />)
+  ), []);
+
+  const annunciList = useMemo(() => (
+    advertisements.map((x) => <Annuncio key={x.id} annuncio={x} />)
+  ), [advertisements]);
+
+  const loadFeaturedAdvertisements = useCallback(async () => {
+    setLoading(true);
+    try {
+      const data = await apiPublic.GetFeaturedAdvertisements();
+      setAdvertisements(data);
+    } catch {
+      setAdvertisements([]);
+    }
+    setLoading(false);
+  }, [setAdvertisements]);
+
+  const searchAdvertisements = useCallback(async ({ category, province }) => {
+    setLoading(true);
+    try {
+      const data = await apiPublic.SearchAdvertisements({
+        description: "",
+        categoryId: category,
+        province,
+        page: 1,
+      });
+      setAdvertisements(data);
+    } catch {
+      setAdvertisements([]);
+    }
+    setLoading(false);
+  }, [setAdvertisements]);
 
   useEffect(() => {
-    loadAnnunci();
-  }, [loadAnnunci]);
+    loadFeaturedAdvertisements();
+  }, [loadFeaturedAdvertisements]);
 
   return (
     <>
-      <HomeSearch />
+      <HomeSearch
+        loading={loading}
+        onSearch={searchAdvertisements}
+      />
       <span>Benvenuto! Eccoti gli annunci</span>
       <div className={styles.wrapperAnnunci}>
-        {annunci.map((x) => <Annuncio key={x.id} annuncio={x} />)}
+        {loading ? (
+          anteprimaAnnunciList
+        ) : (
+          annunciList
+        )}
       </div>
     </>
   );
