@@ -68,7 +68,7 @@ const Login = () => {
         disabled={loading}
         className={styles.button}
       />
-      {formErrors && <span className={styles.error}>{formErrors}</span>}
+      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
     </>
   );
 };
