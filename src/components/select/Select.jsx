@@ -10,6 +10,7 @@ const Select = ({
   setValue,
   placeholder,
   disabled,
+  clearable,
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -36,12 +37,12 @@ const Select = ({
 
   const optionsList = useMemo(() => (
     <>
-      <option value=""></option>
+      {clearable && <option value=""></option>}
       {options.map((option) => (
         <option key={option.value} value={option.value}>{option.description}</option>
       ))}
     </>
-  ), [options]);
+  ), [options, clearable]);
 
   return (
     <div className={wrapperClassName}>
@@ -54,7 +55,7 @@ const Select = ({
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
-        required="required"
+        // required="required"
         disabled={disabled ? "disabled" : false}
       >
         {optionsList}
@@ -73,6 +74,7 @@ Select.propTypes = {
   setValue: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
+  clearable: PropTypes.bool,
 };
 
 Select.defaultProps = {
@@ -81,6 +83,7 @@ Select.defaultProps = {
   value: null,
   placeholder: null,
   disabled: false,
+  clearable: true,
 };
 
 export default Select;

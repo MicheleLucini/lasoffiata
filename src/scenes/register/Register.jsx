@@ -2,24 +2,38 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
+import Select from "@components/select";
 import TextInput from '@components/textInput';
 import Button from '@components/button';
 import styles from './Register.module.css';
+
+const ACCOUNT_TYPES_OPTIONS = [
+  {
+    value: 1,
+    description: "Privato",
+  },
+  {
+    value: 2,
+    description: "Azienda",
+  },
+];
 
 const Register = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigator();
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = useState("");
+  const [formAccountType, setFormAccountType] = useState(1);
+  const [formSuccess, setFormSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const registerUser = useCallback((email, password) => {
+  const registerUser = useCallback((email, password, accountType) => {
     setLoading(true);
     setFormErrors(null);
-    dispatch(logicUser.register({ email, password }))
+    dispatch(logicUser.register({ email, password, accountType }))
       .then(() => {
-        navigate(ROUTES.HOME);
+        setFormSuccess("Registrazione iniziata con successo!\nTi abbiamo inviato una mail di conferma account per completare la registrazione.\nControlla nella posta elettronica (anche nello spam!)");
       })
       .catch((e) => {
         setFormErrors(e.message);
@@ -27,11 +41,11 @@ const Register = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   const onRegisterClick = useCallback(() => {
-    registerUser(formEmail, formPassword);
-  }, [registerUser, formEmail, formPassword]);
+    registerUser(formEmail, formPassword, formAccountType);
+  }, [registerUser, formEmail, formPassword, formAccountType]);
 
   const onHoGiàUnAccountClick = useCallback(() => {
     navigate(ROUTES.LOGIN);
@@ -55,6 +69,14 @@ const Register = () => {
         disabled={loading}
         type="password"
       />
+      <Select
+        label="Tipo di account"
+        options={ACCOUNT_TYPES_OPTIONS}
+        value={formAccountType}
+        setValue={setFormAccountType}
+        disabled={loading}
+        clearable={false}
+      />
       <Button
         text="Accedi"
         onClick={onRegisterClick}
@@ -68,7 +90,8 @@ const Register = () => {
         disabled={loading}
         className={styles.button}
       />
-      {formErrors && <span className={styles.error}>{formErrors}</span>}
+      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
+      {formSuccess && <span className={`${styles.formMessage} ${styles.success}`}>{formSuccess}</span>}
     </>
   );
 };

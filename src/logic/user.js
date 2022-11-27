@@ -3,13 +3,14 @@ import * as apiPublic from "@api/public";
 import * as storeUser from "@store/userSlice";
 import { setLocal, getLocal, delLocal } from "./localStorage"
 
-export const register = ({ email, password }) => async (dispatch) => {
+export const register = ({ email, password, accountType }) => async (dispatch) => {
   if (!email || !password) {
     throw new Error("Devi inserire sia email che password.");
   }
-  const user = await apiPublic.Register({ email, password, accountType: 0 });
-  await dispatch(storeUser.login(user));
-  setLocal("user", "token", { token: user.token, id: user.id });
+  if (!accountType) {
+    throw new Error("Devi specificare il tipo di account.");
+  }
+  await apiPublic.Register({ email, password, accountType });
 };
 
 export const login = ({ email, password }) => async (dispatch) => {

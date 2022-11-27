@@ -19,7 +19,7 @@ const PROVINCES = [
     value: "BS",
     description: "Brescia - BS",
   },
-]
+];
 
 const SelectProvince = ({ value, setValue, disabled }) => {
   const onSelection = useCallback((newValue) => {
