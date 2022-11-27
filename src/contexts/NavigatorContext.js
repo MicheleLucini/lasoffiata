@@ -4,6 +4,10 @@ import PropTypes from "prop-types";
 const NavigatorContext = React.createContext();
 
 const ROUTES = {
+  ANNUNCIO: {
+    title: "Annuncio",
+    url: "/annuncio",
+  },
   HOME: {
     title: "Home",
     url: "/",
@@ -12,13 +16,13 @@ const ROUTES = {
     title: "Accedi",
     url: "/login",
   },
+  PERSONALINFO: {
+    title: "Informazioni personali",
+    url: "/personal-info",
+  },
   REGISTER: {
     title: "Registrati",
     url: "/register",
-  },
-  ANNUNCIO: {
-    title: "Annuncio",
-    url: "/annuncio",
   },
 };
 

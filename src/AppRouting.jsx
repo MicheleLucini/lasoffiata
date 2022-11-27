@@ -1,24 +1,21 @@
 import React from "react";
-// import { useSelector } from 'react-redux';
-// import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import Annuncio from "@scenes/annuncio";
 import Home from "@scenes/home";
 import Login from "@scenes/login";
+import PersonalInfo from "@scenes/personalInfo";
 import Register from "@scenes/register";
-import Annuncio from "@scenes/annuncio";
 
 const AppRouting = () => {
   const { checkCurrentRoute } = useNavigator();
-  // const user = useSelector(selectUser);
-
-  // console.log(user);
 
   return (
     <>
+      {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
+      {checkCurrentRoute(ROUTES.PERSONALINFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
-      {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
     </>
   );
 };

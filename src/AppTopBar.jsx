@@ -19,6 +19,10 @@ const AppTopBar = () => {
     user.isLogged
   ), [user.isLogged]);
 
+  const userIconLinkRoute = useMemo(() => (
+    user.isLogged ? ROUTES.PERSONALINFO : ROUTES.LOGIN
+  ), [user.isLogged]);
+
   const showLoginHero = useMemo(() => (
     checkCurrentRoute(ROUTES.LOGIN)
   ), [checkCurrentRoute]);
@@ -49,7 +53,7 @@ const AppTopBar = () => {
       <div className={styles.topBarRight}>
         {!showLoginHero && !showRegisterHero && (
           <>
-            <Link route={ROUTES.LOGIN}>
+            <Link route={userIconLinkRoute}>
               <Icon
                 name="person"
                 fill={user.isLogged ? 1 : 0}
