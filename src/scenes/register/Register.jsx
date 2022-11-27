@@ -81,14 +81,14 @@ const Register = () => {
         text="Registrati"
         onClick={onRegisterClick}
         disabled={loading}
-        className={styles.button}
+        fullWidth
       />
       <Button
         type="text"
         text="Hai già un account? Accedi!"
         onClick={onHoGiàUnAccountClick}
         disabled={loading}
-        className={styles.button}
+        fullWidth
       />
       {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
       {formSuccess && <span className={`${styles.formMessage} ${styles.success}`}>{formSuccess}</span>}

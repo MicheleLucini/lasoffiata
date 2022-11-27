@@ -59,14 +59,14 @@ const Login = () => {
         text="Accedi"
         onClick={onAccediClick}
         disabled={loading}
-        className={styles.button}
+        fullWidth
       />
       <Button
         type="text"
         text="Non hai un account? Registrati!"
         onClick={onNonHoUnAccountClick}
         disabled={loading}
-        className={styles.button}
+        fullWidth
       />
       {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
     </>

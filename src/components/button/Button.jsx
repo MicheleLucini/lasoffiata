@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Icon from '../icon';
 import styles from "./Button.module.css";
 
-const Button = ({ type, text, icon, onClick, disabled, className, size }) => {
+const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidth }) => {
   const buttonClassName = useMemo(() => (
     [
       styles.button,
@@ -11,9 +11,10 @@ const Button = ({ type, text, icon, onClick, disabled, className, size }) => {
       disabled ? styles.disabled : null,
       !text ? styles.iconOnly : null,
       size,
+      fullWidth ? styles.fullWidth : null,
       className,
     ].filter((x) => !!x).join(" ")
-  ), [type, disabled, text, size, className]);
+  ), [type, disabled, text, size, fullWidth, className]);
 
   return (
     <button className={buttonClassName} type="button" onClick={onClick}>
@@ -39,6 +40,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   className: PropTypes.string,
+  fullWidth: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -49,6 +51,7 @@ Button.defaultProps = {
   onClick: () => { },
   disabled: false,
   className: null,
+  fullWidth: false,
 };
 
 export default Button;
