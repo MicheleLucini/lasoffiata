@@ -78,7 +78,7 @@ const Register = () => {
         clearable={false}
       />
       <Button
-        text="Accedi"
+        text="Registrati"
         onClick={onRegisterClick}
         disabled={loading}
         className={styles.button}
