@@ -4,6 +4,41 @@ import PropTypes from "prop-types";
 const NavigatorContext = React.createContext();
 
 const ROUTES = {
+  ADMIN: {
+    title: "Amministrazione",
+    url: "/amministrazione",
+    isAdmin: true
+  },
+  ADMIN_CATEGORIE: {
+    title: "Amministrazione - Gestione categorie",
+    url: "/amministrazione-gestione-categorie",
+    isAdmin: true
+  },
+  ADMIN_EDIZIONI: {
+    title: "Amministrazione - Gestione edizioni",
+    url: "/amministrazione-gestione-edizioni",
+    isAdmin: true
+  },
+  ADMIN_ESPORTA_ANNUNCI: {
+    title: "Amministrazione - Esporta annunci",
+    url: "/amministrazione-esporta-annunci",
+    isAdmin: true
+  },
+  ADMIN_PAGAMENTI: {
+    title: "Amministrazione - Gestione pagamenti",
+    url: "/amministrazione-gestione-pagamenti",
+    isAdmin: true
+  },
+  ADMIN_UTENTI: {
+    title: "Amministrazione - Gestione utenti",
+    url: "/amministrazione-gestione-utenti",
+    isAdmin: true
+  },
+  ADMIN_VALIDAZIONE_ANNUNCI: {
+    title: "Amministrazione - Validazione annunci",
+    url: "/amministrazione-validazione-annunci",
+    isAdmin: true
+  },
   ANNUNCIO: {
     title: "Annuncio",
     url: "/annuncio",
@@ -24,34 +59,6 @@ const ROUTES = {
     title: "Registrati",
     url: "/register",
   },
-  ADMIN: {
-    title: "Amministrazione",
-    url: "/amministrazione",
-  },
-  ADMIN_VALIDAZIONE_ANNUNCI: {
-    title: "Amministrazione - Validazione annunci",
-    url: "/amministrazione-validazione-annunci",
-  },
-  ADMIN_PAGAMENTI: {
-    title: "Amministrazione - Gestione pagamenti",
-    url: "/amministrazione-gestione-pagamenti",
-  },
-  ADMIN_UTENTI: {
-    title: "Amministrazione - Gestione utenti",
-    url: "/amministrazione-gestione-utenti",
-  },
-  ADMIN_EDIZIONI: {
-    title: "Amministrazione - Gestione edizioni",
-    url: "/amministrazione-gestione-edizioni",
-  },
-  ADMIN_CATEGORIE: {
-    title: "Amministrazione - Gestione categorie",
-    url: "/amministrazione-gestione-categorie",
-  },
-  ADMIN_ESPORTA_ANNUNCI: {
-    title: "Amministrazione - Esporta annunci",
-    url: "/amministrazione-esporta-annunci",
-  }
 };
 
 const BASE_URL = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
@@ -133,13 +140,6 @@ function NavigatorProvider({ children }) {
     currentRoute?.url === route.url
   ), [currentRoute]);
 
-  const navigatorContextValue = useMemo(() => ({
-    history,
-    currentRoute,
-    navigate,
-    checkCurrentRoute,
-  }), [history, currentRoute, navigate, checkCurrentRoute]);
-
   useEffect(() => {
     navigate(
       getRouteFromWindowLocation(),
@@ -162,6 +162,13 @@ function NavigatorProvider({ children }) {
       return [...prev, currentRoute.url];
     });
   }, [currentRoute]);
+
+  const navigatorContextValue = useMemo(() => ({
+    history,
+    currentRoute,
+    navigate,
+    checkCurrentRoute,
+  }), [history, currentRoute, navigate, checkCurrentRoute]);
 
   return (
     <NavigatorContext.Provider value={navigatorContextValue}>

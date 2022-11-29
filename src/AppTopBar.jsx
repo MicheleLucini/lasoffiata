@@ -1,29 +1,20 @@
 import React, { useMemo } from "react";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useNavigator } from "@contexts/NavigatorContext";
 import AppTopBarAdministration from "./AppTopBarAdministration";
 import AppTopBarUser from "./AppTopBarUser";
 
 const AppTopBar = () => {
-  const { checkCurrentRoute } = useNavigator();
+  const { currentRoute } = useNavigator();
 
-  const showAdminTopBar = useMemo(() => (
-    checkCurrentRoute(ROUTES.ADMIN) ||
-    checkCurrentRoute(ROUTES.ADMIN_VALIDAZIONE_ANNUNCI) ||
-    checkCurrentRoute(ROUTES.ADMIN_PAGAMENTI) ||
-    checkCurrentRoute(ROUTES.ADMIN_UTENTI) ||
-    checkCurrentRoute(ROUTES.ADMIN_EDIZIONI) ||
-    checkCurrentRoute(ROUTES.ADMIN_CATEGORIE) ||
-    checkCurrentRoute(ROUTES.ADMIN_ESPORTA_ANNUNCI)
-  ), [checkCurrentRoute]);
+  const showAdminTopBar = useMemo(() => currentRoute?.isAdmin, [currentRoute]);
 
   return (
     <>
-    {showAdminTopBar && (
-      <AppTopBarAdministration></AppTopBarAdministration>
-    )}
-    {!showAdminTopBar && (
-      <AppTopBarUser></AppTopBarUser>
-    )}
+      {showAdminTopBar ? (
+        <AppTopBarAdministration></AppTopBarAdministration>
+      ) : (
+        <AppTopBarUser></AppTopBarUser>
+      )}
     </>
   );
 };

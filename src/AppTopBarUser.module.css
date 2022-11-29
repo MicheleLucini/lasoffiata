@@ -41,16 +41,20 @@
 .topBar > .topBarSub {
   height: unset;
   grid-column: span 3;
+  padding-bottom: 20px;
+}
+
+.topBar > .topBarSub:empty {
+  padding-bottom: 0;
 }
 
 .topBar > .topBarSub > .hero {
-  padding: 20px 0 36px;
+  padding: 20px 0 16px;
   font-size: 26px;
   line-height: 32px;
 }
 
 .topBar > .topBarSub > .logged {
-  padding-bottom: 20px;
   font-size: 16px;
 }
 
