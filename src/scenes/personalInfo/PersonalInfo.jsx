@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 // import * as apiPublic from "@api/public";
+import { ACCOUNT_TYPES } from "@logic/constants";
 import Button from '@components/button';
 import TextInput from '@components/textInput';
 import SelectYear from "@templates/selectYear";
@@ -33,7 +34,7 @@ const Home = () => {
       </fieldset>
       <fieldset>
         <legend>Informazioni di base</legend>
-        <TextInput label="accountType" value={values.accountType} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
+        <TextInput label="accountType" value={ACCOUNT_TYPES[values.accountType]} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
         <TextInput label="lastName" value={values.lastName} setValue={(val) => onFormValueChange("lastName", val)} disabled={loading} />
         <TextInput label="name" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
         <TextInput label="advertisementName" value={values.advertisementName} setValue={(val) => onFormValueChange("advertisementName", val)} disabled={loading} />

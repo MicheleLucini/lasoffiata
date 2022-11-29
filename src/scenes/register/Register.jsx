@@ -2,21 +2,11 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
+import { ACCOUNT_TYPES, getSelectOptionsFromConstant } from "@logic/constants";
 import Select from "@components/select";
 import TextInput from '@components/textInput';
 import Button from '@components/button';
 import styles from './Register.module.css';
-
-const ACCOUNT_TYPES_OPTIONS = [
-  {
-    value: 1,
-    description: "Privato",
-  },
-  {
-    value: 2,
-    description: "Azienda",
-  },
-];
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -71,7 +61,7 @@ const Register = () => {
       />
       <Select
         label="Tipo di account"
-        options={ACCOUNT_TYPES_OPTIONS}
+        options={getSelectOptionsFromConstant(ACCOUNT_TYPES)}
         value={formAccountType}
         setValue={setFormAccountType}
         disabled={loading}
