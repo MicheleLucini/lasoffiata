@@ -24,6 +24,34 @@ const ROUTES = {
     title: "Registrati",
     url: "/register",
   },
+  ADMIN: {
+    title: "Amministrazione",
+    url: "/amministrazione",
+  },
+  ADMIN_VALIDAZIONE_ANNUNCI: {
+    title: "Amministrazione - Validazione annunci",
+    url: "/amministrazione-validazione-annunci",
+  },
+  ADMIN_PAGAMENTI: {
+    title: "Amministrazione - Gestione pagamenti",
+    url: "/amministrazione-gestione-pagamenti",
+  },
+  ADMIN_UTENTI: {
+    title: "Amministrazione - Gestione utenti",
+    url: "/amministrazione-gestione-utenti",
+  },
+  ADMIN_EDIZIONI: {
+    title: "Amministrazione - Gestione edizioni",
+    url: "/amministrazione-gestione-edizioni",
+  },
+  ADMIN_CATEGORIE: {
+    title: "Amministrazione - Gestione categorie",
+    url: "/amministrazione-gestione-categorie",
+  },
+  ADMIN_ESPORTA_ANNUNCI: {
+    title: "Amministrazione - Esporta annunci",
+    url: "/amministrazione-esporta-annunci",
+  }
 };
 
 const BASE_URL = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
