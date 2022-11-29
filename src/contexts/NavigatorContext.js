@@ -89,6 +89,8 @@ function NavigatorProvider({ children }) {
       ...route,
       params,
     });
+
+    window.scrollTo(0, 0);
   }, []);
 
   const onPopState = useCallback(() => {
