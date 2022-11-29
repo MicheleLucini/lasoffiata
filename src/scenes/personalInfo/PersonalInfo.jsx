@@ -4,6 +4,7 @@ import { selectUser } from '@store/userSlice';
 // import * as apiPublic from "@api/public";
 import Button from '@components/button';
 import TextInput from '@components/textInput';
+import SelectYear from "@templates/selectYear";
 import styles from "./PersonalInfo.module.css";
 
 const Home = () => {
@@ -37,7 +38,7 @@ const Home = () => {
         <TextInput label="name" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
         <TextInput label="advertisementName" value={values.advertisementName} setValue={(val) => onFormValueChange("advertisementName", val)} disabled={loading} />
         <TextInput label="businessName" value={values.businessName} setValue={(val) => onFormValueChange("businessName", val)} disabled={loading} />
-        <TextInput label="yearBirth" value={values.yearBirth} setValue={(val) => onFormValueChange("yearBirth", val)} disabled={loading} />
+        <SelectYear label="yearBirth" value={values.yearBirth} setValue={(val) => onFormValueChange("yearBirth", val)} disabled={loading} />
         <TextInput label="codiceFiscale" value={values.codiceFiscale} setValue={(val) => onFormValueChange("codiceFiscale", val)} disabled={loading} />
         <TextInput label="partitaIva" value={values.partitaIva} setValue={(val) => onFormValueChange("partitaIva", val)} disabled={loading} />
       </fieldset>
