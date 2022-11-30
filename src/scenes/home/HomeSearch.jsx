@@ -36,12 +36,12 @@ const HomeSearch = ({ loading, onSearch }) => {
 
   useEffect(() => {
     if (isSearchModalOpen) {
-      document.body.classList.add("modal_open");
+      document.body.classList.add("block_scroll");
     } else {
-      document.body.classList.remove("modal_open");
+      document.body.classList.remove("block_scroll");
     }
     return () => {
-      document.body.classList.remove("modal_open");
+      document.body.classList.remove("block_scroll");
     }
   }, [isSearchModalOpen])
 

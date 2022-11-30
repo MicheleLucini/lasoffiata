@@ -9,7 +9,7 @@
 .body {
   margin: 0 auto;
   padding: 20px 12px 50px;
-  width: calc(100% - 24px);
+  width: 100%;
   max-width: 900px;
   display: grid;
   align-content: start;
