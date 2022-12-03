@@ -1,17 +1,42 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from '@store/userSlice';
-// import * as apiPublic from "@api/public";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useDialogs } from "@contexts/DialogsContext";
+import * as logicUser from "@logic/user";
 import { ACCOUNT_TYPES } from "@logic/constants";
 import Button from '@components/button';
-import TextInput from '@components/textInput';
 import SelectYear from "@templates/selectYear";
+import TextInput from '@components/textInput';
 import styles from "./PersonalInfo.module.css";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { navigate } = useNavigator();
+  const { openDialog } = useDialogs();
   const user = useSelector(selectUser);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(user);
+
+  const logout = useCallback(() => {
+    setLoading(true);
+    dispatch(logicUser.logout())
+      .then(() => {
+        navigate(ROUTES.HOME);
+      })
+      .catch((e) => {
+        setLoading(false);
+      });
+  }, [dispatch, navigate]);
+
+  const onLogoutClick = useCallback(() => {
+    openDialog({
+      title: "Sei sicuro di fare il logout?",
+      body: "Se fai il logout dovrai reinserire username e password per rientrare.",
+      confirmButtonText: "Logout",
+      confirmButtonAction: logout,
+    });
+  }, [openDialog, logout]);
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -72,7 +97,7 @@ const Home = () => {
       <Button
         icon="logout"
         text="Logout"
-        onClick={() => { }}
+        onClick={onLogoutClick}
         disabled={loading}
         className={styles.button}
       />
