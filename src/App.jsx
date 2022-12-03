@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { DialogsProvider } from "@contexts/DialogsContext";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
+import Dialogs from "@templates/dialogs";
 import AppTopBar from "./AppTopBar";
 import AppRouting from "./AppRouting";
 import AppFooter from "./AppFooter";
@@ -16,13 +18,16 @@ const App = () => {
 
   return (
     <NavigatorProvider>
-      <div className={styles.page}>
-        <AppTopBar />
-        <div className={styles.body}>
-          <AppRouting />
+      <DialogsProvider>
+        <div className={styles.page}>
+          <AppTopBar />
+          <div className={styles.body}>
+            <AppRouting />
+          </div>
+          <AppFooter />
         </div>
-        <AppFooter />
-      </div>
+        <Dialogs />
+      </DialogsProvider>
     </NavigatorProvider>
   );
 };
