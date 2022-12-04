@@ -4,10 +4,6 @@ import Select from "@components/select";
 
 const PROVINCES = [
   {
-    value: "",
-    description: "",
-  },
-  {
     value: "CR",
     description: "Cremona - CR",
   },
