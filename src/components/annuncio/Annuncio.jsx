@@ -32,6 +32,7 @@ const Annuncio = ({ annuncio }) => {
           <Icon
             className={styles.imagePlaceholderIcon}
             name={"inventory_2"}
+            size={48}
             fill={0}
             weight={400}
             grade={0}
@@ -43,6 +44,7 @@ const Annuncio = ({ annuncio }) => {
         <span className={styles.title}>{annuncio.title}</span>
         <Icon
           name="bookmark_add"
+          size={20}
           fill={0}
           weight={400}
           grade={0}
@@ -51,6 +53,7 @@ const Annuncio = ({ annuncio }) => {
         />
         <Icon
           name="location_on"
+          size={14}
           fill={1}
           weight={400}
           grade={-25}
@@ -60,6 +63,7 @@ const Annuncio = ({ annuncio }) => {
         <span className={styles.description}>{`${annuncio.city} (${annuncio.province})`}</span>
         <Icon
           name="calendar_month"
+          size={14}
           fill={1}
           weight={400}
           grade={-25}

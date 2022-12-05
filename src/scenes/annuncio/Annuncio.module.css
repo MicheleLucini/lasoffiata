@@ -43,7 +43,6 @@
   font-size: 24px;
 }
 .infoPrincipali > .icon {
-  font-size: 16px;
   color: var(--raisin-black);
 }
 .infoPrincipali > span:not(.titolo) {
@@ -76,7 +75,6 @@
   font-size: 24px;
 }
 .infoUtente > .icon {
-  font-size: 16px;
   color: var(--raisin-black);
 }
 .infoUtente > span:not(.titolo) {

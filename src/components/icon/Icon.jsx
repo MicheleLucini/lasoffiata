@@ -1,7 +1,16 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-const Icon = ({ name, className, type, fill, weight, grade, opticalSize }) => {
+const Icon = ({
+  name,
+  className,
+  size,
+  type,
+  fill,
+  weight,
+  grade,
+  opticalSize
+}) => {
   const iconClassName = useMemo(() => (
     [
       "material-symbols-" + type,
@@ -11,7 +20,10 @@ const Icon = ({ name, className, type, fill, weight, grade, opticalSize }) => {
 
   const iconStyle = useMemo(() => ({
     fontVariationSettings: `'FILL' ${fill}, 'wght' ${weight}, 'GRAD' ${grade}, 'opsz' ${opticalSize}`,
-  }), [fill, weight, grade, opticalSize]);
+    fontSize: size,
+    width: size,
+    height: size,
+  }), [size, fill, weight, grade, opticalSize]);
 
   return (
     <span
@@ -26,6 +38,7 @@ const Icon = ({ name, className, type, fill, weight, grade, opticalSize }) => {
 Icon.propTypes = {
   name: PropTypes.string,
   className: PropTypes.string,
+  size: PropTypes.number,
   type: PropTypes.oneOf(["outlined", "rounded", "sharp"]),
   fill: PropTypes.oneOf([0, 1]),
   weight: PropTypes.oneOf([100, 200, 300, 400, 500, 600, 700]),
@@ -36,6 +49,7 @@ Icon.propTypes = {
 Icon.defaultProps = {
   name: "question_mark",
   className: null,
+  size: 24,
   type: "rounded",
   fill: 0,
   weight: 100,

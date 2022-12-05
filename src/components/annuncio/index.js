@@ -1,8 +1,8 @@
 import Annuncio from './Annuncio';
-import AnteprimaAnnuncio from './AnteprimaAnnuncio';
+import PlaceholderAnnuncio from './PlaceholderAnnuncio';
 
 export {
-  AnteprimaAnnuncio
+  PlaceholderAnnuncio
 };
 
 export default Annuncio;

@@ -2,13 +2,14 @@ import React from "react";
 import Icon from "@components/icon";
 import styles from "./Annuncio.module.css";
 
-const AnteprimaAnnuncio = () => {
+const PlaceholderAnnuncio = () => {
   return (
     <div className={`${styles.annuncio} ${styles.anteprimaAnnuncio}`}>
       <div className={styles.imageContainer}>
         <Icon
           className={styles.imagePlaceholderIcon}
           name={"inventory_2"}
+          size={48}
           fill={0}
           weight={400}
           grade={0}
@@ -19,6 +20,7 @@ const AnteprimaAnnuncio = () => {
         <span className={styles.title} />
         <Icon
           name="bookmark_add"
+          size={20}
           fill={0}
           weight={400}
           grade={0}
@@ -27,6 +29,7 @@ const AnteprimaAnnuncio = () => {
         />
         <Icon
           name="location_on"
+          size={14}
           fill={1}
           weight={400}
           grade={-25}
@@ -36,6 +39,7 @@ const AnteprimaAnnuncio = () => {
         <span className={styles.description} />
         <Icon
           name="calendar_month"
+          size={14}
           fill={1}
           weight={400}
           grade={-25}
@@ -48,4 +52,4 @@ const AnteprimaAnnuncio = () => {
   );
 };
 
-export default AnteprimaAnnuncio;
+export default PlaceholderAnnuncio;

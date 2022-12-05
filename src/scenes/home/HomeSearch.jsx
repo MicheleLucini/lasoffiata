@@ -52,6 +52,7 @@ const HomeSearch = ({ loading, onSearch }) => {
           <Icon
             name="search"
             className={styles.icon}
+            size={22}
             fill={0}
             weight={400}
             grade={0}

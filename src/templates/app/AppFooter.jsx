@@ -12,6 +12,7 @@ const AppTopBar = () => {
           <Icon
             className={styles.icon}
             name="domain"
+            size={20}
             fill={0}
             weight={400}
             grade={0}
@@ -23,6 +24,7 @@ const AppTopBar = () => {
           <Icon
             className={styles.icon}
             name="business_center"
+            size={20}
             fill={0}
             weight={400}
             grade={0}
@@ -34,6 +36,7 @@ const AppTopBar = () => {
           <Icon
             className={styles.icon}
             name="call"
+            size={20}
             fill={0}
             weight={400}
             grade={0}
@@ -45,6 +48,7 @@ const AppTopBar = () => {
           <Icon
             className={styles.icon}
             name="phone_android"
+            size={20}
             fill={0}
             weight={400}
             grade={0}
@@ -56,6 +60,7 @@ const AppTopBar = () => {
           <Icon
             className={styles.icon}
             name="mail"
+            size={20}
             fill={0}
             weight={400}
             grade={0}

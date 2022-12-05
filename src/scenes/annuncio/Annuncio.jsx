@@ -62,6 +62,7 @@ const Annuncio = () => {
         <span className={styles.titolo}>{annuncio.title}</span>
         <Icon
           name="location_on"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -71,6 +72,7 @@ const Annuncio = () => {
         <span>{`${annuncio.city} (${annuncio.province})`}</span>
         <Icon
           name="edit_calendar"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -80,6 +82,7 @@ const Annuncio = () => {
         <span>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
         <Icon
           name="event_busy"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -96,6 +99,7 @@ const Annuncio = () => {
         <span className={styles.titolo}>Inserzionista</span>
         <Icon
           name="face"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -105,6 +109,7 @@ const Annuncio = () => {
         <span>{annuncio.user.advertisementName}</span>
         <Icon
           name="mail"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -116,6 +121,7 @@ const Annuncio = () => {
         </a>
         <Icon
           name="call"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}
@@ -127,6 +133,7 @@ const Annuncio = () => {
         </a>
         <Icon
           name="phone_android"
+          size={16}
           fill={1}
           weight={400}
           grade={-25}

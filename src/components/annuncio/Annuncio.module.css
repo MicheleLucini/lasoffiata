@@ -26,7 +26,6 @@
 }
 
 .annuncio > .imageContainer > .imagePlaceholderIcon {
-  font-size: 48px;
   color: var(--raisin-black);
   opacity: 0.6;
 }
@@ -51,7 +50,6 @@
 }
 
 .annuncio > .info > .addIcon {
-  font-size: 20px;
   color: var(--coarse-wool);
 }
 
@@ -63,7 +61,6 @@
 }
 
 .annuncio > .info > .icon {
-  font-size: 14px;
   color: var(--light-brown);
 }
 

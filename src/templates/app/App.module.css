@@ -45,10 +45,6 @@
   color: var(--light-brown);
 }
 
-.footer > .footerContent > div > .icon {
-  font-size: 20px;
-}
-
 .footer > .footerContent > div > span {
   font-size: 16px;
   line-height: 20px;

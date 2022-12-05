@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import Annuncio, { AnteprimaAnnuncio } from "@components/annuncio";
+import Annuncio, { PlaceholderAnnuncio } from "@components/annuncio";
 import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
 import styles from "./Home.module.css";
@@ -8,8 +8,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
-  const anteprimaAnnunciList = useMemo(() => (
-    [...Array(20)].map((_, i) => <AnteprimaAnnuncio key={i} />)
+  const placeholderAnnunciList = useMemo(() => (
+    [...Array(20)].map((_, i) => <PlaceholderAnnuncio key={i} />)
   ), []);
 
   const annunciList = useMemo(() => (
@@ -56,7 +56,7 @@ const Home = () => {
       <span>Benvenuto! Eccoti gli annunci</span>
       <div className={styles.wrapperAnnunci}>
         {loading ? (
-          anteprimaAnnunciList
+          placeholderAnnunciList
         ) : (
           annunciList
         )}
