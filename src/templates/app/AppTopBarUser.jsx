@@ -66,7 +66,7 @@ const AppTopBarUser = () => {
                 opticalSize={24}
               />
             </Link>
-            <Link route={ROUTES.LOGIN}>
+            {/* <Link route={ROUTES.LOGIN}>
               <Icon
                 name="shopping_basket"
                 fill={0}
@@ -74,7 +74,7 @@ const AppTopBarUser = () => {
                 grade={0}
                 opticalSize={24}
               />
-            </Link>
+            </Link> */}
           </>
         )}
         {userIsAdmin && (

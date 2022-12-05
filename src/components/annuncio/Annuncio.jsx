@@ -42,7 +42,8 @@ const Annuncio = ({ annuncio }) => {
       </div>
       <div className={styles.info}>
         <span className={styles.title}>{annuncio.title}</span>
-        <Icon
+        <div />
+        {/* <Icon
           name="bookmark_add"
           size={20}
           fill={0}
@@ -50,7 +51,7 @@ const Annuncio = ({ annuncio }) => {
           grade={0}
           opticalSize={24}
           className={styles.addIcon}
-        />
+        /> */}
         <Icon
           name="location_on"
           size={14}
