@@ -1,10 +1,13 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Annuncio, { PlaceholderAnnuncio } from "@components/annuncio";
+import Button from "@components/button";
 import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
 import styles from "./Home.module.css";
 
 const Home = () => {
+  const { navigate } = useNavigator();
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
@@ -43,6 +46,10 @@ const Home = () => {
     setLoading(false);
   }, [setAdvertisements]);
 
+  const onCreaAnnuncioClick = useCallback(() => {
+    navigate(ROUTES.CREA_ANNUNCIO);
+  }, [navigate]);
+
   useEffect(() => {
     loadFeaturedAdvertisements();
   }, [loadFeaturedAdvertisements]);
@@ -61,6 +68,11 @@ const Home = () => {
           annunciList
         )}
       </div>
+      <Button
+        text="Crea annuncio"
+        icon="add"
+        onClick={onCreaAnnuncioClick}
+      />
     </>
   );
 };

@@ -10,6 +10,7 @@ import AdminUtenti from "@scenes/adminUtenti";
 import AdminValidazioneAnnunci from "@scenes/adminValidazioneAnnunci";
 import Administration from "@scenes/administration";
 import Annuncio from "@scenes/annuncio";
+import CreaAnnuncio from "@scenes/creaAnnuncio";
 import Home from "@scenes/home";
 import Login from "@scenes/login";
 import PersonalInfo from "@scenes/personalInfo";
@@ -37,6 +38,7 @@ const AppRouting = () => {
         </>
       )}
       {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
+      {checkCurrentRoute(ROUTES.CREA_ANNUNCIO) && <CreaAnnuncio />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
       {checkCurrentRoute(ROUTES.PERSONALINFO) && <PersonalInfo />}

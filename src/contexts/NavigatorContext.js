@@ -43,6 +43,10 @@ const ROUTES = {
     title: "Annuncio",
     url: "/annuncio",
   },
+  CREA_ANNUNCIO: {
+    title: "Crea annuncio",
+    url: "/crea-annuncio",
+  },
   HOME: {
     title: "Home",
     url: "/",

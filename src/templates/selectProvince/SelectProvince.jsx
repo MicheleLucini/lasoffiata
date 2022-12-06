@@ -5,15 +5,15 @@ import Select from "@components/select";
 const PROVINCES = [
   {
     value: "CR",
-    description: "Cremona - CR",
+    description: "CR - Cremona",
   },
   {
     value: "BG",
-    description: "Bergamo - BG",
+    description: "BG - Bergamo",
   },
   {
     value: "BS",
-    description: "Brescia - BS",
+    description: "BS - Brescia",
   },
 ];
 
