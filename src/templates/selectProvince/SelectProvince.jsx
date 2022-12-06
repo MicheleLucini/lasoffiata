@@ -17,14 +17,14 @@ const PROVINCES = [
   },
 ];
 
-const SelectProvince = ({ value, setValue, disabled }) => {
+const SelectProvince = ({ label, value, setValue, disabled }) => {
   const onSelection = useCallback((newValue) => {
     setValue(newValue || null);
   }, [setValue]);
 
   return (
     <Select
-      label="Province"
+      label={label || "Province"}
       options={PROVINCES}
       value={value}
       setValue={onSelection}
@@ -34,12 +34,14 @@ const SelectProvince = ({ value, setValue, disabled }) => {
 };
 
 SelectProvince.propTypes = {
+  label: PropTypes.string,
   value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
 
 SelectProvince.defaultProps = {
+  label: null,
   value: null,
   disabled: false,
 };
