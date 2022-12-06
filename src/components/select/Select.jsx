@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useMemo } from "react";
 import PropTypes from "prop-types";
-
+import Icon from '../icon';
 import styles from "./Select.module.css";
 
 const Select = ({
@@ -60,6 +60,14 @@ const Select = ({
       >
         {optionsList}
       </select>
+      <Icon
+        name="expand_more"
+        className={styles.icon}
+        fill={0}
+        weight={200}
+        grade={0}
+        opticalSize={24}
+      />
     </div>
   );
 };

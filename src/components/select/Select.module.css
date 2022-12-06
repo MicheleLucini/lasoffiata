@@ -1,3 +1,7 @@
+.select {
+  position: relative;
+}
+
 .select > select {
   font-size: 18px;
   /* text-decoration: none; */
@@ -60,7 +64,7 @@
   font-weight: 300;
   font-size: 18px;
   line-height: 20px;
-  transform: translate(6px, 17px);
+  transform: translate(6px, 20px);
   transform-origin: top left;
   -webkit-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,4 +83,21 @@
 .select.disabled > label {
   background-color: var(--peachade);
   pointer-events: none;
+}
+
+/***************************************/
+
+.select > .icon {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  z-index: 2;
+  color: var(--raisin-black);
+  transform-origin: center;
+  -webkit-transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.select.active > .icon {
+  transform: rotate(180deg);
 }
