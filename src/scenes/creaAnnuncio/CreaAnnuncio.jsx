@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import * as logicAnnuncio from "@logic/annuncio";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
+import ImageInput from '@components/imageInput';
 import TextInput from '@components/textInput';
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
@@ -17,6 +18,7 @@ const CreaAnnuncio = () => {
   const [formTitolo, setFormTitolo] = useState("");
   const [formCitta, setFormCitta] = useState("");
   const [formDescrizione, setFormDescrizione] = useState("");
+  const [formImages, setFormImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
 
   const onCreaClick = useCallback(async () => {
@@ -73,6 +75,13 @@ const CreaAnnuncio = () => {
         setValue={setFormDescrizione}
         disabled={loading}
       />
+      <ImageInput
+        setValue={setFormImages}
+        disabled={loading}
+      />
+      <br />
+      <br />
+      <br />
       <Button
         text="Crea"
         icon="add"

@@ -1,7 +1,7 @@
 .previewsWrapper {
   --image-preview-width: 150px;
   display: grid;
-  background-color: black;
+  background-color: var(--peachade);
   grid-template-columns: repeat(
     auto-fill,
     minmax(var(--image-preview-width), 1fr)
@@ -9,13 +9,16 @@
   padding: 10px;
   gap: 10px;
   border-radius: 6px;
-  justify-items: center;
 }
 .previewsWrapper:empty {
   display: none;
 }
 .previewsWrapper > div {
   position: relative;
+  /* border: 1px solid #212121; */
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
 }
 .previewsWrapper > div > img {
   border-radius: 3px;

@@ -45,6 +45,8 @@ const ImageInput = ({
       <Button
         icon="upload"
         text="Scegli immagini"
+        type="outlined"
+        fullWidth
         onClick={() => inputFile.current.click()}
       />
       <div className={styles.previewsWrapper}>

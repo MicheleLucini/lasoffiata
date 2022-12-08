@@ -3,7 +3,7 @@
   aspect-ratio: 1 / 1;
   width: 100%;
   object-fit: contain;
-  background-color: black;
+  background-color: var(--peachade);
   border-radius: 12px 12px 6px 6px;
 }
 
@@ -12,7 +12,7 @@
   grid-auto-flow: column;
   height: 80px;
   border-radius: 6px 6px 12px 12px;
-  background-color: black;
+  background-color: var(--peachade);
   overflow-y: hidden;
   overflow-x: auto;
   margin-bottom: 10px;
