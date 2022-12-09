@@ -21,6 +21,7 @@ const ImageInput = ({
         ...newImages,
       ];
     });
+    e.target.value = null;
   }, []);
 
   const removeImage = useCallback((name) => {

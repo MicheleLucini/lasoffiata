@@ -9,6 +9,19 @@ import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
 import styles from "./CreaAnnuncio.module.css";
 
+const fromFileInputToBlobPromise = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      resolve(event.target.result);
+    };
+    reader.onerror = (error) => {
+      reject(error);
+    };
+    reader.readAsArrayBuffer(file);
+  });
+};
+
 const CreaAnnuncio = () => {
   const dispatch = useDispatch();
   const { navigate } = useNavigator();
@@ -24,13 +37,17 @@ const CreaAnnuncio = () => {
   const onCreaClick = useCallback(async () => {
     setLoading(true);
     setFormErrors(null);
+
+    const filePromises = formImages.map(fromFileInputToBlobPromise);
+    const filesBlobs = await Promise.all(filePromises);
+
     dispatch(logicAnnuncio.createAdvertisement({
       title: formTitolo,
       description: formDescrizione,
       categoryId: formCategory,
       province: formProvince,
       city: formCitta,
-      // imageBlob,
+      imageBlob: filesBlobs,
     }))
       .then(() => {
         navigate(ROUTES.HOME);
@@ -41,7 +58,7 @@ const CreaAnnuncio = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, navigate, formCategory, formCitta, formDescrizione, formProvince, formTitolo]);
+  }, [dispatch, navigate, formCategory, formCitta, formDescrizione, formProvince, formTitolo, formImages]);
 
   return (
     <>
