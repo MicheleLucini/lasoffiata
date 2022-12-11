@@ -92,18 +92,21 @@ const RigaAnnuncio = ({ annuncio, loading }) => {
           size="mini"
         /> */}
         <Button
+          type="outlined"
           text="Ripubblica"
           onClick={() => { }}
           disabled={loading}
           size="mini"
         />
         <Button
+          type="outlined"
           text="Modifica"
           onClick={() => { }}
           disabled={loading}
           size="mini"
         />
         <Button
+          type="outlined"
           text="Elimina"
           onClick={() => { }}
           disabled={loading}

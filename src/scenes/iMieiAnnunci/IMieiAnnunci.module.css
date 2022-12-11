@@ -2,7 +2,7 @@
 
 .wrapperAnnunci {
   display: grid;
-  grid-template-columns: 100px 1fr auto auto auto;
+  grid-template-columns: 100px 1fr;
   gap: 0 12px;
   background-color: white;
   border-radius: 12px;
@@ -10,12 +10,12 @@
 }
 
 .wrapperAnnunci > hr {
-  grid-column: span 5;
+  grid-column: span 2;
   background-color: var(--peachade);
   width: 100%;
   height: 1px;
   border: none;
-  margin: 5px 0;
+  margin: 12px 0;
 }
 
 .imageContainer {
@@ -59,15 +59,18 @@
 }
 
 .status {
+  grid-column: span 2;
   display: grid;
   align-content: center;
-  justify-items: start;
+  justify-items: center;
   gap: 10px;
+  padding: 16px 0;
 }
 
 .status > span {
   display: grid;
   grid-template-columns: auto 1fr;
+  gap: 4px;
   padding: 4px 6px;
   border-radius: 12px;
   font-weight: 300;
@@ -96,6 +99,30 @@
 }
 
 .actions {
+  grid-column: span 2;
   display: grid;
   align-content: space-evenly;
+  grid-auto-flow: column;
+}
+
+@media only screen and (min-width: 770px) {
+  .wrapperAnnunci {
+    grid-template-columns: 100px 1fr;
+  }
+
+  .wrapperAnnunci > hr {
+    grid-column: span 5;
+    margin: 5px 0;
+  }
+
+  .status {
+    grid-column: unset;
+    justify-items: start;
+    padding: 0;
+  }
+
+  .actions {
+    grid-column: unset;
+    grid-auto-flow: row;
+  }
 }
