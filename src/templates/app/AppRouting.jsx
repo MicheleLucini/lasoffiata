@@ -12,6 +12,7 @@ import Administration from "@scenes/administration";
 import Annuncio from "@scenes/annuncio";
 import CreaAnnuncio from "@scenes/creaAnnuncio";
 import Home from "@scenes/home";
+import IMieiAnnunci from "@scenes/iMieiAnnunci";
 import Login from "@scenes/login";
 import PersonalInfo from "@scenes/personalInfo";
 import Register from "@scenes/register";
@@ -40,6 +41,7 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
       {checkCurrentRoute(ROUTES.CREA_ANNUNCIO) && <CreaAnnuncio />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}
+      {checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI) && <IMieiAnnunci />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
       {checkCurrentRoute(ROUTES.PERSONALINFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}

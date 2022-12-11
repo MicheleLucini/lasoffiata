@@ -1,0 +1,6 @@
+/* Annunci */
+
+.wrapperAnnunci {
+  display: grid;
+  gap: 12px;
+}

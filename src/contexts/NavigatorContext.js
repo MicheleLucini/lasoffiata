@@ -51,6 +51,10 @@ const ROUTES = {
     title: "Home",
     url: "/",
   },
+  I_MIEI_ANNUNCI: {
+    title: "I miei annunci",
+    url: "/i-miei-annunci",
+  },
   LOGIN: {
     title: "Accedi",
     url: "/login",
