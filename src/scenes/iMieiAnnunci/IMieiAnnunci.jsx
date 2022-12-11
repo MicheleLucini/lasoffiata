@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 // import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import Annuncio, { PlaceholderAnnuncio } from "@components/annuncio";
+import RigaAnnuncio from "./RigaAnnuncio";
 // import Button from "@components/button";
 import * as apiPublic from "@api/public";
 import styles from "./IMieiAnnunci.module.css";
@@ -13,12 +13,13 @@ const IMieiAnnunci = () => {
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
-  const placeholderAnnunciList = useMemo(() => (
-    [...Array(20)].map((_, i) => <PlaceholderAnnuncio key={i} />)
-  ), []);
-
   const annunciList = useMemo(() => (
-    advertisements.map((x) => <Annuncio key={x.id} annuncio={x} />)
+    advertisements.map((x) => (
+      <>
+        <RigaAnnuncio key={x.id} annuncio={x} />
+        <hr />
+      </>
+    ))
   ), [advertisements]);
 
   const loadUserAdvertisements = useCallback(async () => {
@@ -41,11 +42,7 @@ const IMieiAnnunci = () => {
     <>
       <span>I miei annunci</span>
       <div className={styles.wrapperAnnunci}>
-        {loading ? (
-          placeholderAnnunciList
-        ) : (
-          annunciList
-        )}
+        {annunciList}
       </div>
     </>
   );

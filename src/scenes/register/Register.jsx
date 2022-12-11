@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
-import { ACCOUNT_TYPES, getSelectOptionsFromConstant } from "@logic/constants";
+import { ACCOUNT_TYPE, getSelectOptionsFromConstant } from "@logic/constants";
 import Button from '@components/button';
 import InlineAlert from '@components/inlineAlert';
 import Select from "@components/select";
@@ -61,7 +61,7 @@ const Register = () => {
       />
       <Select
         label="Tipo di account"
-        options={getSelectOptionsFromConstant(ACCOUNT_TYPES)}
+        options={getSelectOptionsFromConstant(ACCOUNT_TYPE)}
         value={formAccountType}
         setValue={setFormAccountType}
         disabled={loading}

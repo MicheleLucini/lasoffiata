@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Icon from '../icon';
 import styles from "./Button.module.css";
 
+
+
 const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidth }) => {
   const buttonClassName = useMemo(() => (
     [
@@ -10,7 +12,7 @@ const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidt
       styles[type],
       disabled ? styles.disabled : null,
       !text ? styles.iconOnly : null,
-      size,
+      size === "mini" ? styles.mini : null,
       fullWidth ? styles.fullWidth : null,
       className,
     ].filter((x) => !!x).join(" ")
@@ -36,7 +38,7 @@ Button.propTypes = {
   type: PropTypes.oneOf(["elevated", "filled", "filled tonal", "outlined", "text"]),
   text: PropTypes.string,
   icon: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(["mini"]),
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   className: PropTypes.string,
