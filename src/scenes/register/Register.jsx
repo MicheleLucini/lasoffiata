@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
 import { ACCOUNT_TYPES, getSelectOptionsFromConstant } from "@logic/constants";
+import Button from '@components/button';
+import InlineAlert from '@components/inlineAlert';
 import Select from "@components/select";
 import TextInput from '@components/textInput';
-import Button from '@components/button';
-import styles from './Register.module.css';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -80,8 +80,8 @@ const Register = () => {
         disabled={loading}
         fullWidth
       />
-      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
-      {formSuccess && <span className={`${styles.formMessage} ${styles.success}`}>{formSuccess}</span>}
+      <InlineAlert type="error" text={formErrors} />
+      <InlineAlert type="success" text={formSuccess} />
     </>
   );
 };

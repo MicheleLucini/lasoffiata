@@ -2,9 +2,9 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
-import TextInput from '@components/textInput';
 import Button from '@components/button';
-import styles from './Login.module.css';
+import InlineAlert from '@components/inlineAlert';
+import TextInput from '@components/textInput';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const Login = () => {
         disabled={loading}
         fullWidth
       />
-      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
+      <InlineAlert type="error" text={formErrors} />
     </>
   );
 };

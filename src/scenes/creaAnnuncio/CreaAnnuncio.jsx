@@ -4,10 +4,10 @@ import * as logicAnnuncio from "@logic/annuncio";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
 import ImageInput from '@components/imageInput';
+import InlineAlert from '@components/inlineAlert';
 import TextInput from '@components/textInput';
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
-import styles from "./CreaAnnuncio.module.css";
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -104,7 +104,7 @@ const CreaAnnuncio = () => {
         icon="add"
         onClick={onCreaClick}
       />
-      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
+      <InlineAlert type="error" text={formErrors} />
     </>
   );
 };
