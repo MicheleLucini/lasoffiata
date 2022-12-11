@@ -4,9 +4,9 @@ import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
 import Icon from "@components/icon";
 import { BASE_URL } from "@api/utils"
-import styles from "./Annuncio.module.css";
+import styles from "./Home.module.css";
 
-const Annuncio = ({ annuncio }) => {
+const HomeAnnuncio = ({ annuncio }) => {
   const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
@@ -77,7 +77,7 @@ const Annuncio = ({ annuncio }) => {
   );
 };
 
-Annuncio.propTypes = {
+HomeAnnuncio.propTypes = {
   annuncio: PropTypes.shape({
     categoryId: PropTypes.number,
     city: PropTypes.string,
@@ -108,7 +108,7 @@ Annuncio.propTypes = {
   }).isRequired,
 };
 
-Annuncio.defaultProps = {
+HomeAnnuncio.defaultProps = {
 };
 
-export default Annuncio;
+export default HomeAnnuncio;

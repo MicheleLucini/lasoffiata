@@ -79,3 +79,99 @@
   display: grid;
   gap: 12px;
 }
+
+.annuncio {
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid var(--peachade);
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 0 8px;
+}
+
+.annuncio > .imageContainer {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.annuncio > .imageContainer > img {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
+.annuncio > .imageContainer > .imagePlaceholderIcon {
+  color: var(--raisin-black);
+  opacity: 0.6;
+}
+
+.annuncio > .info {
+  display: grid;
+  grid-template-columns: 14px 1fr 20px;
+  grid-gap: 4px 4px;
+  align-content: start;
+  justify-items: start;
+  align-items: start;
+}
+
+.annuncio > .info > span {
+  display: block;
+}
+
+.annuncio > .info > .title {
+  grid-column: span 2;
+  font-size: 20px;
+  color: var(--coarse-wool);
+}
+
+.annuncio > .info > .addIcon {
+  color: var(--coarse-wool);
+}
+
+.annuncio > .info > .description {
+  grid-column: span 2;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--light-brown);
+}
+
+.annuncio > .info > .icon {
+  color: var(--light-brown);
+}
+
+.anteprimaAnnuncio > .imageContainer,
+.anteprimaAnnuncio .title,
+.anteprimaAnnuncio .description {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background-color: #efefef;
+  background: linear-gradient(
+    90deg,
+    hsl(210, 15%, 88%),
+    hsl(210, 15%, 95%),
+    hsl(210, 15%, 88%)
+  );
+  background-size: 200%;
+  animation: loader 1s infinite reverse;
+}
+@keyframes loader {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+.anteprimaAnnuncio > .imageContainer > .imagePlaceholderIcon,
+.anteprimaAnnuncio > .info > .addIcon,
+.anteprimaAnnuncio > .info > .icon {
+  opacity: 0.25;
+}

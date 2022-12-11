@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import Annuncio, { PlaceholderAnnuncio } from "@components/annuncio";
 import Button from "@components/button";
 import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
+import Annuncio from "./HomeAnnuncio";
+import AnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
   const [advertisements, setAdvertisements] = useState([]);
 
   const placeholderAnnunciList = useMemo(() => (
-    [...Array(20)].map((_, i) => <PlaceholderAnnuncio key={i} />)
+    [...Array(20)].map((_, i) => <AnnuncioPlaceholder key={i} />)
   ), []);
 
   const annunciList = useMemo(() => (

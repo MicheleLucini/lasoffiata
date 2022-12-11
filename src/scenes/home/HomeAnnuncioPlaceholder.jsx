@@ -1,8 +1,8 @@
 import React from "react";
 import Icon from "@components/icon";
-import styles from "./Annuncio.module.css";
+import styles from "./Home.module.css";
 
-const PlaceholderAnnuncio = () => {
+const HomeAnnuncioPlaceholder = () => {
   return (
     <div className={`${styles.annuncio} ${styles.anteprimaAnnuncio}`}>
       <div className={styles.imageContainer}>
@@ -52,4 +52,4 @@ const PlaceholderAnnuncio = () => {
   );
 };
 
-export default PlaceholderAnnuncio;
+export default HomeAnnuncioPlaceholder;
