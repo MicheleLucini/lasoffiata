@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
-import moment from 'moment';
-// import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
+import moment from 'moment';
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from '@components/button';
 import Icon from "@components/icon";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
 const RigaAnnuncio = ({ annuncio, loading }) => {
-  // const { navigate } = useNavigator();
+  const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
     if (!annuncio.images || annuncio.images.length === 0) {
@@ -51,7 +51,10 @@ const RigaAnnuncio = ({ annuncio, loading }) => {
 
   return (
     <>
-      <div className={styles.imageContainer}>
+      <div
+        className={styles.imageContainer}
+        onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}
+      >
         {photoUrl ? (
           <img
             src={photoUrl}
@@ -70,7 +73,7 @@ const RigaAnnuncio = ({ annuncio, loading }) => {
         )}
       </div>
       <div className={styles.mainInfo}>
-        <span className={styles.title}>{annuncio.title}</span>
+        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
         <span className={styles.description}>{annuncio.description}</span>
         <span className={styles.extra}>{`${annuncio.city} (${annuncio.province}) - ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
