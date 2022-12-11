@@ -18,7 +18,7 @@ const fromFileInputToBlobPromise = (file) => {
     reader.onerror = (error) => {
       reject(error);
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   });
 };
 
@@ -47,7 +47,7 @@ const CreaAnnuncio = () => {
       categoryId: formCategory,
       province: formProvince,
       city: formCitta,
-      imageBlob: filesBlobs,
+      imageBlob: filesBlobs.join("#"),
     }))
       .then(() => {
         navigate(ROUTES.HOME);
