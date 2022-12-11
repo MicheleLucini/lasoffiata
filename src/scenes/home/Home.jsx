@@ -46,10 +46,6 @@ const Home = () => {
     setLoading(false);
   }, [setAdvertisements]);
 
-  const onCreaAnnuncioClick = useCallback(() => {
-    navigate(ROUTES.CREA_ANNUNCIO);
-  }, [navigate]);
-
   useEffect(() => {
     loadFeaturedAdvertisements();
   }, [loadFeaturedAdvertisements]);
@@ -60,6 +56,18 @@ const Home = () => {
         loading={loading}
         onSearch={searchAdvertisements}
       />
+      <div style={{ display: "grid", gridAutoFlow: "column" }}>
+        <Button
+          text="Crea annuncio"
+          icon="add"
+          onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
+        />
+        <Button
+          text="I miei annunci"
+          icon="list"
+          onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}
+        />
+      </div>
       <span>Benvenuto! Eccoti gli annunci</span>
       <div className={styles.wrapperAnnunci}>
         {loading ? (
@@ -68,11 +76,6 @@ const Home = () => {
           annunciList
         )}
       </div>
-      <Button
-        text="Crea annuncio"
-        icon="add"
-        onClick={onCreaAnnuncioClick}
-      />
     </>
   );
 };

@@ -1,12 +1,15 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useSelector } from 'react-redux';
+import { selectUser } from '@store/userSlice';
+// import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Annuncio, { PlaceholderAnnuncio } from "@components/annuncio";
-import Button from "@components/button";
+// import Button from "@components/button";
 import * as apiPublic from "@api/public";
 import styles from "./IMieiAnnunci.module.css";
 
 const IMieiAnnunci = () => {
-  const { navigate } = useNavigator();
+  const user = useSelector(selectUser);
+  // const { navigate } = useNavigator();
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
@@ -18,40 +21,21 @@ const IMieiAnnunci = () => {
     advertisements.map((x) => <Annuncio key={x.id} annuncio={x} />)
   ), [advertisements]);
 
-  const loadFeaturedAdvertisements = useCallback(async () => {
+  const loadUserAdvertisements = useCallback(async () => {
     setLoading(true);
+    let data;
     try {
-      const data = await apiPublic.GetFeaturedAdvertisements();
-      setAdvertisements(data);
+      data = await apiPublic.GetUserAdvertisements({ userId: user.id });
     } catch {
-      setAdvertisements([]);
+      data = [];
     }
+    setAdvertisements(data);
     setLoading(false);
-  }, [setAdvertisements]);
-
-  const searchAdvertisements = useCallback(async ({ category, province }) => {
-    setLoading(true);
-    try {
-      const data = await apiPublic.SearchAdvertisements({
-        description: "",
-        categoryId: category,
-        province,
-        page: 1,
-      });
-      setAdvertisements(data);
-    } catch {
-      setAdvertisements([]);
-    }
-    setLoading(false);
-  }, [setAdvertisements]);
-
-  const onCreaAnnuncioClick = useCallback(() => {
-    navigate(ROUTES.CREA_ANNUNCIO);
-  }, [navigate]);
+  }, [user.id]);
 
   useEffect(() => {
-    loadFeaturedAdvertisements();
-  }, [loadFeaturedAdvertisements]);
+    loadUserAdvertisements();
+  }, [loadUserAdvertisements]);
 
   return (
     <>
@@ -63,11 +47,6 @@ const IMieiAnnunci = () => {
           annunciList
         )}
       </div>
-      <Button
-        text="Crea annuncio"
-        icon="add"
-        onClick={onCreaAnnuncioClick}
-      />
     </>
   );
 };
