@@ -97,12 +97,8 @@ function getRouteParamsFromWindowLocation() {
   if (standardizedPathname === "/") {
     return null;
   }
-  const routeUrl = getRouteUrlFromWindowLocation();
-  const paramsString = routeUrl ? standardizedPathname.replace(routeUrl + "/", "") : "";
-  if (paramsString === "" || paramsString === "/") {
-    return null;
-  }
-  return paramsString.split("/");
+  const paramsArray = standardizedPathname.split("/").slice(2);
+  return paramsArray.length > 0 ? paramsArray : null;
 }
 
 function getRouteFromWindowLocation(defaultRoute = ROUTES.HOME) {
