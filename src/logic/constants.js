@@ -1,32 +1,44 @@
 
 export const VALIDATION_STATUS = {
-  1: "Waiting",
-  2: "Validated",
-  3: "Refused"
+  WAITING: { value: 1, label: "In verifica" },
+  VALIDATED: { value: 2, label: "Approvato" },
+  REFUSED: { value: 3, label: "Rifiutato" }
 }
 
 export const SERVICE_TYPE = {
-  1: "TestService",
-  2: "FeaturedOneDay",
-  3: "PublishOnline",
-  4: "PublishPaper",
-  5: "PublishPaperGuaranteed",
-  6: "PhotoAdvertisement",
-  7: "Boxed"
+  TEST_SERVICE: { value: 1, label: "TestService" },
+  FEATURED_ONE_DAY: { value: 2, label: "FeaturedOneDay" },
+  PUBLISH_ONLINE: { value: 3, label: "PublishOnline" },
+  PUBLISH_PAPER: { value: 4, label: "PublishPaper" },
+  PUBLISH_PAPER_GUARANTEED: { value: 5, label: "PublishPaperGuaranteed" },
+  PHOTO_ADVERTISEMENT: { value: 6, label: "PhotoAdvertisement" },
+  BOXED: { value: 7, label: "Boxed" }
 }
 
 export const PAYMENT_STATUS = {
-  1: "Created",
-  2: "Executed",
-  3: "Canceled",
-  4: "Failed"
+  CREATED: { value: 1, label: "Created" },
+  EXECUTED: { value: 2, label: "Executed" },
+  CANCELED: { value: 3, label: "Canceled" },
+  FAILED: { value: 4, label: "Failed" }
 }
 
 export const ACCOUNT_TYPE = {
-  1: "Privato",
-  2: "Azienda"
+  PRIVATO: { value: 1, label: "Privato" },
+  AZIENDA: { value: 2, label: "Azienda" }
 }
 
-export function getSelectOptionsFromConstant(costant) {
-  return Object.entries(costant).map((pair) => ({ value: pair[0], description: pair[1] }));
+export function getSelectOptionsFromConstant(constant) {
+  return Object.values(constant).map((x) => ({ value: x.value, description: x.label }));
+}
+
+export function getConstantDescription(constant) {
+  return constant.label;
+}
+
+export function getConstantDescriptionByValue(constant, value) {
+  return Object.values(constant).find((x) => x.value === value).label || "";
+}
+
+export function checkConstant(constant, value) {
+  return constant.value === value;
 }

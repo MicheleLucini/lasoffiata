@@ -4,6 +4,7 @@ import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from '@components/button';
 import Icon from "@components/icon";
+import { checkConstant, getConstantDescriptionByValue, VALIDATION_STATUS } from "@logic/constants";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
@@ -18,36 +19,45 @@ const RigaAnnuncio = ({ annuncio, loading }) => {
   }, [annuncio]);
 
   const statoApprovazione = useMemo(() => {
+    let icon = "hourglass_empty";
+    let className = ""; //styles.pending;
+    if (checkConstant(VALIDATION_STATUS.VALIDATED, annuncio.validationStatus)) {
+      icon = "task_alt";
+      className = styles.success;
+    } else if (checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus)) {
+      icon = "block";
+      className = styles.error;
+    }
     return (
-      <span className={styles.pending}>
+      <span className={className}>
         <Icon
-          name={"hourglass_empty"}
+          name={icon}
           size={18}
           fill={1}
           weight={400}
           grade={-25}
           opticalSize={20}
         />
-        In attesa di approvazione
+        {getConstantDescriptionByValue(VALIDATION_STATUS, annuncio.validationStatus)}
       </span>
     );
-  }, []);
+  }, [annuncio.validationStatus]);
 
   const statoPubblicazione = useMemo(() => {
     return (
-      <span>
+      <span className={annuncio.isSuspended ? styles.error : styles.success}>
         <Icon
-          name={"public"}
+          name={annuncio.isSuspended ? "event_busy" : "event_available"}
           size={18}
           fill={1}
           weight={400}
           grade={-25}
           opticalSize={20}
         />
-        Pubblico
+        {annuncio.isSuspended ? "Scaduto" : "Attivo"}
       </span>
     );
-  }, []);
+  }, [annuncio.isSuspended]);
 
   return (
     <>

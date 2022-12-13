@@ -67,8 +67,8 @@
 .status {
   grid-column: span 2;
   display: grid;
-  align-content: center;
-  justify-items: center;
+  grid-auto-flow: column;
+  justify-content: center;
   gap: 10px;
   padding: 16px 0;
 }
@@ -122,6 +122,8 @@
   }
 
   .status {
+    align-content: center;
+    grid-auto-flow: row;
     grid-column: unset;
     justify-items: start;
     padding: 0;

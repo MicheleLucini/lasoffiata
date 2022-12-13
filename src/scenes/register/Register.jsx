@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
-import { ACCOUNT_TYPE, getSelectOptionsFromConstant } from "@logic/constants";
+import { getSelectOptionsFromConstant, ACCOUNT_TYPE } from "@logic/constants";
 import Button from '@components/button';
 import InlineAlert from '@components/inlineAlert';
 import Select from "@components/select";
