@@ -8,7 +8,7 @@ import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
-const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
+const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }) => {
   const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
@@ -108,7 +108,7 @@ const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
           <Button
             type="outlined"
             text={isScaduto ? "Ripubblica" : "Riattiva"}
-            onClick={() => { }}
+            onClick={() => onRipubblica(annuncio.id)}
             disabled={loading}
             size="mini"
           />
@@ -116,7 +116,7 @@ const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
           <Button
             type="outlined"
             text="Sospendi"
-            onClick={() => { }}
+            onClick={() => onSospendi(annuncio.id)}
             disabled={loading}
             size="mini"
           />
@@ -170,6 +170,8 @@ RigaAnnuncio.propTypes = {
     validationStatus: PropTypes.number,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
+  onRipubblica: PropTypes.func.isRequired,
+  onSospendi: PropTypes.func.isRequired,
   onElimina: PropTypes.func.isRequired,
 };
 

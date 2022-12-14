@@ -16,14 +16,41 @@ const IMieiAnnunci = () => {
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
+  const loadUserAdvertisements = useCallback(async () => {
+    setLoading(true);
+    let data;
+    try {
+      data = await apiPublic.GetUserAdvertisements({ userId: user.id });
+    } catch {
+      data = [];
+    }
+    setAdvertisements(data);
+    setLoading(false);
+  }, [user.id]);
+
+  const ripubblica = useCallback(async (id) => {
+    setLoading(true);
+    try {
+      await apiUser.RepublishAdvertisement({ advertisementId: id });
+    } catch { }
+    loadUserAdvertisements();
+  }, [loadUserAdvertisements]);
+
+  const sospendi = useCallback(async (id) => {
+    setLoading(true);
+    try {
+      await apiUser.SuspendAdvertisement({ advertisementId: id });
+    } catch { }
+    loadUserAdvertisements();
+  }, [loadUserAdvertisements]);
+
   const elimina = useCallback(async (id) => {
     setLoading(true);
     try {
       await apiUser.DeleteAdvertisement({ advertisementId: id });
-      setAdvertisements((prev) => prev.filter((x) => x.id !== id));
     } catch { }
-    setLoading(false);
-  }, []);
+    loadUserAdvertisements();
+  }, [loadUserAdvertisements]);
 
   const onEliminaClick = useCallback(({ id, title }) => {
     openDialog({
@@ -40,24 +67,14 @@ const IMieiAnnunci = () => {
         <RigaAnnuncio
           annuncio={x}
           loading={loading}
+          onRipubblica={ripubblica}
+          onSospendi={sospendi}
           onElimina={onEliminaClick}
         />
         <hr />
       </React.Fragment>
     ))
-  ), [advertisements, loading, onEliminaClick]);
-
-  const loadUserAdvertisements = useCallback(async () => {
-    setLoading(true);
-    let data;
-    try {
-      data = await apiPublic.GetUserAdvertisements({ userId: user.id });
-    } catch {
-      data = [];
-    }
-    setAdvertisements(data);
-    setLoading(false);
-  }, [user.id]);
+  ), [advertisements, loading, ripubblica, sospendi, onEliminaClick]);
 
   useEffect(() => {
     loadUserAdvertisements();
