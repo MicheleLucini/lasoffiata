@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DialogsProvider } from "@contexts/DialogsContext";
+import { SnackbarProvider } from "@contexts/SnackbarContext";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
+import Snackbars from "@templates/snackbars";
 import Dialogs from "@templates/dialogs";
 import AppTopBar from "./AppTopBar";
 import AppRouting from "./AppRouting";
@@ -18,16 +20,19 @@ const App = () => {
 
   return (
     <NavigatorProvider>
-      <DialogsProvider>
-        <div className={styles.page}>
-          <AppTopBar />
-          <div className={styles.body}>
-            <AppRouting />
+      <SnackbarProvider>
+        <DialogsProvider>
+          <div className={styles.page}>
+            <AppTopBar />
+            <div className={styles.body}>
+              <AppRouting />
+            </div>
+            <AppFooter />
           </div>
-          <AppFooter />
-        </div>
-        <Dialogs />
-      </DialogsProvider>
+          <Dialogs />
+          <Snackbars />
+        </DialogsProvider>
+      </SnackbarProvider>
     </NavigatorProvider>
   );
 };
