@@ -1,12 +1,12 @@
 import React from "react";
-import { useSnackbar } from "@contexts/SnackbarContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 import styles from './Snackbars.module.css';
 
 const Snackbar = ({ id, text, close }) => {
-  const { closeSnackbar } = useSnackbar();
+  const { hideAndCloseSnackbar } = useSnackbars();
 
   return (
-    <div className={styles.snackbar + (close ? " " + styles.hide : "")} onClick={(e) => closeSnackbar(id)}>
+    <div className={styles.snackbar + (close ? " " + styles.hide : "")} onClick={(e) => hideAndCloseSnackbar(id)}>
       <span>{text}</span>
     </div>
   );

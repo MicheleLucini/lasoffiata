@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSnackbar } from "@contexts/SnackbarContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 import Button from '../button';
 import ImagePreviewer from './ImagePreviewer';
 import styles from "./ImageInput.module.css";
@@ -9,7 +9,7 @@ const ImageInput = ({
   setValue,
   disabled,
 }) => {
-  const { openSnackbar } = useSnackbar();
+  const { openSnackbar } = useSnackbars();
   const inputFile = useRef(null);
   const [images, setImages] = useState([]);
 
@@ -19,7 +19,7 @@ const ImageInput = ({
       // TODO: segnalare che l'immagine è già presente tra quelle scelte (stesso nome)
       const newImages = Array.from(e.target.files).filter((x) => !prevNames.includes(x.name));
       if (newImages.length < e.target.files.length) {
-        openSnackbar({ text: "Una o più immagini scartate perché già caricate." });
+        openSnackbar("Una o più immagini scartate perché già caricate.");
       }
       return [
         ...prev,

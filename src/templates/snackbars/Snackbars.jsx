@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import { useSnackbar } from "@contexts/SnackbarContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 import Snackbar from './Snackbar';
 
 const Snackbars = () => {
-  const { activeSnackbars } = useSnackbar();
+  const { activeSnackbars } = useSnackbars();
 
   const activeSnackbarsComponents = useMemo(() => {
     return activeSnackbars.map((x) => (

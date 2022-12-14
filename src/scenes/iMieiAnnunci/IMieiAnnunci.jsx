@@ -7,14 +7,14 @@ import RigaAnnuncio from "./RigaAnnuncio";
 import * as apiPublic from "@api/public";
 import styles from "./IMieiAnnunci.module.css";
 import { useDialogs } from "@contexts/DialogsContext";
-import { useSnackbar } from "@contexts/SnackbarContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 import * as apiUser from "@api/user";
 
 const IMieiAnnunci = () => {
   const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
   const { openDialog } = useDialogs();
-  const { openSnackbar } = useSnackbar();
+  const { openSnackbar } = useSnackbars();
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
@@ -35,7 +35,7 @@ const IMieiAnnunci = () => {
     try {
       await apiUser.RepublishAdvertisement({ advertisementId: id });
     } catch (e) {
-      openSnackbar({ text: e.message });
+      openSnackbar(e.message);
     }
     loadUserAdvertisements();
   }, [loadUserAdvertisements, openSnackbar]);
@@ -45,7 +45,7 @@ const IMieiAnnunci = () => {
     try {
       await apiUser.SuspendAdvertisement({ advertisementId: id });
     } catch (e) {
-      openSnackbar({ text: e.message });
+      openSnackbar(e.message);
     }
     loadUserAdvertisements();
   }, [loadUserAdvertisements, openSnackbar]);
@@ -55,7 +55,7 @@ const IMieiAnnunci = () => {
     try {
       await apiUser.DeleteAdvertisement({ advertisementId: id });
     } catch (e) {
-      openSnackbar({ text: e.message });
+      openSnackbar(e.message);
     }
     loadUserAdvertisements();
   }, [loadUserAdvertisements, openSnackbar]);

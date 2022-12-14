@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DialogsProvider } from "@contexts/DialogsContext";
-import { SnackbarProvider } from "@contexts/SnackbarContext";
+import { SnackbarsProvider } from "@contexts/SnackbarsContext";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
 import Snackbars from "@templates/snackbars";
@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <NavigatorProvider>
-      <SnackbarProvider>
+      <SnackbarsProvider>
         <DialogsProvider>
           <div className={styles.page}>
             <AppTopBar />
@@ -32,7 +32,7 @@ const App = () => {
           <Dialogs />
           <Snackbars />
         </DialogsProvider>
-      </SnackbarProvider>
+      </SnackbarsProvider>
     </NavigatorProvider>
   );
 };
