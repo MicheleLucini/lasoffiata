@@ -1,26 +1,52 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { selectUser } from '@store/userSlice';
 // import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import RigaAnnuncio from "./RigaAnnuncio";
 // import Button from "@components/button";
 import * as apiPublic from "@api/public";
 import styles from "./IMieiAnnunci.module.css";
+import { useDialogs } from "@contexts/DialogsContext";
+import * as apiUser from "@api/user";
 
 const IMieiAnnunci = () => {
   const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
+  const { openDialog } = useDialogs();
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
+  const elimina = useCallback(async (id) => {
+    setLoading(true);
+    try {
+      await apiUser.DeleteAdvertisement({ advertisementId: id });
+      setAdvertisements((prev) => prev.filter((x) => x.id !== id));
+    } catch { }
+    setLoading(false);
+  }, []);
+
+  const onEliminaClick = useCallback(({ id, title }) => {
+    openDialog({
+      title: 'Eliminare l\'annuncio "' + title + '"?',
+      body: 'Se confermi l\'annuncio verrà rimosso definitivamente.',
+      confirmButtonText: "Elimina",
+      confirmButtonAction: () => elimina(id),
+    });
+  }, [openDialog, elimina]);
+
+
   const annunciList = useMemo(() => (
     advertisements.map((x) => (
-      <>
-        <RigaAnnuncio key={x.id} annuncio={x} />
+      <React.Fragment key={x.id}>
+        <RigaAnnuncio
+          annuncio={x}
+          loading={loading}
+          onElimina={onEliminaClick}
+        />
         <hr />
-      </>
+      </React.Fragment>
     ))
-  ), [advertisements]);
+  ), [advertisements, loading, onEliminaClick]);
 
   const loadUserAdvertisements = useCallback(async () => {
     setLoading(true);

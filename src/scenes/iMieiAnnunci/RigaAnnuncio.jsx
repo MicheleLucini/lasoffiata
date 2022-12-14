@@ -8,7 +8,7 @@ import { checkConstant, getConstantDescriptionByValue, VALIDATION_STATUS } from 
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
-const RigaAnnuncio = ({ annuncio, loading }) => {
+const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
   const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
@@ -121,7 +121,7 @@ const RigaAnnuncio = ({ annuncio, loading }) => {
         <Button
           type="outlined"
           text="Elimina"
-          onClick={() => { }}
+          onClick={() => onElimina(annuncio)}
           disabled={loading}
           size="mini"
         />
@@ -160,6 +160,7 @@ RigaAnnuncio.propTypes = {
     validationStatus: PropTypes.number,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
+  onElimina: PropTypes.func.isRequired,
 };
 
 RigaAnnuncio.defaultProps = {
