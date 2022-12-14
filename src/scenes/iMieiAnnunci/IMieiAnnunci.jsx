@@ -34,7 +34,6 @@ const IMieiAnnunci = () => {
     });
   }, [openDialog, elimina]);
 
-
   const annunciList = useMemo(() => (
     advertisements.map((x) => (
       <React.Fragment key={x.id}>

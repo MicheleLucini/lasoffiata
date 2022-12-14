@@ -4,7 +4,7 @@ import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from '@components/button';
 import Icon from "@components/icon";
-import { checkConstant, getConstantDescriptionByValue, VALIDATION_STATUS } from "@logic/constants";
+import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
@@ -18,15 +18,26 @@ const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
   }, [annuncio]);
 
+  const isScaduto = useMemo(() => {
+    return moment().diff(annuncio.expirationDate) > 0;
+  }, [annuncio]);
+
   const statoApprovazione = useMemo(() => {
-    let icon = "hourglass_empty";
-    let className = ""; //styles.pending;
-    if (checkConstant(VALIDATION_STATUS.VALIDATED, annuncio.validationStatus)) {
-      icon = "task_alt";
-      className = styles.success;
+    let icon = "event_available";
+    let className = styles.success;
+    let text = "Attivo";
+    if (isScaduto) {
+      icon = "event_busy";
+      className = styles.error;
+      text = "Scaduto";
+    } else if (checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus)) {
+      icon = "hourglass_empty";
+      className = "";
+      text = "In attesa di verifica";
     } else if (checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus)) {
       icon = "block";
       className = styles.error;
+      text = "Rifiutato";
     }
     return (
       <span className={className}>
@@ -38,23 +49,24 @@ const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
           grade={-25}
           opticalSize={20}
         />
-        {getConstantDescriptionByValue(VALIDATION_STATUS, annuncio.validationStatus)}
+        {text}
       </span>
     );
-  }, [annuncio.validationStatus]);
+  }, [annuncio, isScaduto]);
 
   const statoPubblicazione = useMemo(() => {
+    if (!annuncio.isSuspended) return null;
     return (
-      <span className={annuncio.isSuspended ? styles.error : styles.success}>
+      <span className={styles.error}>
         <Icon
-          name={annuncio.isSuspended ? "event_busy" : "event_available"}
+          name="pause_circle"
           size={18}
-          fill={1}
+          fill={0}
           weight={400}
           grade={-25}
           opticalSize={20}
         />
-        {annuncio.isSuspended ? "Scaduto" : "Attivo"}
+        Sospeso
       </span>
     );
   }, [annuncio.isSuspended]);
@@ -92,25 +104,23 @@ const RigaAnnuncio = ({ annuncio, loading, onElimina }) => {
         {statoPubblicazione}
       </div>
       <div className={styles.actions}>
-        {/* <Button
-          text="Rendi privato"
-          onClick={() => { }}
-          disabled={loading}
-          size="mini"
-        />
-        <Button
-          text="Rendi pubblico"
-          onClick={() => { }}
-          disabled={loading}
-          size="mini"
-        /> */}
-        <Button
-          type="outlined"
-          text="Ripubblica"
-          onClick={() => { }}
-          disabled={loading}
-          size="mini"
-        />
+        {annuncio.isSuspended || isScaduto ? (
+          <Button
+            type="outlined"
+            text={isScaduto ? "Ripubblica" : "Riattiva"}
+            onClick={() => { }}
+            disabled={loading}
+            size="mini"
+          />
+        ) : (
+          <Button
+            type="outlined"
+            text="Sospendi"
+            onClick={() => { }}
+            disabled={loading}
+            size="mini"
+          />
+        )}
         <Button
           type="outlined"
           text="Modifica"
