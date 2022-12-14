@@ -1,5 +1,6 @@
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useSnackbar } from "@contexts/SnackbarContext";
 import Button from '../button';
 import ImagePreviewer from './ImagePreviewer';
 import styles from "./ImageInput.module.css";
@@ -8,6 +9,7 @@ const ImageInput = ({
   setValue,
   disabled,
 }) => {
+  const { openSnackbar } = useSnackbar();
   const inputFile = useRef(null);
   const [images, setImages] = useState([]);
 
@@ -16,13 +18,16 @@ const ImageInput = ({
       const prevNames = prev.map((x) => x.name);
       // TODO: segnalare che l'immagine è già presente tra quelle scelte (stesso nome)
       const newImages = Array.from(e.target.files).filter((x) => !prevNames.includes(x.name));
+      if (newImages.length < e.target.files.length) {
+        openSnackbar({ text: "Una o più immagini scartate perché già caricate." });
+      }
       return [
         ...prev,
         ...newImages,
       ];
     });
     e.target.value = null;
-  }, []);
+  }, [openSnackbar]);
 
   const removeImage = useCallback((name) => {
     setImages((prev) => prev.filter((x) => x.name !== name));
