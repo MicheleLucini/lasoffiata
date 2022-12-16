@@ -11,7 +11,9 @@ function CategoriesProvider({ children }) {
     try {
       const data = await apiPublic.GetCategories();
       setCategories(data);
-    } catch { }
+    } catch {
+      setCategories([]);
+    }
   }, []);
 
   const getCategoryDescriptionById = useCallback((id) => {
@@ -26,7 +28,8 @@ function CategoriesProvider({ children }) {
   const categoriesContextValue = useMemo(() => ({
     categories,
     getCategoryDescriptionById,
-  }), [categories, getCategoryDescriptionById]);
+    loadCategories,
+  }), [categories, getCategoryDescriptionById, loadCategories]);
 
   return (
     <CategoriesContext.Provider value={categoriesContextValue}>
