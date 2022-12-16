@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { CategoriesProvider } from "@contexts/CategoriesContext";
 import { DialogsProvider } from "@contexts/DialogsContext";
 import { SnackbarsProvider } from "@contexts/SnackbarsContext";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
@@ -19,21 +20,23 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <NavigatorProvider>
-      <SnackbarsProvider>
-        <DialogsProvider>
-          <div className={styles.page}>
-            <AppTopBar />
-            <div className={styles.body}>
-              <AppRouting />
+    <CategoriesProvider>
+      <NavigatorProvider>
+        <SnackbarsProvider>
+          <DialogsProvider>
+            <div className={styles.page}>
+              <AppTopBar />
+              <div className={styles.body}>
+                <AppRouting />
+              </div>
+              <AppFooter />
             </div>
-            <AppFooter />
-          </div>
-          <Dialogs />
-          <Snackbars />
-        </DialogsProvider>
-      </SnackbarsProvider>
-    </NavigatorProvider>
+            <Dialogs />
+            <Snackbars />
+          </DialogsProvider>
+        </SnackbarsProvider>
+      </NavigatorProvider>
+    </CategoriesProvider>
   );
 };
 

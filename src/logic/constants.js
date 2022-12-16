@@ -27,6 +27,12 @@ export const ACCOUNT_TYPE = {
   AZIENDA: { value: 2, label: "Azienda" }
 }
 
+export const PROVINCES = {
+  CREMONA: { value: "CR", label: "CR - Cremona" },
+  BERGAMO: { value: "BG", label: "BG - Bergamo" },
+  BRESCIA: { value: "BS", label: "BS - Brescia" }
+}
+
 export function getSelectOptionsFromConstant(constant) {
   return Object.values(constant).map((x) => ({ value: x.value, description: x.label }));
 }

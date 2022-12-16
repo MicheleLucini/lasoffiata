@@ -1,21 +1,7 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import Select from "@components/select";
-
-const PROVINCES = [
-  {
-    value: "CR",
-    description: "CR - Cremona",
-  },
-  {
-    value: "BG",
-    description: "BG - Bergamo",
-  },
-  {
-    value: "BS",
-    description: "BS - Brescia",
-  },
-];
+import { getSelectOptionsFromConstant, PROVINCES } from "@logic/constants";
 
 const SelectProvince = ({ label, value, setValue, disabled }) => {
   const onSelection = useCallback((newValue) => {
@@ -25,7 +11,7 @@ const SelectProvince = ({ label, value, setValue, disabled }) => {
   return (
     <Select
       label={label || "Province"}
-      options={PROVINCES}
+      options={getSelectOptionsFromConstant(PROVINCES)}
       value={value}
       setValue={onSelection}
       disabled={disabled}

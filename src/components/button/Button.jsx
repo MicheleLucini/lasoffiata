@@ -5,7 +5,7 @@ import styles from "./Button.module.css";
 
 
 
-const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidth }) => {
+const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidth, fillIcon }) => {
   const buttonClassName = useMemo(() => (
     [
       styles.button,
@@ -23,7 +23,7 @@ const Button = ({ type, text, icon, onClick, disabled, className, size, fullWidt
       {icon && (
         <Icon
           name={icon}
-          fill={0}
+          fill={fillIcon ? 1 : 0}
           weight={400}
           grade={0}
           opticalSize={24}
@@ -43,6 +43,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   fullWidth: PropTypes.bool,
+  fillIcon: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -54,6 +55,7 @@ Button.defaultProps = {
   disabled: false,
   className: null,
   fullWidth: false,
+  fillIcon: false,
 };
 
 export default Button;

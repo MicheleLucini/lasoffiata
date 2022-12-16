@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useCategories } from "@contexts/CategoriesContext";
+import { getConstantDescriptionByValue, PROVINCES } from "@logic/constants";
 import Icon from "@components/icon";
 import Button from "@components/button";
 import SelectCategory from "@templates/selectCategory";
@@ -7,9 +9,11 @@ import SelectProvince from "@templates/selectProvince";
 import styles from "./Home.module.css";
 
 const HomeSearch = ({ loading, onSearch }) => {
+  const { getCategoryDescriptionById } = useCategories();
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [category, setCategory] = useState(null);
   const [province, setProvince] = useState(null);
+  const [tags, setTags] = useState([]);
 
   const searchModalOverlayClass = useMemo(() => [
     styles.searchModalOverlay,
@@ -31,8 +35,20 @@ const HomeSearch = ({ loading, onSearch }) => {
 
   const onSearchClick = useCallback(() => {
     onSearch({ category, province });
+    setTags([
+      province ? getConstantDescriptionByValue(PROVINCES, province) : null,
+      getCategoryDescriptionById(category),
+    ].filter((x) => !!x));
     setIsSearchModalOpen(false)
-  }, [onSearch, category, province]);
+  }, [onSearch, category, province, getCategoryDescriptionById]);
+
+  const onClearFiltersClick = useCallback((e) => {
+    e.stopPropagation()
+    setCategory(null);
+    setProvince(null);
+    setTags([]);
+    onSearch({});
+  }, [onSearch]);
 
   useEffect(() => {
     if (isSearchModalOpen) {
@@ -59,7 +75,21 @@ const HomeSearch = ({ loading, onSearch }) => {
             opticalSize={24}
           />
           <span className={styles.title}>Cosa stai cercando?</span>
+          {tags.length > 0 && (
+            <Button
+              className={styles.clearFiltersButton}
+              type="text"
+              icon="filter_alt_off"
+              onClick={onClearFiltersClick}
+              fillIcon
+            />
+          )}
         </div>
+        {tags.length > 0 && (
+          <div className={styles.tags}>
+            {tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
+          </div>
+        )}
       </div>
       <div className={searchModalOverlayClass} onClick={closeSearchModal} />
       <div className={searchModalClass}>

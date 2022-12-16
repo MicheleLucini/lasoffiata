@@ -2,6 +2,7 @@
 
 .searchRecap {
   display: grid;
+  gap: 10px;
   background-color: var(--peachade);
   padding: 12px 20px;
   border-radius: 16px;
@@ -11,7 +12,7 @@
 
 .searchRecap > .header {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 10px;
 }
@@ -23,6 +24,27 @@
 .searchRecap > .header > .title {
   color: var(--desert-gold);
   font-size: 16px;
+}
+
+.searchRecap > .header > .clearFiltersButton {
+  color: var(--raisin-black);
+  margin-right: -12px;
+  margin-top: -5px;
+}
+
+.searchRecap > .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.searchRecap > .tags > .tag {
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--light-brown);
+  color: var(--brown);
 }
 
 /* Search modal */
