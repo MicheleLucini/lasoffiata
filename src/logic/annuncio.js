@@ -17,12 +17,21 @@ export const createAdvertisement = ({
   city,
   imageBlob,
 }) => async (dispatch) => {
-  // if (!email || !password) {
-  //   throw new Error("Devi inserire sia email che password.");
-  // }
-  // if (!accountType) {
-  //   throw new Error("Devi specificare il tipo di account.");
-  // }
+  if (!title) {
+    throw new Error("Devi specificare il titolo.");
+  }
+  if (!description) {
+    throw new Error("Devi specificare la descrizione.");
+  }
+  if (!categoryId) {
+    throw new Error("Devi specificare la categoria.");
+  }
+  if (!province) {
+    throw new Error("Devi specificare la provincia.");
+  }
+  if (!city) {
+    throw new Error("Devi specificare la città.");
+  }
   await apiUser.CreateAdvertisement({
     title,
     description,
@@ -43,12 +52,24 @@ export const editAdvertisement = ({
   newImageBlob,
   deletedImageIds,
 }) => async (dispatch) => {
-  // if (!email || !password) {
-  //   throw new Error("Devi inserire sia email che password.");
-  // }
-  // if (!accountType) {
-  //   throw new Error("Devi specificare il tipo di account.");
-  // }
+  if (!advertisementId) {
+    throw new Error("Qualcosa è andato storto, prova a ricaricare la pagina.");
+  }
+  if (!title) {
+    throw new Error("Devi specificare il titolo.");
+  }
+  if (!description) {
+    throw new Error("Devi specificare la descrizione.");
+  }
+  if (!categoryId) {
+    throw new Error("Devi specificare la categoria.");
+  }
+  if (!province) {
+    throw new Error("Devi specificare la provincia.");
+  }
+  if (!city) {
+    throw new Error("Devi specificare la città.");
+  }
   await apiUser.EditAdvertisement({
     advertisementId,
     title,

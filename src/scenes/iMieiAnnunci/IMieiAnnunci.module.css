@@ -19,6 +19,10 @@
   margin: 20px 0;
 }
 
+.wrapperAnnunci > hr:last-child {
+  display: none;
+}
+
 .imageContainer {
   display: grid;
   place-content: center;

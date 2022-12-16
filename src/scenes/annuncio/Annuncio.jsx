@@ -20,7 +20,7 @@ const Annuncio = () => {
     getAdvertisementImageUrl({
       userId: annuncio?.userId,
       advertisementId: annuncio?.id,
-      imageId: annuncio?.images[indiceImmagineCorrente].id,
+      imageId: annuncio?.images[indiceImmagineCorrente]?.id,
     })
   ), [annuncio, indiceImmagineCorrente]);
 
