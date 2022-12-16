@@ -39,6 +39,7 @@ const ImageInput = ({
 
   return (
     <>
+      <span>Immagine da caricare</span>
       <input
         ref={inputFile}
         name="image-uploader"

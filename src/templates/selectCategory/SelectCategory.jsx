@@ -43,7 +43,7 @@ const SelectCategory = ({ value, setValue, disabled }) => {
 };
 
 SelectCategory.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setValue: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };

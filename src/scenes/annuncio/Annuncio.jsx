@@ -2,17 +2,9 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import moment from 'moment';
 import { useNavigator } from "@contexts/NavigatorContext";
 import * as apiPublic from "@api/public";
-import noPhoto from "@assets/logo_header.png";
 import Icon from "@components/icon";
-import { BASE_URL } from "@api/utils"
+import { getAdvertisementImageUrl } from "@logic/annuncio"
 import styles from "./Annuncio.module.css";
-
-function getUrlImmagineAnnuncio(annuncio, indice) {
-  if (!annuncio.images || annuncio.images.length === 0) {
-    return noPhoto;
-  }
-  return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[indice].id}.jpg`;
-}
 
 const Annuncio = () => {
   const { currentRoute } = useNavigator();
@@ -24,16 +16,32 @@ const Annuncio = () => {
     setAnnuncio(data);
   }, [currentRoute])
 
+  const foregroundImageSrc = useMemo(() => (
+    getAdvertisementImageUrl({
+      userId: annuncio?.userId,
+      advertisementId: annuncio?.id,
+      imageId: annuncio?.images[indiceImmagineCorrente].id,
+    })
+  ), [annuncio, indiceImmagineCorrente]);
+
   const imagesCarousel = useMemo(() => {
-    return annuncio?.images.map((x, i) => (
-      <img
-        key={x.id}
-        src={getUrlImmagineAnnuncio(annuncio, i)}
-        alt={`Anteprima immagine annuncio numero ${i + 1}`}
-        className={styles.anteprimaImmagine}
-        onClick={() => setIndiceImmagineCorrente(i)}
-      />
-    ));
+    return annuncio?.images.map((x, i) => {
+      const src = getAdvertisementImageUrl({
+        userId: annuncio.userId,
+        advertisementId: annuncio.id,
+        imageId: annuncio.images[i].id,
+      });
+
+      return (
+        <img
+          key={x.id}
+          src={src}
+          alt={`Anteprima immagine annuncio numero ${i + 1}`}
+          className={styles.anteprimaImmagine}
+          onClick={() => setIndiceImmagineCorrente(i)}
+        />
+      );
+    });
   }, [annuncio]);
 
   useEffect(() => {
@@ -49,7 +57,7 @@ const Annuncio = () => {
       {annuncio.images && annuncio.images.length > 0 && (
         <div>
           <img
-            src={getUrlImmagineAnnuncio(annuncio, indiceImmagineCorrente)}
+            src={foregroundImageSrc}
             alt={`Immagine annuncio ${annuncio.title}`}
             className={styles.immagineCorrente}
           />

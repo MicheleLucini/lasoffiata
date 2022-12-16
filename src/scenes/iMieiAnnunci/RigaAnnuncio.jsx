@@ -124,7 +124,7 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
         <Button
           type="outlined"
           text="Modifica"
-          onClick={() => { }}
+          onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
           disabled={loading}
           size="mini"
         />

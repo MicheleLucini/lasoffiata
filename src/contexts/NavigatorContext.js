@@ -59,6 +59,10 @@ const ROUTES = {
     title: "Accedi",
     url: "/login",
   },
+  MODIFICA_ANNUNCIO: {
+    title: "Modifica annuncio",
+    url: "/modifica-annuncio",
+  },
   PERSONALINFO: {
     title: "Informazioni personali",
     url: "/personal-info",
