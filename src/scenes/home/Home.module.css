@@ -21,9 +21,14 @@
   color: var(--desert-gold);
 }
 
-.searchRecap > .header > .title {
+.searchRecap > .header > .title,
+.searchRecap > .header > .titleActive {
   color: var(--desert-gold);
   font-size: 16px;
+}
+
+.searchRecap > .header > .titleActive {
+  color: var(--raisin-black);
 }
 
 .searchRecap > .header > .clearFiltersButton {

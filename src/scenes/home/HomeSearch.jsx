@@ -2,8 +2,9 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useCategories } from "@contexts/CategoriesContext";
 import { getConstantDescriptionByValue, PROVINCES } from "@logic/constants";
-import Icon from "@components/icon";
 import Button from "@components/button";
+import Icon from "@components/icon";
+import TextInput from '@components/textInput';
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
 import styles from "./Home.module.css";
@@ -13,7 +14,8 @@ const HomeSearch = ({ loading, onSearch }) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [category, setCategory] = useState(null);
   const [province, setProvince] = useState(null);
-  const [tags, setTags] = useState([]);
+  const [description, setDescription] = useState("");
+  const [filters, setFilters] = useState({ text: "", tags: [] });
 
   const searchModalOverlayClass = useMemo(() => [
     styles.searchModalOverlay,
@@ -34,19 +36,23 @@ const HomeSearch = ({ loading, onSearch }) => {
   }, []);
 
   const onSearchClick = useCallback(() => {
-    onSearch({ category, province });
-    setTags([
-      province ? getConstantDescriptionByValue(PROVINCES, province) : null,
-      getCategoryDescriptionById(category),
-    ].filter((x) => !!x));
+    onSearch({ description, category, province });
+    setFilters({
+      text: description,
+      tags: [
+        province ? getConstantDescriptionByValue(PROVINCES, province) : null,
+        getCategoryDescriptionById(category),
+      ].filter((x) => !!x),
+    });
     setIsSearchModalOpen(false)
-  }, [onSearch, category, province, getCategoryDescriptionById]);
+  }, [onSearch, description, category, province, getCategoryDescriptionById]);
 
   const onClearFiltersClick = useCallback((e) => {
     e.stopPropagation()
     setCategory(null);
     setProvince(null);
-    setTags([]);
+    setDescription("");
+    setFilters({ text: "", tags: [] });
     onSearch({});
   }, [onSearch]);
 
@@ -74,8 +80,12 @@ const HomeSearch = ({ loading, onSearch }) => {
             grade={0}
             opticalSize={24}
           />
-          <span className={styles.title}>Cosa stai cercando?</span>
-          {tags.length > 0 && (
+          {filters.text ? (
+            <span className={styles.titleActive}>{filters.text}</span>
+          ) : (
+            <span className={styles.title}>Cosa stai cercando?</span>
+          )}
+          {(filters.text || filters.tags.length > 0) && (
             <Button
               className={styles.clearFiltersButton}
               type="text"
@@ -85,9 +95,9 @@ const HomeSearch = ({ loading, onSearch }) => {
             />
           )}
         </div>
-        {tags.length > 0 && (
+        {filters.tags.length > 0 && (
           <div className={styles.tags}>
-            {tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
+            {filters.tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
           </div>
         )}
       </div>
@@ -110,6 +120,12 @@ const HomeSearch = ({ loading, onSearch }) => {
           <SelectProvince
             value={province}
             setValue={setProvince}
+            disabled={loading}
+          />
+          <TextInput
+            label="Descrizione"
+            value={description}
+            setValue={setDescription}
             disabled={loading}
           />
           <Button

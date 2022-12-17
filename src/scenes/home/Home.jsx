@@ -31,11 +31,11 @@ const Home = () => {
     setLoading(false);
   }, [setAdvertisements]);
 
-  const searchAdvertisements = useCallback(async ({ category, province }) => {
+  const searchAdvertisements = useCallback(async ({ description, category, province }) => {
     setLoading(true);
     try {
       const data = await apiPublic.SearchAdvertisements({
-        description: "",
+        description,
         categoryId: category,
         province,
         page: 1,
