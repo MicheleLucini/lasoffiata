@@ -125,7 +125,7 @@ const Annuncio = () => {
       </div>
       <div className={styles.infoUtente}>
         <span className={styles.titolo}>Inserzionista</span>
-        <Icon
+        {/* <Icon
           name="face"
           size={16}
           fill={1}
@@ -134,7 +134,15 @@ const Annuncio = () => {
           opticalSize={20}
           className={styles.icon}
         />
-        <span>{annuncio.user.advertisementName}</span>
+        <span>{annuncio.user.advertisementName}</span> */}
+        <Button
+          className={styles.utenteButton}
+          type="outlined"
+          icon="face"
+          text={annuncio.user.advertisementName}
+          onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
+          fillIcon
+        />
         <Icon
           name="mail"
           size={16}

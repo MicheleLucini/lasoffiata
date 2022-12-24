@@ -17,6 +17,7 @@ import Login from "@scenes/login";
 import ModificaAnnuncio from "@scenes/modificaAnnuncio";
 import PersonalInfo from "@scenes/personalInfo";
 import Register from "@scenes/register";
+import Utente from "@scenes/utente";
 
 const AppRouting = () => {
   const { checkCurrentRoute } = useNavigator();
@@ -47,6 +48,7 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.MODIFICA_ANNUNCIO) && <ModificaAnnuncio />}
       {checkCurrentRoute(ROUTES.PERSONALINFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
+      {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
     </>
   );
 };

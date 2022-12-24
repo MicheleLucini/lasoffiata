@@ -71,6 +71,10 @@ const ROUTES = {
     title: "Registrati",
     url: "/register",
   },
+  UTENTE: {
+    title: "Utente",
+    url: "/utente",
+  },
 };
 
 const BASE_URL = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
