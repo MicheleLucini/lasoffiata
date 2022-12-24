@@ -1,13 +1,16 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import moment from 'moment';
-import { useNavigator } from "@contexts/NavigatorContext";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useCategories } from "@contexts/CategoriesContext";
 import * as apiPublic from "@api/public";
+import Button from "@components/button";
 import Icon from "@components/icon";
 import { getAdvertisementImageUrl } from "@logic/annuncio"
 import styles from "./Annuncio.module.css";
 
 const Annuncio = () => {
-  const { currentRoute } = useNavigator();
+  const { navigate, currentRoute } = useNavigator();
+  const { getCategoryDescriptionById } = useCategories();
   const [annuncio, setAnnuncio] = useState(null);
   const [indiceImmagineCorrente, setIndiceImmagineCorrente] = useState(0);
 
@@ -54,6 +57,13 @@ const Annuncio = () => {
 
   return (
     <>
+      <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "end" }}>
+        <Button
+          type="outlined"
+          text="Modifica"
+          onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
+        />
+      </div>
       {annuncio.images && annuncio.images.length > 0 && (
         <div>
           <img
@@ -69,6 +79,16 @@ const Annuncio = () => {
       <div className={styles.infoPrincipali}>
         <span className={styles.titolo}>{annuncio.title}</span>
         <Icon
+          name="category"
+          size={16}
+          fill={1}
+          weight={400}
+          grade={-25}
+          opticalSize={20}
+          className={styles.icon}
+        />
+        <span>{`Categoria: ${getCategoryDescriptionById(annuncio.categoryId)}`}</span>
+        <Icon
           name="location_on"
           size={16}
           fill={1}
@@ -77,7 +97,7 @@ const Annuncio = () => {
           opticalSize={20}
           className={styles.icon}
         />
-        <span>{`${annuncio.city} (${annuncio.province})`}</span>
+        <span>{`Città: ${annuncio.city} (${annuncio.province})`}</span>
         <Icon
           name="edit_calendar"
           size={16}
@@ -87,7 +107,7 @@ const Annuncio = () => {
           opticalSize={20}
           className={styles.icon}
         />
-        <span>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
+        <span>{"Data di pubblicazione: " + moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
         <Icon
           name="event_busy"
           size={16}
@@ -97,7 +117,7 @@ const Annuncio = () => {
           opticalSize={20}
           className={styles.icon}
         />
-        <span>{moment(annuncio.expirationDate).format("D MMMM YYYY")}</span>
+        <span>{"Data di scadenza: " + moment(annuncio.expirationDate).format("D MMMM YYYY")}</span>
       </div>
       <div className={styles.infoSecondarie}>
         <span>Descrizione</span>

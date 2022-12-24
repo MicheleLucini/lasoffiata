@@ -117,7 +117,7 @@ function NavigatorProvider({ children }) {
 
   const navigate = useCallback((route, params = null, dontChangeState) => {
     // console.log("navigating to", route.title);
-    document.title = route.title;
+    document.title = route.title + " | La Soffiata";
 
     const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
     const destinationUrl = `${BASE_URL}${route.url}${formattedParams}`;
