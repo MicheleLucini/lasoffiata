@@ -22,6 +22,7 @@ const HomeAnnuncio = ({ annuncio }) => {
 
   return (
     <div className={styles.annuncio} onClick={onClickAnnuncio}>
+      {annuncio.isFeatured && <div className={styles.featured}>Sponsorizzato</div>}
       <div className={styles.imageContainer}>
         {(annuncio.images && annuncio.images.length > 0) ? (
           <img
