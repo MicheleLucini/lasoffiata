@@ -57,7 +57,7 @@ const Home = () => {
         loading={loading}
         onSearch={searchAdvertisements}
       />
-      <div style={{ display: "grid", gridAutoFlow: "column" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 15 }}>
         <Button
           text="Crea annuncio"
           icon="add"
@@ -67,6 +67,11 @@ const Home = () => {
           text="I miei annunci"
           icon="list"
           onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}
+        />
+        <Button
+          text="Checkout"
+          icon="shopping_cart_checkout"
+          onClick={() => navigate(ROUTES.CHECKOUT)}
         />
       </div>
       <span>Benvenuto! Eccoti gli annunci</span>
