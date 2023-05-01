@@ -1,0 +1,32 @@
+.footer {
+  background-color: var(--blue-grey-lighten-4);
+  margin-top: 50px;
+}
+
+.footer>.footerContent {
+  display: grid;
+  padding: 20px;
+  gap: 8px;
+}
+
+.footer>.footerContent>.logo {
+  margin-bottom: 10px;
+}
+
+.footer>.footerContent>.logo path {
+  fill: var(--blue-grey-darken-2);
+}
+
+.footer>.footerContent>div {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer>.footerContent>div>span {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--blue-grey);
+}

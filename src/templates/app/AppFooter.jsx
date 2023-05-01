@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "@components/icon";
 import Logo from "@components/svgs/Logo";
-import styles from "./App.module.css";
+import styles from "./AppFooter.module.css";
 
 const AppTopBar = () => {
   return (
