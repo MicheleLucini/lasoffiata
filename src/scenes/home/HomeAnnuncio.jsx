@@ -1,8 +1,8 @@
 import React, { useMemo, useCallback } from "react";
-import moment from 'moment';
+// import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
-import Icon from "@components/icon";
+// import Icon from "@components/icon";
 import { BASE_URL } from "@api/utils"
 import styles from "./Home.module.css";
 
@@ -22,58 +22,19 @@ const HomeAnnuncio = ({ annuncio }) => {
 
   return (
     <div className={styles.annuncio} onClick={onClickAnnuncio}>
-      {annuncio.isFeatured && <div className={styles.featured}>Sponsorizzato</div>}
+      {/* {annuncio.isFeatured && <div className={styles.featured}>Sponsorizzato</div>} */}
       <div className={styles.imageContainer}>
-        {(annuncio.images && annuncio.images.length > 0) ? (
+        {(annuncio.images && annuncio.images.length > 0) && (
           <img
             src={photoUrl}
             alt={`Immagine annuncio ${annuncio.title}`}
           />
-        ) : (
-          <Icon
-            className={styles.imagePlaceholderIcon}
-            name={"inventory_2"}
-            size={48}
-            fill={0}
-            weight={400}
-            grade={0}
-            opticalSize={48}
-          />
         )}
       </div>
-      <div className={styles.info}>
-        <span className={styles.title}>{annuncio.title}</span>
-        <div />
-        {/* <Icon
-          name="bookmark_add"
-          size={20}
-          fill={0}
-          weight={400}
-          grade={0}
-          opticalSize={24}
-          className={styles.addIcon}
-        /> */}
-        <Icon
-          name="location_on"
-          size={14}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span className={styles.description}>{`${annuncio.city} (${annuncio.province})`}</span>
-        <Icon
-          name="calendar_month"
-          size={14}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span className={styles.description}>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
-      </div>
+      <span className={styles.price}>€ 100</span>
+      <span className={styles.title}>{annuncio.title}</span>
+      <span className={styles.place}>{`${annuncio.city} (${annuncio.province})`}</span>
+      {/* <span className={styles.time}>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span> */}
     </div>
   );
 };

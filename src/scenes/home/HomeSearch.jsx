@@ -69,37 +69,39 @@ const HomeSearch = ({ loading, onSearch }) => {
 
   return (
     <>
-      <div className={styles.searchRecap} onClick={openSearchModal}>
-        <div className={styles.header}>
-          <Icon
-            name="search"
-            className={styles.icon}
-            size={22}
-            fill={0}
-            weight={400}
-            grade={0}
-            opticalSize={24}
-          />
-          {filters.text ? (
-            <span className={styles.titleActive}>{filters.text}</span>
-          ) : (
-            <span className={styles.title}>Cosa stai cercando?</span>
-          )}
-          {(filters.text || filters.tags.length > 0) && (
-            <Button
-              className={styles.clearFiltersButton}
-              type="text"
-              icon="filter_alt_off"
-              onClick={onClearFiltersClick}
-              fillIcon
+      <div className={styles.searchWrapper}>
+        <div className={styles.searchInput} onClick={openSearchModal}>
+          <div className={styles.header}>
+            <Icon
+              name="search"
+              className={styles.icon}
+              size={22}
+              fill={0}
+              weight={400}
+              grade={0}
+              opticalSize={24}
             />
+            {filters.text ? (
+              <span className={styles.titleActive}>{filters.text}</span>
+            ) : (
+              <span className={styles.title}>Cosa stai cercando?</span>
+            )}
+            {(filters.text || filters.tags.length > 0) && (
+              <Button
+                className={styles.clearFiltersButton}
+                type="text"
+                icon="filter_alt_off"
+                onClick={onClearFiltersClick}
+                fillIcon
+              />
+            )}
+          </div>
+          {filters.tags.length > 0 && (
+            <div className={styles.tags}>
+              {filters.tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
+            </div>
           )}
         </div>
-        {filters.tags.length > 0 && (
-          <div className={styles.tags}>
-            {filters.tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
-          </div>
-        )}
       </div>
       <div className={searchModalOverlayClass} onClick={closeSearchModal} />
       <div className={searchModalClass}>

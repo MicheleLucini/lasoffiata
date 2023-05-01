@@ -3,42 +3,49 @@
   top: 0;
   left: 0;
   right: 0; */
-  padding: 0 20px;
+  padding: 0 12px;
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto 1fr;
   grid-gap: 0;
-  color: var(--floral-white);
-  background-color: var(--coarse-wool);
+  /* color: var(--floral-white);
+  background-color: var(--coarse-wool); */
+  color: black;
+  background-color: white;
 }
 
-.topBar > * {
-  height: 64px;
+.topBar>* {
+  height: 50px;
   display: grid;
   grid-gap: 20px;
   align-content: center;
 }
 
-.topBar > .topBarLeft {
+.topBar>.topBarLeft {
   grid-gap: 10px;
   grid-auto-flow: column;
   justify-content: start;
 }
 
-.topBar > .topBarLeft > .logo path {
-  fill: var(--floral-white);
-}
-
-.topBar > .topBarCenter {
+.topBar>.topBarCenter {
   grid-auto-flow: column;
   justify-content: center;
 }
 
-.topBar > .topBarRight {
+.topBar>.topBarRight {
   grid-auto-flow: column;
   justify-content: end;
 }
 
-.topBar > .topBarSub {
+.topBar a {
+  display: grid;
+}
+
+.topBar .logo path {
+  /* fill: var(--floral-white); */
+  fill: black !important;
+}
+
+/* .topBar > .topBarSub {
   height: unset;
   grid-column: span 3;
   padding-bottom: 20px;
@@ -56,8 +63,4 @@
 
 .topBar > .topBarSub > .logged {
   font-size: 16px;
-}
-
-.topBar a {
-  display: grid;
-}
+} */

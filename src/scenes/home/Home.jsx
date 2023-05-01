@@ -1,6 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useSelector } from 'react-redux';
+import { selectUser } from '@store/userSlice';
 import Button from "@components/button";
+import Icon from "@components/icon";
+import Link from "@components/link";
 import * as apiPublic from "@api/public";
 import HomeSearch from './HomeSearch';
 import Annuncio from "./HomeAnnuncio";
@@ -8,9 +12,15 @@ import AnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const { navigate } = useNavigator();
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
+
+  const user = useSelector(selectUser);
+  const { navigate } = useNavigator();
+
+  const userIconLinkRoute = useMemo(() => (
+    user.isLogged ? ROUTES.PERSONALINFO : ROUTES.LOGIN
+  ), [user.isLogged]);
 
   const placeholderAnnunciList = useMemo(() => (
     [...Array(20)].map((_, i) => <AnnuncioPlaceholder key={i} />)
@@ -53,11 +63,25 @@ const Home = () => {
 
   return (
     <>
+      <div className={styles.links}>
+        <Link route={userIconLinkRoute}>
+          <Icon
+            name="person"
+            fill={user.isLogged ? 1 : 0}
+            weight={400}
+            grade={0}
+            opticalSize={24}
+          />
+        </Link>
+        <Link route={ROUTES.CREA_ANNUNCIO}>
+          <span>Vendi</span>
+        </Link>
+      </div>
       <HomeSearch
         loading={loading}
         onSearch={searchAdvertisements}
       />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 15 }}>
+      {/* <div style={{ display: "flex", flexWrap: "wrap", gap: 15 }}>
         <Button
           text="Crea annuncio"
           icon="add"
@@ -73,9 +97,9 @@ const Home = () => {
           icon="shopping_cart_checkout"
           onClick={() => navigate(ROUTES.CHECKOUT)}
         />
-      </div>
-      <span>Benvenuto! Eccoti gli annunci</span>
+      </div> */}
       <div className={styles.wrapperAnnunci}>
+        <span>Consigliato oggi</span>
         {loading ? (
           placeholderAnnunciList
         ) : (

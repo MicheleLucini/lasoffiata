@@ -8,13 +8,13 @@
 
 .body {
   margin: 0 auto;
-  padding: 20px 12px 50px;
+  /* padding: 20px 12px 50px; */
   width: 100%;
   max-width: 900px;
   display: grid;
   align-content: start;
   grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .footer {
