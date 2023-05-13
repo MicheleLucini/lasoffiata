@@ -42,7 +42,7 @@ export function getConstantDescription(constant) {
 }
 
 export function getConstantDescriptionByValue(constant, value) {
-  return Object.values(constant).find((x) => x.value === value).label || "";
+  return Object.values(constant).find((x) => x.value === value)?.label || "";
 }
 
 export function checkConstant(constant, value) {
