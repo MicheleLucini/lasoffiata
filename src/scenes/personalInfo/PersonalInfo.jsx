@@ -1,14 +1,14 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState,  useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { useDialogs } from "@contexts/DialogsContext";
 import * as logicUser from "@logic/user";
 import { getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
+import Link from "@components/link";
 import Button from '@components/button';
 import SelectYear from "@templates/selectYear";
 import TextInput from '@components/textInput';
-import styles from "./PersonalInfo.module.css";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -52,6 +52,40 @@ const Home = () => {
   return (
     <>
       <br></br>
+      {user.isAdmin && (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_VALIDAZIONE_ANNUNCI}>Validazione annunci</Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_PAGAMENTI}>Gestisci pagamenti</Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_UTENTI}>Gestisci utenti</Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_EDIZIONI}>Gestisci edizioni</Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_CATEGORIE}>Gestisci categorie</Link>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <Link route={ROUTES.ADMIN_ESPORTA_ANNUNCI}>Esporta annunci</Link>
+            </div>
+          </div>
+        </>
+      )}
       <div className='row'>
         <div className='col'>
           <span>Informazioni personali</span>
