@@ -1,4 +1,4 @@
-import React, { useState,  useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from '@store/userSlice';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
@@ -92,11 +92,13 @@ const Home = () => {
         </div>
       </div>
       <br></br>
+      <br></br>
       <div className='row'>
         <div className='col'>
           <label>Informazioni speciali</label>
         </div>
       </div>
+      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="id" value={values.id} setValue={(val) => onFormValueChange("id", val)} disabled={true} />
@@ -113,6 +115,7 @@ const Home = () => {
           <label>Informazioni di base</label>
         </div>
       </div>
+      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="accountType" value={getConstantDescriptionByValue(ACCOUNT_TYPE, values.accountType)} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
@@ -157,6 +160,11 @@ const Home = () => {
       <div className='row'>
         <div className='col'>
           <label>Informazioni di indirizzo</label>
+        </div>
+      </div>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
           <TextInput label="country" value={values.country} setValue={(val) => onFormValueChange("country", val)} disabled={loading} />
         </div>
       </div>
@@ -189,6 +197,11 @@ const Home = () => {
       <div className='row'>
         <div className='col'>
           <label>Informazioni di contatto</label>
+        </div>
+      </div>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
           <TextInput label="email" value={values.email} setValue={(val) => onFormValueChange("email", val)} disabled={loading} />
         </div>
       </div>
@@ -208,6 +221,7 @@ const Home = () => {
         </div>
       </div>
       <br></br>
+      <br></br>
       <div className='row'>
         <div className='col'>
           <Button
@@ -219,9 +233,6 @@ const Home = () => {
           />
         </div>
       </div>
-      <br />
-      <br />
-      <br />
       <div className='row'>
         <div className='col'>
           <Button
