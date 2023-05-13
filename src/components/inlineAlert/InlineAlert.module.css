@@ -1,9 +1,8 @@
 .inlineAlert {
-  padding: 12px 18px;
-  border-radius: 12px;
+  padding: 12px;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .inlineAlert > .text {

@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "@components/icon";
+// import Icon from "@components/icon";
 import Logo from "@components/svgs/Logo";
 import styles from "./AppFooter.module.css";
 
@@ -9,7 +9,7 @@ const AppTopBar = () => {
       <div className={styles.footerContent}>
         <Logo className={styles.logo} />
         <div>
-          <Icon
+          {/* <Icon
             className={styles.icon}
             name="domain"
             size={20}
@@ -17,11 +17,11 @@ const AppTopBar = () => {
             weight={400}
             grade={0}
             opticalSize={24}
-          />
+          /> */}
           <span>La Soffiata, Crema, 26013 (CR)</span>
         </div>
         <div>
-          <Icon
+          {/* <Icon
             className={styles.icon}
             name="business_center"
             size={20}
@@ -29,11 +29,11 @@ const AppTopBar = () => {
             weight={400}
             grade={0}
             opticalSize={24}
-          />
+          /> */}
           <span>p.iva 01722520192</span>
         </div>
         <div>
-          <Icon
+          {/* <Icon
             className={styles.icon}
             name="call"
             size={20}
@@ -41,11 +41,11 @@ const AppTopBar = () => {
             weight={400}
             grade={0}
             opticalSize={24}
-          />
+          /> */}
           <span>Tel. 0373 250642</span>
         </div>
         <div>
-          <Icon
+          {/* <Icon
             className={styles.icon}
             name="phone_android"
             size={20}
@@ -53,11 +53,11 @@ const AppTopBar = () => {
             weight={400}
             grade={0}
             opticalSize={24}
-          />
+          /> */}
           <span>Cel. 329 3258837</span>
         </div>
         <div>
-          <Icon
+          {/* <Icon
             className={styles.icon}
             name="mail"
             size={20}
@@ -65,7 +65,7 @@ const AppTopBar = () => {
             weight={400}
             grade={0}
             opticalSize={24}
-          />
+          /> */}
           <span>info@lasoffiata.it</span>
         </div>
       </div>

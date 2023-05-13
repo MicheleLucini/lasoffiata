@@ -6,11 +6,13 @@
 .footer>.footerContent {
   display: grid;
   padding: 20px;
-  gap: 8px;
+  gap: 5px;
+  place-items: center;
 }
 
 .footer>.footerContent>.logo {
-  margin-bottom: 10px;
+  width: 100px;
+  margin-bottom: 5px;
 }
 
 .footer>.footerContent>.logo path {
@@ -19,14 +21,14 @@
 
 .footer>.footerContent>div {
   display: grid;
-  grid-template-columns: 20px 1fr;
+  /* grid-template-columns: 20px 1fr; */
   align-items: center;
   gap: 10px;
 }
 
 .footer>.footerContent>div>span {
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 11px;
+  line-height: 15px;
   font-weight: 500;
   color: var(--blue-grey);
 }

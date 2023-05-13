@@ -1,6 +1,7 @@
 .textInput>input {
   -webkit-appearance: none;
   align-items: center;
+  background-color: white;
   border-radius: 8px;
   border: 1px solid var(--blue-grey-lighten-3);
   box-sizing: border-box;
@@ -12,7 +13,7 @@
   margin: 0;
   outline: none;
   overflow: hidden;
-  padding: 16px 16px 8px;
+  padding: 19px 16px 5px;
   position: relative;
   -webkit-transition: box-shadow 0.2s linear, border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transition: box-shadow 0.2s linear, border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -60,7 +61,7 @@
 
 .textInput.active>label,
 .textInput.filled>label {
-  transform: translate(16px, 1px) scale(0.75);
+  transform: translate(16px, 4px) scale(0.75);
 }
 
 .textInput.disabled>label {
