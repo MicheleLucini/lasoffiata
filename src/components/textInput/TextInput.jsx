@@ -45,7 +45,7 @@ const TextInput = ({
   }, [onKeyPressEnter]);
 
   return (
-    <div className={wrapperClassName}    >
+    <div className={wrapperClassName}>
       <label>{label}</label>
       <input
         type={type}
@@ -77,7 +77,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   label: null,
-  value: null,
+  value: "",
   // validate: () => {},
   placeholder: null,
   disabled: false,

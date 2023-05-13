@@ -3,7 +3,18 @@ import PropTypes from "prop-types";
 import Icon from '../icon';
 import styles from "./Button.module.css";
 
-const Button = ({ type, color, text, icon, onClick, disabled, className, size, fullWidth, fillIcon }) => {
+const Button = ({
+  className,
+  color,
+  disabled,
+  fillIcon,
+  fullWidth,
+  icon,
+  onClick,
+  size,
+  text,
+  type,
+}) => {
   const buttonClassName = useMemo(() => (
     [
       styles.button,
@@ -21,11 +32,11 @@ const Button = ({ type, color, text, icon, onClick, disabled, className, size, f
     <button className={buttonClassName} type="button" onClick={onClick}>
       {icon && (
         <Icon
-          name={icon}
           fill={fillIcon ? 1 : 0}
-          weight={400}
           grade={0}
+          name={icon}
           opticalSize={24}
+          weight={400}
         />
       )}
       {text && text}
@@ -34,29 +45,29 @@ const Button = ({ type, color, text, icon, onClick, disabled, className, size, f
 };
 
 Button.propTypes = {
-  type: PropTypes.oneOf(["filled"]),
-  color: PropTypes.oneOf(["primary", "secondary"]),
-  text: PropTypes.string,
-  icon: PropTypes.string,
-  size: PropTypes.oneOf(["mini"]),
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
   className: PropTypes.string,
-  fullWidth: PropTypes.bool,
+  color: PropTypes.oneOf(["primary", "secondary"]),
+  disabled: PropTypes.bool,
   fillIcon: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  icon: PropTypes.string,
+  onClick: PropTypes.func,
+  size: PropTypes.oneOf(["mini"]),
+  text: PropTypes.string,
+  type: PropTypes.oneOf(["filled"]),
 };
 
 Button.defaultProps = {
-  type: "filled",
-  color: "secondary",
-  text: null,
-  icon: null,
-  size: null,
-  onClick: () => { },
-  disabled: false,
   className: null,
-  fullWidth: false,
+  color: "secondary",
+  disabled: false,
   fillIcon: false,
+  fullWidth: false,
+  icon: null,
+  onClick: () => { },
+  size: null,
+  text: null,
+  type: "filled",
 };
 
 export default Button;
