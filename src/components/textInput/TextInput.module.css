@@ -1,82 +1,69 @@
-.textInput > input {
-  font-size: 18px;
-  /* text-decoration: none; */
-
-  /* height: 64px; */
-  width: 100%;
-  padding: 12px 12px;
-  margin: 5px 0;
-  border-radius: 8px;
-
-  display: inline-grid;
-  grid-auto-flow: column;
-  gap: 10px;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  vertical-align: middle;
-
-  border: none;
-  outline: none;
-  user-select: none;
+.textInput>input {
   -webkit-appearance: none;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--blue-grey-lighten-3);
+  box-sizing: border-box;
+  display: inline-grid;
+  font-size: 18px;
+  gap: 10px;
+  grid-auto-flow: column;
+  justify-content: center;
+  margin: 0;
+  outline: none;
   overflow: hidden;
-
-  -webkit-transition: box-shadow 0.2s linear,
-    border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 16px 16px 8px;
+  position: relative;
+  -webkit-transition: box-shadow 0.2s linear, border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transition: box-shadow 0.2s linear, border 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  vertical-align: middle;
+  width: 100%;
 }
 
-.textInput > input {
-  background-color: var(--floral-white);
-  border: 1px solid var(--light-brown);
-  color: var(--coarse-wool);
+.textInput>input {
+  /* background-color: rgba(0, 0, 0, 0.05); */
+  color: var(--primary-text);
 }
 
-.textInput:not(.disabled) > input:hover,
-.textInput:not(.disabled) > input:active,
-.textInput.active > input {
-  border-color: var(--brown);
-}
+/* .textInput:not(.disabled)>input:hover,
+.textInput:not(.disabled)>input:active,
+.textInput.active>input {
+  background-color: rgba(0, 0, 0, 0.06);
+} */
 
-.textInput.active > input {
-  box-shadow: 0px 0px 0px 1px var(--brown);
-}
+/* 
+.textInput.active>input {
+  box-shadow: 0px 0px 0px 1px var(--blue-grey);
+} */
 
-.textInput.disabled > input {
-  background-color: var(--peachade);
-  border-color: var(--peachade);
+.textInput.disabled>input {
+  background-color: rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
 
 /***************************************/
 
-.textInput > label {
-  position: absolute;
-  z-index: 2;
-  background-color: var(--floral-white);
-  color: var(--raisin-black);
-  font-weight: 300;
-  font-size: 18px;
+.textInput>label {
+  color: var(--blue-grey-darken-2);
+  font-size: 16px;
+  font-weight: 400;
   line-height: 20px;
-  transform: translate(6px, 20px);
-  transform-origin: top left;
-  -webkit-transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  position: absolute;
+  transform-origin: top left;
+  transform: translate(16px, 15px);
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  padding: 0 6px;
-  border-radius: 3px;
+  z-index: 2;
 }
 
-.textInput.active > label,
-.textInput.filled > label {
-  transform: translate(8px, -3px) scale(0.85);
-  /* font-weight: 500; */
+.textInput.active>label,
+.textInput.filled>label {
+  transform: translate(16px, 1px) scale(0.75);
 }
 
-.textInput.disabled > label {
-  background-color: var(--peachade);
+.textInput.disabled>label {
+  /* background-color: var(--peachade); */
   pointer-events: none;
 }

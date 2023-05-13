@@ -39,36 +39,56 @@ const Login = () => {
 
   return (
     <>
-      <span>Accedi</span>
-      <TextInput
-        label="Email"
-        value={formEmail}
-        setValue={setFormEmail}
-        onKeyPressEnter={onAccediClick}
-        disabled={loading}
-      />
-      <TextInput
-        label="Password"
-        value={formPassword}
-        setValue={setFormPassword}
-        onKeyPressEnter={onAccediClick}
-        disabled={loading}
-        type="password"
-      />
-      <Button
-        text="Accedi"
-        onClick={onAccediClick}
-        disabled={loading}
-        fullWidth
-      />
-      <Button
-        type="text"
-        text="Non hai un account? Registrati!"
-        onClick={onNonHoUnAccountClick}
-        disabled={loading}
-        fullWidth
-      />
-      <InlineAlert type="error" text={formErrors} />
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Email"
+            value={formEmail}
+            setValue={setFormEmail}
+            onKeyPressEnter={onAccediClick}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Password"
+            value={formPassword}
+            setValue={setFormPassword}
+            onKeyPressEnter={onAccediClick}
+            disabled={loading}
+            type="password"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            color="primary"
+            disabled={loading}
+            fullWidth
+            onClick={onAccediClick}
+            text="Accedi"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            disabled={loading}
+            fullWidth
+            onClick={onNonHoUnAccountClick}
+            text="Non hai un account? Registrati!"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <InlineAlert type="error" text={formErrors} />
+        </div>
+      </div>
     </>
   );
 };

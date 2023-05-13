@@ -43,45 +43,69 @@ const Register = () => {
 
   return (
     <>
-      <span>Registrati</span>
-      <TextInput
-        label="Email"
-        value={formEmail}
-        setValue={setFormEmail}
-        onKeyPressEnter={onRegisterClick}
-        disabled={loading}
-      />
-      <TextInput
-        label="Password"
-        value={formPassword}
-        setValue={setFormPassword}
-        onKeyPressEnter={onRegisterClick}
-        disabled={loading}
-        type="password"
-      />
-      <Select
-        label="Tipo di account"
-        options={getSelectOptionsFromConstant(ACCOUNT_TYPE)}
-        value={formAccountType}
-        setValue={setFormAccountType}
-        disabled={loading}
-        clearable={false}
-      />
-      <Button
-        text="Registrati"
-        onClick={onRegisterClick}
-        disabled={loading}
-        fullWidth
-      />
-      <Button
-        type="text"
-        text="Hai già un account? Accedi!"
-        onClick={onHoGiàUnAccountClick}
-        disabled={loading}
-        fullWidth
-      />
-      <InlineAlert type="error" text={formErrors} />
-      <InlineAlert type="success" text={formSuccess} />
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Email"
+            value={formEmail}
+            setValue={setFormEmail}
+            onKeyPressEnter={onRegisterClick}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Password"
+            value={formPassword}
+            setValue={setFormPassword}
+            onKeyPressEnter={onRegisterClick}
+            disabled={loading}
+            type="password"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Select
+            label="Tipo di account"
+            options={getSelectOptionsFromConstant(ACCOUNT_TYPE)}
+            value={formAccountType}
+            setValue={setFormAccountType}
+            disabled={loading}
+            clearable={false}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            color="primary"
+            disabled={loading}
+            fullWidth
+            onClick={onRegisterClick}
+            text="Registrati"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            disabled={loading}
+            fullWidth
+            onClick={onHoGiàUnAccountClick}
+            text="Hai già un account? Accedi!"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <InlineAlert type="error" text={formErrors} />
+          <InlineAlert type="success" text={formSuccess} />
+        </div>
+      </div>
     </>
   );
 };

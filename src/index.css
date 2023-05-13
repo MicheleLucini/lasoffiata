@@ -4,18 +4,18 @@
 :root {
   --blue-grey-lighten-5: #ECEFF1;
   --blue-grey-lighten-4: #cfd8dc;
+  --blue-grey-lighten-3: #b0bec5;
   --blue-grey: #607d8b;
+  --blue-grey-darken-1: #78909c;
   --blue-grey-darken-2: #455a64;
   --blue-grey-darken-3: #37474f;
   --blue-grey-darken-4: #263238;
   --primary-text: #050505;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--blue-grey-lighten-5);
-  /**/
+body,
+input,
+button {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -24,6 +24,12 @@ body {
   color: var(--primary-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--blue-grey-lighten-5);
 }
 
 body.block_scroll {
@@ -53,4 +59,13 @@ p {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+.row {
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+.col {
+  margin: 0 16px;
 }

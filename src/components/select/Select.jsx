@@ -64,7 +64,7 @@ const Select = ({
         name="expand_more"
         className={styles.icon}
         fill={0}
-        weight={200}
+        weight={300}
         grade={0}
         opticalSize={24}
       />

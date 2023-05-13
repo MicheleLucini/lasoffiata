@@ -11,9 +11,9 @@ const AppTopBar = () => {
   return (
     <>
       {showAdminTopBar ? (
-        <AppTopBarAdministration></AppTopBarAdministration>
+        <AppTopBarAdministration />
       ) : (
-        <AppTopBarUser></AppTopBarUser>
+        <AppTopBarUser />
       )}
     </>
   );
