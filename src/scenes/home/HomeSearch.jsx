@@ -1,21 +1,27 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
+
 import { useCategories } from "@contexts/CategoriesContext";
+
 import { getConstantDescriptionByValue, PROVINCES } from "@logic/constants";
+
 import Button from "@components/button";
 import Icon from "@components/icon";
 import TextInput from '@components/textInput';
+
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
+
 import styles from "./Home.module.css";
 
 const HomeSearch = ({ loading, onSearch }) => {
-  const { getCategoryDescriptionById } = useCategories();
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [category, setCategory] = useState(null);
-  const [province, setProvince] = useState(null);
   const [description, setDescription] = useState("");
   const [filters, setFilters] = useState({ text: "", tags: [] });
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [province, setProvince] = useState(null);
+  
+  const { getCategoryDescriptionById } = useCategories();
 
   const searchModalOverlayClass = useMemo(() => [
     styles.searchModalOverlay,
@@ -70,7 +76,20 @@ const HomeSearch = ({ loading, onSearch }) => {
   return (
     <>
       <div className={styles.searchWrapper}>
-        <div className={styles.searchInput} onClick={openSearchModal}>
+        <Icon
+          name="search"
+          className={styles.searchIcon}
+          size={22}
+          fill={0}
+          weight={400}
+          grade={0}
+          opticalSize={24}
+        />
+        <input
+          className={styles.searchInput}
+          placeholder='Cerca su La Soffiata'
+        />
+        {/* <div className={styles.searchInput} onClick={openSearchModal}>
           <div className={styles.header}>
             <Icon
               name="search"
@@ -101,7 +120,7 @@ const HomeSearch = ({ loading, onSearch }) => {
               {filters.tags.map((x, i) => <span key={i} className={styles.tag}>{x}</span>)}
             </div>
           )}
-        </div>
+        </div> */}
       </div>
       <div className={searchModalOverlayClass} onClick={closeSearchModal} />
       <div className={searchModalClass}>

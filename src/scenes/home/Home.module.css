@@ -1,7 +1,7 @@
 /* Links */
 
 .links {
-  padding: 0 12px;
+  padding: 2px 12px 0;
   background-color: white;
   display: grid;
   grid-auto-flow: column;
@@ -11,7 +11,7 @@
 }
 
 .links>a {
-  background-color: #CFD8DC;
+  background-color: var(--blue-grey-lighten-4);
   color: #37474F !important;
   border-radius: 24px;
   display: block;
@@ -24,65 +24,38 @@
   font-weight: 600;
 }
 
-/* Search recap */
+/* Search */
 
 .searchWrapper {
-  /* display: grid;
-  gap: 10px; */
+  position: relative;
   background-color: white;
   padding: 12px 12px;
 }
 
+.searchWrapper>.searchIcon {
+  position: absolute;
+  top: 25px;
+  left: 24px;
+  color: var(--blue-grey-darken-1);
+}
+
 .searchWrapper>.searchInput {
-  display: grid;
-  gap: 10px;
-  background-color: #ECEFF1;
-  padding: 13px 20px;
+  border: none;
+  outline: none;
+  user-select: none;
+  -webkit-appearance: none;
+  /**/
+  background-color: var(--blue-grey-lighten-5);
+  width: 100%;
+  padding: 14px 12px;
+  padding-left: 42px;
   border-radius: 24px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.searchWrapper>.searchInput>.header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 10px;
-}
-
-.searchWrapper>.searchInput>.header>.icon {
-  color: #455a64;
-}
-
-.searchWrapper>.searchInput>.header>.title,
-.searchWrapper>.searchInput>.header>.titleActive {
-  color: #455a64;
   font-size: 16px;
+  line-height: 20px;
 }
 
-.searchWrapper>.searchInput>.header>.titleActive {
-  color: #37474F;
-}
-
-.searchWrapper>.searchInput>.header>.clearFiltersButton {
-  color: #37474F;
-  margin-right: -12px;
-  margin-top: -5px;
-}
-
-.searchWrapper>.searchInput>.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.searchWrapper>.searchInput>.tags>.tag {
-  font-size: 14px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid var(--light-brown);
-  color: var(--brown);
+.searchWrapper>.searchInput::placeholder {
+  color: var(--blue-grey-darken-4);
 }
 
 /* Search modal */
@@ -137,14 +110,12 @@
 
 .wrapperAnnunci {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px 12px;
-  padding: 20px 12px;
 }
 
 .wrapperAnnunci>span {
   grid-column: span 2;
-  font-size: 20px;
   font-weight: 600;
 }
 
@@ -208,6 +179,7 @@
 .annuncio>.title {
   font-size: 15px;
   line-height: 20px;
+  font-weight: 500;
 }
 
 .annuncio>.place {

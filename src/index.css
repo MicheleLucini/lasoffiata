@@ -70,3 +70,10 @@ p {
 .col {
   margin: 0 16px;
 }
+
+.page-title {
+  font-size: 17px;
+  font-weight: 600;
+  height: 20px;
+  line-height: 20px;
+}

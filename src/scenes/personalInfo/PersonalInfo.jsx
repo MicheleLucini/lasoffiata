@@ -52,8 +52,30 @@ const Home = () => {
   return (
     <>
       <br></br>
+      <div className='row'>
+        <div className='col'>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 15 }}>
+            <Button
+              text="Crea annuncio"
+              icon="add"
+              onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
+            />
+            <Button
+              text="I miei annunci"
+              icon="list"
+              onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}
+            />
+            <Button
+              text="Checkout"
+              icon="shopping_cart_checkout"
+              onClick={() => navigate(ROUTES.CHECKOUT)}
+            />
+          </div>
+        </div>
+      </div>
       {user.isAdmin && (
         <>
+          <br></br>
           <div className='row'>
             <div className='col'>
               <Link route={ROUTES.ADMIN_VALIDAZIONE_ANNUNCI}>Validazione annunci</Link>
@@ -84,11 +106,12 @@ const Home = () => {
               <Link route={ROUTES.ADMIN_ESPORTA_ANNUNCI}>Esporta annunci</Link>
             </div>
           </div>
+          <br></br>
         </>
       )}
       <div className='row'>
         <div className='col'>
-          <span>Informazioni personali</span>
+          <span className='page-title'>Informazioni personali</span>
         </div>
       </div>
       <br></br>
