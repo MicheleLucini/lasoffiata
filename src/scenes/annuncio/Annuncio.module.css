@@ -2,9 +2,10 @@
 
 .wrapperImmagini {
   background-color: var(--blue-grey-darken-4);
-  position: relative;
   display: grid;
   grid-template-rows: 300px auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .immagineBGBlur {
