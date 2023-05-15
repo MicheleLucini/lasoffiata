@@ -40,12 +40,12 @@ const Annuncio = () => {
           key={x.id}
           src={src}
           alt={`Anteprima immagine annuncio numero ${i + 1}`}
-          className={styles.anteprimaImmagine}
+          className={styles.anteprimaImmagine + (i === indiceImmagineCorrente ? " " + styles.active : "")}
           onClick={() => setIndiceImmagineCorrente(i)}
         />
       );
     });
-  }, [annuncio]);
+  }, [annuncio, indiceImmagineCorrente]);
 
   useEffect(() => {
     loadAnnuncio();
@@ -57,75 +57,109 @@ const Annuncio = () => {
 
   return (
     <>
-      <div style={{ display: "grid", gridAutoFlow: "column", justifyContent: "end" }}>
-        <Button
-          type="outlined"
-          text="Modifica"
-          onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
-        />
-      </div>
       {annuncio.images && annuncio.images.length > 0 && (
-        <div>
+        <div className={styles.wrapperImmagini}>
+          <div className={styles.immagineBGBlur}>
+            <img
+              src={foregroundImageSrc}
+              alt={`Immagine annuncio ${annuncio.title} bg`}
+              className={styles.immagineBG}
+            />
+          </div>
           <img
             src={foregroundImageSrc}
             alt={`Immagine annuncio ${annuncio.title}`}
             className={styles.immagineCorrente}
           />
-          <div className={styles.wrapperImmagini}>
+          <div className={styles.caroselloImmagini}>
             {imagesCarousel}
           </div>
         </div>
       )}
-      <div className={styles.infoPrincipali}>
-        <span className={styles.titolo}>{annuncio.title}</span>
-        <Icon
-          name="category"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span>{`Categoria: ${getCategoryDescriptionById(annuncio.categoryId)}`}</span>
-        <Icon
-          name="location_on"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span>{`Città: ${annuncio.city} (${annuncio.province})`}</span>
-        <Icon
-          name="edit_calendar"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span>{"Data di pubblicazione: " + moment(annuncio.publishDate).format("D MMMM YYYY")}</span>
-        <Icon
-          name="event_busy"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span>{"Data di scadenza: " + moment(annuncio.expirationDate).format("D MMMM YYYY")}</span>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.infoPrincipali}>
+            <span className={styles.titolo}>{annuncio.title}</span>
+            <span className={styles.prezzo}>100€</span>
+            <span className={styles.descrizione}>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")} presso ${annuncio.city} (${annuncio.province})`}</span>
+            <span className={styles.descrizione}>{`L'annuncio scadrà il ${moment(annuncio.expirationDate).format("D MMMM YYYY")}`}</span>
+          </div>
+        </div>
       </div>
-      <div className={styles.infoSecondarie}>
-        <span>Descrizione</span>
-        <span>{annuncio.description}</span>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            color="primary"
+            fullWidth
+            onClick={() => { }}
+            text="Invia un messaggio al venditore"
+          />
+        </div>
       </div>
-      <div className={styles.infoUtente}>
-        <span className={styles.titolo}>Inserzionista</span>
-        {/* <Icon
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.azioniPrincipali}>
+            <Button
+              type="outlined"
+              text="Modifica"
+              onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
+            />
+            <Button
+              onClick={() => { }}
+              text="Condividi"
+            />
+            <Button
+              onClick={() => { }}
+              text="..."
+            />
+          </div>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <span className="page-title">Dettagli</span>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.infoSecondarie}>
+            <span>Categoria:</span><span>{getCategoryDescriptionById(annuncio.categoryId)}</span>
+            <span>Condizione:</span><span>Usato - Buono</span>
+            <span>Categoria:</span><span>{getCategoryDescriptionById(annuncio.categoryId)}</span>
+            <span>Descrizione</span><span>{annuncio.description}</span>
+          </div>
+        </div>
+      </div>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className="page-title">Informazioni sul venditore</span>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.infoSecondarie}>
+            <span>Nome</span><span>{annuncio.user.advertisementName}</span>
+            <span>Email</span><span>{annuncio.user.email}</span>
+            <span>Telefono</span><span>{annuncio.user.tel}</span>
+            <span>Cellulare</span><span>{annuncio.user.cel}</span>
+          </div>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            // className={styles.utenteButton}
+            // type="outlined"
+            // icon="face"
+            text="Visita il profilo"
+            onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
+            fillIcon
+          />
+        </div>
+      </div>
+      {/* <Icon
           name="face"
           size={16}
           fill={1}
@@ -135,51 +169,10 @@ const Annuncio = () => {
           className={styles.icon}
         />
         <span>{annuncio.user.advertisementName}</span> */}
-        <Button
-          className={styles.utenteButton}
-          type="outlined"
-          icon="face"
-          text={annuncio.user.advertisementName}
-          onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
-          fillIcon
-        />
-        <Icon
-          name="mail"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <a href={`mailto:${annuncio.user.email}?subject=${encodeURIComponent("La soffiata - annuncio: " + annuncio.title)}&body=${encodeURIComponent("Ciao! Sono interessato all'annuncio in oggetto, volevo sapere...")}`}>
+      {/* <a href={`mailto:${annuncio.user.email}?subject=${encodeURIComponent("La soffiata - annuncio: " + annuncio.title)}&body=${encodeURIComponent("Ciao! Sono interessato all'annuncio in oggetto, volevo sapere...")}`}>
           <span>{annuncio.user.email}</span>
         </a>
-        <Icon
-          name="call"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <a href={`tel:${annuncio.user.tel}`}>
-          <span>{annuncio.user.tel}</span>
-        </a>
-        <Icon
-          name="phone_android"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <a href={`tel:${annuncio.user.cel}`}>
-          <span>{annuncio.user.cel}</span>
-        </a>
-      </div>
+    </div > */}
     </>
   );
 };
