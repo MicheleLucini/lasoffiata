@@ -30,6 +30,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--blue-grey-lighten-5);
+  background-color: hsl(204, 15%, 96%);
 }
 
 body.block_scroll {
