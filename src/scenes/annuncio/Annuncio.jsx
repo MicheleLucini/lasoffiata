@@ -1,23 +1,27 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
 import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { useCategories } from "@contexts/CategoriesContext";
 import * as apiPublic from "@api/public";
 import Button from "@components/button";
-import Icon from "@components/icon";
 import { getAdvertisementImageUrl } from "@logic/annuncio"
 import styles from "./Annuncio.module.css";
 
-const Annuncio = () => {
-  const { navigate, currentRoute } = useNavigator();
-  const { getCategoryDescriptionById } = useCategories();
-  const [annuncio, setAnnuncio] = useState(null);
+const Annuncio = ({ initialAnnuncio }) => {
+  const [annuncio, setAnnuncio] = useState(initialAnnuncio);
   const [indiceImmagineCorrente, setIndiceImmagineCorrente] = useState(0);
 
+  const { navigate, currentRoute } = useNavigator();
+  const { getCategoryDescriptionById } = useCategories();
+
   const loadAnnuncio = useCallback(async () => {
-    const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
+    const advertisementIdFromParams = currentRoute.params ? currentRoute.params[0] : null;
+    const data = await apiPublic.GetAdvertisement({
+      advertisementId: advertisementIdFromParams || initialAnnuncio?.id
+    });
     setAnnuncio(data);
-  }, [currentRoute])
+  }, [currentRoute, initialAnnuncio?.id])
 
   const foregroundImageSrc = useMemo(() => (
     getAdvertisementImageUrl({
@@ -175,6 +179,41 @@ const Annuncio = () => {
     </div > */}
     </>
   );
+};
+
+Annuncio.propTypes = {
+  initialAnnuncio: PropTypes.shape({
+    categoryId: PropTypes.number,
+    city: PropTypes.string,
+    description: PropTypes.string,
+    editions: PropTypes.arrayOf(
+      PropTypes.shape({
+        date: PropTypes.string,
+        id: PropTypes.number,
+      })
+    ),
+    expirationDate: PropTypes.string,
+    id: PropTypes.number,
+    images: PropTypes.array,
+    isFeatured: PropTypes.bool,
+    isSuspended: PropTypes.bool,
+    province: PropTypes.string,
+    publishDate: PropTypes.string,
+    title: PropTypes.string,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      advertisementName: PropTypes.string,
+      tel: PropTypes.string,
+      cel: PropTypes.string,
+      email: PropTypes.string,
+    }),
+    userId: PropTypes.number,
+    validationStatus: PropTypes.number,
+  }),
+};
+
+Annuncio.defaultProps = {
+  annuncio: undefined,
 };
 
 export default Annuncio;

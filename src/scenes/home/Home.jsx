@@ -1,31 +1,54 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { ROUTES } from "@contexts/NavigatorContext";
+import { useModals } from "@contexts/ModalsContext";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
 import Icon from "@components/icon";
 import Link from "@components/link";
 import * as apiPublic from "@api/public";
-import Annuncio from "./HomeAnnuncio";
-import AnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
+import Annuncio from "@scenes/annuncio";
+import HomeAnnuncio from "./HomeAnnuncio";
+import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
 import styles from "./Home.module.css";
 
 const Home = () => {
   const [featuredAdvertisements, setFeaturedAdvertisements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
+  // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
 
   const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
+  const { openModal } = useModals();
 
   const userIconLinkRoute = useMemo(() => (
     user.isLogged ? ROUTES.PERSONALINFO : ROUTES.LOGIN
   ), [user.isLogged]);
 
+  const onAnnuncioClick = useCallback((annuncio) => {
+    openModal({
+      title:annuncio.description,
+      children: (
+        <Annuncio initialAnnuncio={annuncio} />
+      ),
+    });
+  }, [openModal]);
+
   const featuredAnnunciList = useMemo(() => (
     loading
-      ? [...Array(20)].map((_, i) => <AnnuncioPlaceholder key={i} />)
-      : featuredAdvertisements.map((x) => <Annuncio key={x.id} annuncio={x} />)
-  ), [loading, featuredAdvertisements]);
+      ? [...Array(20)].map((_, i) => (
+        <HomeAnnuncioPlaceholder
+          key={i}
+        />
+      ))
+      : featuredAdvertisements.map((x) => (
+        <HomeAnnuncio
+          key={x.id}
+          annuncio={x}
+          onAnnuncioClick={onAnnuncioClick}
+        />
+      ))
+  ), [loading, featuredAdvertisements, onAnnuncioClick]);
 
   const loadFeaturedAdvertisements = useCallback(async () => {
     setLoading(true);

@@ -121,6 +121,7 @@
 
 .annuncio {
   display: grid;
+  cursor: pointer;
 }
 
 /* .annuncio>.featured {
