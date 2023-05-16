@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CategoriesProvider } from "@contexts/CategoriesContext";
+import { ModalsProvider } from "@contexts/ModalsContext";
 import { DialogsProvider } from "@contexts/DialogsContext";
 import { SnackbarsProvider } from "@contexts/SnackbarsContext";
 import { NavigatorProvider } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
 import Snackbars from "@templates/snackbars";
+import Modals from "@templates/modals";
 import Dialogs from "@templates/dialogs";
 import AppTopBar from "./AppTopBar";
 import AppRouting from "./AppRouting";
@@ -24,15 +26,18 @@ const App = () => {
       <NavigatorProvider>
         <SnackbarsProvider>
           <DialogsProvider>
-            <div className={styles.page}>
-              <AppTopBar />
-              <div className={styles.body}>
-                <AppRouting />
+            <ModalsProvider>
+              <div className={styles.page}>
+                <AppTopBar />
+                <div className={styles.body}>
+                  <AppRouting />
+                </div>
+                <AppFooter />
               </div>
-              <AppFooter />
-            </div>
-            <Dialogs />
-            <Snackbars />
+              <Modals />
+              <Dialogs />
+              <Snackbars />
+            </ModalsProvider>
           </DialogsProvider>
         </SnackbarsProvider>
       </NavigatorProvider>

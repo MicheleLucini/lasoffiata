@@ -1,7 +1,9 @@
 .topBar {
-  /* position: fixed;
+  position: fixed;
   top: 0;
-  left: 0;
+  width: 100%;
+  max-width: 900px;
+  /* left: 0;
   right: 0; */
   padding: 0 12px;
   display: grid;
@@ -11,6 +13,7 @@
   background-color: var(--coarse-wool); */
   color: black;
   background-color: white;
+  z-index: 50;
 }
 
 .topBar>* {
