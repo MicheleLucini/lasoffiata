@@ -50,29 +50,19 @@
   overflow-y: hidden;
   position: relative;
   z-index: 2;
+  justify-content: center;
+  gap: 10px;
 }
 
 .caroselloImmagini>img {
   aspect-ratio: 1 / 1;
   height: inherit;
-  object-fit: contain;
+  object-fit: cover;
   opacity: 0.7;
-}
-
-.caroselloImmagini>img:first-child {
-  border-bottom-left-radius: inherit;
-  border-top-left-radius: inherit;
-}
-
-.caroselloImmagini>img:last-child {
-  border-bottom-right-radius: inherit;
-  border-top-right-radius: inherit;
+  border-radius: 6px;
 }
 
 .caroselloImmagini>img.active {
-  aspect-ratio: 1 / 1;
-  height: inherit;
-  object-fit: contain;
   opacity: 1;
 }
 
