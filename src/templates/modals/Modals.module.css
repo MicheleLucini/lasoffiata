@@ -37,6 +37,7 @@
   height: 50px;
   display: grid;
   place-content: center;
+  cursor: pointer;
 }
 
 .modalTitle>span {
