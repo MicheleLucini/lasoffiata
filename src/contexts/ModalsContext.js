@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from 'uuid';
 
-const ModalsContext = React.createContext();
+export const ModalsContext = React.createContext();
 
 function ModalsProvider({ children }) {
   const [activeModals, setActiveModals] = useState([]);
@@ -23,13 +23,18 @@ function ModalsProvider({ children }) {
     ]);
   }, []);
 
+  const closeAllModals = useCallback(() => {
+    setActiveModals([]);
+  }, []);
+
   console.log(activeModals)
 
   const modalsContextValue = useMemo(() => ({
     openModal,
     closeModal,
+    closeAllModals,
     activeModals,
-  }), [openModal, closeModal, activeModals]);
+  }), [openModal, closeModal, activeModals, closeAllModals]);
 
   return (
     <ModalsContext.Provider value={modalsContextValue}>

@@ -22,11 +22,11 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <CategoriesProvider>
-      <NavigatorProvider>
-        <SnackbarsProvider>
-          <DialogsProvider>
-            <ModalsProvider>
+    <ModalsProvider>
+      <CategoriesProvider>
+        <NavigatorProvider>
+          <SnackbarsProvider>
+            <DialogsProvider>
               <div className={styles.page}>
                 <AppTopBar />
                 <div className={styles.body}>
@@ -37,11 +37,11 @@ const App = () => {
               <Modals />
               <Dialogs />
               <Snackbars />
-            </ModalsProvider>
-          </DialogsProvider>
-        </SnackbarsProvider>
-      </NavigatorProvider>
-    </CategoriesProvider>
+            </DialogsProvider>
+          </SnackbarsProvider>
+        </NavigatorProvider>
+      </CategoriesProvider>
+    </ModalsProvider>
   );
 };
 

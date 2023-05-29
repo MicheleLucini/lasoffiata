@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
+import { ModalsContext } from './ModalsContext';
 
 const NavigatorContext = React.createContext();
 
@@ -123,6 +124,8 @@ function NavigatorProvider({ children }) {
   const [history, setHistory] = useState([]);
   const [currentRoute, setCurrentRoute] = useState(null);
 
+  const { closeAllModals } = React.useContext(ModalsContext);
+
   const navigate = useCallback((route, params = null, dontChangeState) => {
     // console.log("navigating to", route.title);
     document.title = route.title + " | La Soffiata";
@@ -142,7 +145,8 @@ function NavigatorProvider({ children }) {
     });
 
     window.scrollTo(0, 0);
-  }, []);
+    closeAllModals();
+  }, [closeAllModals]);
 
   const onPopState = useCallback(() => {
     navigate(
