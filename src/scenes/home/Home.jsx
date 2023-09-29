@@ -27,7 +27,7 @@ const Home = () => {
 
   const onAnnuncioClick = useCallback((annuncio) => {
     openModal({
-      title:annuncio.description,
+      title: annuncio.description,
       children: (
         <Annuncio initialAnnuncio={annuncio} />
       ),
@@ -97,18 +97,30 @@ const Home = () => {
   return (
     <>
       <div className={styles.links}>
-        <Link route={userIconLinkRoute}>
-          <Icon
-            name="person"
-            fill={user.isLogged ? 1 : 0}
-            weight={400}
-            grade={0}
-            opticalSize={24}
-          />
-        </Link>
-        <Link route={ROUTES.CREA_ANNUNCIO}>
-          <span>Vendi</span>
-        </Link>
+        <div>
+          <Link route={userIconLinkRoute}>
+            <Icon
+              name="person"
+              fill={user.isLogged ? 1 : 0}
+              weight={400}
+              grade={0}
+              opticalSize={24}
+            />
+          </Link>
+          {user.isLogged && (
+            <>
+              <Link route={ROUTES.HOME}>
+                <span>Messaggi</span>
+              </Link>
+              <Link route={ROUTES.CREA_ANNUNCIO}>
+                <span>Vendi</span>
+              </Link>
+            </>
+          )}
+          <Link route={ROUTES.HOME}>
+            <span>Categorie</span>
+          </Link>
+        </div>
       </div>
       <div className={styles.searchWrapper}>
         <Icon
