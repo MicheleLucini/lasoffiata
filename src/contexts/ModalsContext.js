@@ -27,8 +27,6 @@ function ModalsProvider({ children }) {
     setActiveModals([]);
   }, []);
 
-  console.log(activeModals)
-
   const modalsContextValue = useMemo(() => ({
     openModal,
     closeModal,
