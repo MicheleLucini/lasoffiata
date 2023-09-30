@@ -12,6 +12,11 @@
   gap: 10px;
 }
 
+.wrapper.disabled {
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
 .wrapper>label {
   color: var(--blue-grey-darken-2);
   font-size: 14px;

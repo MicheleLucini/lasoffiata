@@ -1,9 +1,9 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useSnackbars } from "@contexts/SnackbarsContext";
 import Button from '../button';
 import ImagePreviewer from './ImagePreviewer';
+import PropTypes from "prop-types";
+import React, { useRef, useState, useMemo, useCallback, useEffect } from "react";
 import styles from "./ImageInput.module.css";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const _fileId = (file) => file.name + "_" + file.size;
 
@@ -15,6 +15,13 @@ const ImageInput = ({
   const [images, setImages] = useState([]);
 
   const { openSnackbar } = useSnackbars();
+
+  const wrapperClassName = useMemo(() => (
+    [
+      styles.wrapper,
+      disabled ? styles.disabled : null,
+    ].filter((x) => !!x).join(" ")
+  ), [disabled]);
 
   const onChange = useCallback((e) => {
     setImages((prev) => {
@@ -41,14 +48,14 @@ const ImageInput = ({
   }, [setValue, images])
 
   return (
-    <div className={styles.wrapper}>
+    <div className={wrapperClassName}>
       <label>Immagini da caricare:</label>
       <div className={styles.previewsWrapper}>
         {images.map((image) => (
           <ImagePreviewer
             key={image.name}
             inputFile={image}
-            removeImage={removeImage}
+            removeImage={disabled ? null : removeImage}
           />
         ))}
       </div>
@@ -66,6 +73,7 @@ const ImageInput = ({
         text="Scegli immagini"
         fullWidth
         onClick={() => inputFile.current.click()}
+        disabled={disabled}
       />
     </div>
   );
