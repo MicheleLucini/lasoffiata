@@ -5,6 +5,8 @@ import Button from '../button';
 import ImagePreviewer from './ImagePreviewer';
 import styles from "./ImageInput.module.css";
 
+const _fileId = (file) => file.name + "_" + file.size;
+
 const ImageInput = ({
   setValue,
   disabled,
@@ -15,15 +17,15 @@ const ImageInput = ({
 
   const onChange = useCallback((e) => {
     setImages((prev) => {
-      const prevNames = prev.map((x) => x.name);
-      // TODO: segnalare che l'immagine è già presente tra quelle scelte (stesso nome)
-      const newImages = Array.from(e.target.files).filter((x) => !prevNames.includes(x.name));
-      if (newImages.length < e.target.files.length) {
+      const prevFileIds = prev.map((x) => _fileId(x));
+      const newFiles = Array.from(e.target.files);
+      const filesToAdd = newFiles.filter((x) => !prevFileIds.includes(_fileId(x)));
+      if (filesToAdd.length < newFiles.length) {
         openSnackbar("Una o più immagini scartate perché già caricate.");
       }
       return [
         ...prev,
-        ...newImages,
+        ...filesToAdd,
       ];
     });
     e.target.value = null;
