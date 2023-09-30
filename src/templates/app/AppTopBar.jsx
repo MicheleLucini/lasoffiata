@@ -1,26 +1,29 @@
-import React, { useMemo } from "react";
-// import { useSelector } from 'react-redux';
 // import { selectUser } from '@store/userSlice';
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import Logo from "@components/svgs/Logo";
+// import { useSelector } from 'react-redux';
 import Icon from "@components/icon";
 import Link from "@components/link";
+import Logo from "@components/svgs/Logo";
+import React, { useMemo } from "react";
 import styles from "./AppTopBar.module.css";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AppTopBar = () => {
   const { checkCurrentRoute } = useNavigator();
   // const user = useSelector(selectUser);
 
-  const showBackArrow = useMemo(() => (
-    checkCurrentRoute(ROUTES.ANNUNCIO)
-  ), [checkCurrentRoute]);
+  const backArrowRoute = useMemo(() => {
+    if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
+    if (checkCurrentRoute(ROUTES.PERSONAL_INFO)) return ROUTES.MY_ACCOUNT;
+    if (checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)) return ROUTES.MY_ACCOUNT;
+    return null;
+  }, [checkCurrentRoute]);
 
   // const showCurrentUserGreeting = useMemo(() => (
   //   user.isLogged
   // ), [user.isLogged]);
 
   // const userIconLinkRoute = useMemo(() => (
-  //   user.isLogged ? ROUTES.PERSONALINFO : ROUTES.LOGIN
+  //   user.isLogged ? ROUTES.PERSONAL_INFO : ROUTES.LOGIN
   // ), [user.isLogged]);
 
   // const userIsAdmin = useMemo(() => (
@@ -38,8 +41,8 @@ const AppTopBar = () => {
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarLeft}>
-        {showBackArrow && (
-          <Link route={ROUTES.HOME}>
+        {backArrowRoute && (
+          <Link route={backArrowRoute}>
             <Icon
               name="arrow_back"
               fill={0}

@@ -1,7 +1,3 @@
-import React, { useMemo } from "react";
-import { useSelector } from 'react-redux';
-import { selectUser } from '@store/userSlice';
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import AdminCategorie from "@scenes/adminCategorie";
 import AdminEdizioni from "@scenes/adminEdizioni";
 import AdminEsportaAnnunci from "@scenes/adminEsportaAnnunci";
@@ -16,9 +12,14 @@ import Home from "@scenes/home";
 import IMieiAnnunci from "@scenes/iMieiAnnunci";
 import Login from "@scenes/login";
 import ModificaAnnuncio from "@scenes/modificaAnnuncio";
+import MyAccount from "@scenes/myAccount";
 import PersonalInfo from "@scenes/personalInfo";
+import React, { useMemo } from "react";
 import Register from "@scenes/register";
 import Utente from "@scenes/utente";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { selectUser } from '@store/userSlice';
+import { useSelector } from 'react-redux';
 
 const AppRouting = () => {
   const { checkCurrentRoute } = useNavigator();
@@ -48,7 +49,8 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI) && <IMieiAnnunci />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
       {checkCurrentRoute(ROUTES.MODIFICA_ANNUNCIO) && <ModificaAnnuncio />}
-      {checkCurrentRoute(ROUTES.PERSONALINFO) && <PersonalInfo />}
+      {checkCurrentRoute(ROUTES.MY_ACCOUNT) && <MyAccount />}
+      {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
       {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
     </>

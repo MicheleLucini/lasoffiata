@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { ROUTES } from "@contexts/NavigatorContext";
-import { useModals } from "@contexts/ModalsContext";
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/userSlice';
+import { ROUTES } from "@contexts/NavigatorContext";
+import { useModals } from "@contexts/ModalsContext";
 import Icon from "@components/icon";
 import Link from "@components/link";
 import * as apiPublic from "@api/public";
@@ -22,7 +22,7 @@ const Home = () => {
   const { openModal } = useModals();
 
   const userIconLinkRoute = useMemo(() => (
-    user.isLogged ? ROUTES.PERSONALINFO : ROUTES.LOGIN
+    user.isLogged ? ROUTES.MY_ACCOUNT : ROUTES.LOGIN
   ), [user.isLogged]);
 
   const onAnnuncioClick = useCallback((annuncio) => {

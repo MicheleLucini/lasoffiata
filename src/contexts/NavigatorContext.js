@@ -68,7 +68,11 @@ const ROUTES = {
     title: "Modifica annuncio",
     url: "/modifica-annuncio",
   },
-  PERSONALINFO: {
+  MY_ACCOUNT: {
+    title: "Il mio account",
+    url: "/my-account",
+  },
+  PERSONAL_INFO: {
     title: "Informazioni personali",
     url: "/personal-info",
   },

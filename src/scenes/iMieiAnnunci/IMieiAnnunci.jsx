@@ -1,20 +1,21 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from '@store/userSlice';
-// import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import RigaAnnuncio from "./RigaAnnuncio";
-// import Button from "@components/button";
 import * as apiPublic from "@api/public";
-import styles from "./IMieiAnnunci.module.css";
-import { useDialogs } from "@contexts/DialogsContext";
-import { useSnackbars } from "@contexts/SnackbarsContext";
 import * as apiUser from "@api/user";
+import Button from "@components/button";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import RigaAnnuncio from "./RigaAnnuncio";
+import styles from "./IMieiAnnunci.module.css";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { selectUser } from '@store/userSlice';
+import { useDialogs } from "@contexts/DialogsContext";
+import { useSelector } from "react-redux";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const IMieiAnnunci = () => {
   const user = useSelector(selectUser);
-  // const { navigate } = useNavigator();
+  const { navigate } = useNavigator();
   const { openDialog } = useDialogs();
   const { openSnackbar } = useSnackbars();
+
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
 
@@ -90,9 +91,27 @@ const IMieiAnnunci = () => {
 
   return (
     <>
-      <span>I miei annunci</span>
-      <div className={styles.wrapperAnnunci}>
-        {annunciList}
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>I miei annunci</span>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            text="Crea annuncio"
+            icon="add"
+            onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.wrapperAnnunci}>
+            {annunciList}
+          </div>
+        </div>
       </div>
     </>
   );
