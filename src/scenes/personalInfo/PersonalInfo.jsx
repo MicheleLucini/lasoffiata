@@ -1,42 +1,18 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from '@store/userSlice';
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import { useDialogs } from "@contexts/DialogsContext";
-import * as logicUser from "@logic/user";
-import { getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
-import Link from "@components/link";
 import Button from '@components/button';
+import React, { useState, useCallback, useEffect } from "react";
 import SelectYear from "@templates/selectYear";
 import TextInput from '@components/textInput';
+import { getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
+import { selectUser } from '@store/userSlice';
+import { useSelector } from "react-redux";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const { navigate } = useNavigator();
-  const { openDialog } = useDialogs();
   const user = useSelector(selectUser);
+  const { openSnackbar } = useSnackbars();
+
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(user);
-
-  const logout = useCallback(() => {
-    setLoading(true);
-    dispatch(logicUser.logout())
-      .then(() => {
-        navigate(ROUTES.HOME);
-      })
-      .catch((e) => {
-        setLoading(false);
-      });
-  }, [dispatch, navigate]);
-
-  const onLogoutClick = useCallback(() => {
-    openDialog({
-      title: "Sei sicuro di fare il logout?",
-      body: "Se fai il logout dovrai reinserire username e password per rientrare.",
-      confirmButtonText: "Logout",
-      confirmButtonAction: logout,
-    });
-  }, [openDialog, logout]);
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -54,74 +30,14 @@ const Home = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 15 }}>
-            <Button
-              text="Crea annuncio"
-              icon="add"
-              onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
-            />
-            <Button
-              text="I miei annunci"
-              icon="list"
-              onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}
-            />
-            <Button
-              text="Checkout"
-              icon="shopping_cart_checkout"
-              onClick={() => navigate(ROUTES.CHECKOUT)}
-            />
-          </div>
+          <span className='page-title'>I tuoi dati utente</span>
         </div>
       </div>
-      {user.isAdmin && (
-        <>
-          <br></br>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_VALIDAZIONE_ANNUNCI}>Validazione annunci</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_PAGAMENTI}>Gestisci pagamenti</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_UTENTI}>Gestisci utenti</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_EDIZIONI}>Gestisci edizioni</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_CATEGORIE}>Gestisci categorie</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_ESPORTA_ANNUNCI}>Esporta annunci</Link>
-            </div>
-          </div>
-          <br></br>
-        </>
-      )}
-      <div className='row'>
-        <div className='col'>
-          <span className='page-title'>Informazioni personali</span>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <label>Informazioni speciali</label>
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="id" value={values.id} setValue={(val) => onFormValueChange("id", val)} disabled={true} />
@@ -132,13 +48,11 @@ const Home = () => {
           <TextInput label="isAdmin" value={values.isAdmin} setValue={(val) => onFormValueChange("isAdmin", val)} disabled={true} />
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <label>Informazioni di base</label>
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="accountType" value={getConstantDescriptionByValue(ACCOUNT_TYPE, values.accountType)} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
@@ -179,13 +93,11 @@ const Home = () => {
           <TextInput label="partitaIva" value={values.partitaIva} setValue={(val) => onFormValueChange("partitaIva", val)} disabled={loading} />
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <label>Informazioni di indirizzo</label>
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="country" value={values.country} setValue={(val) => onFormValueChange("country", val)} disabled={loading} />
@@ -216,13 +128,11 @@ const Home = () => {
           <TextInput label="civic" value={values.civic} setValue={(val) => onFormValueChange("civic", val)} disabled={loading} />
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <label>Informazioni di contatto</label>
         </div>
       </div>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <TextInput label="email" value={values.email} setValue={(val) => onFormValueChange("email", val)} disabled={loading} />
@@ -244,26 +154,14 @@ const Home = () => {
         </div>
       </div>
       <br></br>
-      <br></br>
       <div className='row'>
         <div className='col'>
           <Button
             color="primary"
             disabled={loading}
             fullWidth
-            onClick={() => { }}
+            onClick={() => openSnackbar("Non implementato")}
             text="salva"
-          />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <Button
-            disabled={loading}
-            fullWidth
-            icon="logout"
-            onClick={onLogoutClick}
-            text="Logout"
           />
         </div>
       </div>
