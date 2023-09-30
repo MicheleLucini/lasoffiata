@@ -46,6 +46,11 @@ const Register = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
+          <span className='page-title'>Iscriviti</span>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
           <TextInput
             label="Email"
             value={formEmail}
@@ -86,7 +91,7 @@ const Register = () => {
             disabled={loading}
             fullWidth
             onClick={onRegisterClick}
-            text="Registrati"
+            text="Iscriviti"
           />
         </div>
       </div>
