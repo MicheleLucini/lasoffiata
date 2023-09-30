@@ -11,9 +11,10 @@ const ImageInput = ({
   setValue,
   disabled,
 }) => {
-  const { openSnackbar } = useSnackbars();
   const inputFile = useRef(null);
   const [images, setImages] = useState([]);
+
+  const { openSnackbar } = useSnackbars();
 
   const onChange = useCallback((e) => {
     setImages((prev) => {
@@ -28,7 +29,7 @@ const ImageInput = ({
         ...filesToAdd,
       ];
     });
-    e.target.value = null;
+    setTimeout(() => e.target.value = null, 1);
   }, [openSnackbar]);
 
   const removeImage = useCallback((name) => {
@@ -63,7 +64,6 @@ const ImageInput = ({
       <Button
         icon="upload"
         text="Scegli immagini"
-        // type="outlined"
         fullWidth
         onClick={() => inputFile.current.click()}
       />
