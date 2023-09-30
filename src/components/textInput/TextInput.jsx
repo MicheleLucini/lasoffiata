@@ -49,7 +49,7 @@ const TextInput = ({
       <label>{label}</label>
       <input
         type={type}
-        value={value}
+        value={value?.toString()}
         onChange={onChange}
         // validate={validate}
         placeholder={placeholder}
@@ -66,7 +66,7 @@ const TextInput = ({
 
 TextInput.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.any,
   setValue: PropTypes.func.isRequired,
   // validate: PropTypes.func,
   placeholder: PropTypes.string,

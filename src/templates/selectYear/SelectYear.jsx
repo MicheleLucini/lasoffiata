@@ -30,7 +30,7 @@ const SelectYear = ({ label, value, setValue, disabled }) => {
 
 SelectYear.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setValue: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
