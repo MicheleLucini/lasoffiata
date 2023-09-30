@@ -107,6 +107,9 @@ const Home = () => {
               opticalSize={24}
             />
           </Link>
+          <Link route={ROUTES.HOME}>
+            <span>Gratis</span>
+          </Link>
           {user.isLogged && (
             <>
               <Link route={ROUTES.HOME}>

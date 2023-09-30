@@ -39,7 +39,12 @@ const Login = () => {
 
   return (
     <>
-      <br></br>
+    <br></br>
+    <div className='row'>
+      <div className='col'>
+        <span className='page-title'>Accedi</span>
+      </div>
+    </div>
       <div className='row'>
         <div className='col'>
           <TextInput

@@ -23,8 +23,6 @@ const fromFileInputToBlobPromise = (file) => {
 };
 
 const CreaAnnuncio = () => {
-  const dispatch = useDispatch();
-  const { navigate } = useNavigator();
   const [loading, setLoading] = useState(false);
   const [formCategory, setFormCategory] = useState(null);
   const [formProvince, setFormProvince] = useState(null);
@@ -33,6 +31,9 @@ const CreaAnnuncio = () => {
   const [formDescrizione, setFormDescrizione] = useState("");
   const [formImages, setFormImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
+
+  const dispatch = useDispatch();
+  const { navigate } = useNavigator();
 
   const onCreaClick = useCallback(async () => {
     setLoading(true);
@@ -62,49 +63,84 @@ const CreaAnnuncio = () => {
 
   return (
     <>
-      <span>Crea annuncio</span>
-      <SelectCategory
-        value={formCategory}
-        setValue={setFormCategory}
-        disabled={loading}
-      />
-      <TextInput
-        label="Titolo"
-        value={formTitolo}
-        setValue={setFormTitolo}
-        disabled={loading}
-      />
-      <SelectProvince
-        label="Provincia"
-        value={formProvince}
-        setValue={setFormProvince}
-        disabled={loading}
-      />
-      <TextInput
-        label="Luogo"
-        value={formCitta}
-        setValue={setFormCitta}
-        disabled={loading}
-      />
-      <TextInput
-        label="Descrizione"
-        value={formDescrizione}
-        setValue={setFormDescrizione}
-        disabled={loading}
-      />
-      <ImageInput
-        setValue={setFormImages}
-        disabled={loading}
-      />
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Crea annuncio</span>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <SelectCategory
+            value={formCategory}
+            setValue={setFormCategory}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Titolo"
+            value={formTitolo}
+            setValue={setFormTitolo}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <SelectProvince
+            label="Provincia"
+            value={formProvince}
+            setValue={setFormProvince}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Luogo"
+            value={formCitta}
+            setValue={setFormCitta}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Descrizione"
+            value={formDescrizione}
+            setValue={setFormDescrizione}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <ImageInput
+            setValue={setFormImages}
+            disabled={loading}
+          />
+        </div>
+      </div>
       <br />
-      <br />
-      <br />
-      <Button
-        text="Crea"
-        icon="add"
-        onClick={onCreaClick}
-      />
-      <InlineAlert type="error" text={formErrors} />
+      <div className='row'>
+        <div className='col'>
+          <Button
+            text="Crea"
+            icon="add"
+            onClick={onCreaClick}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <InlineAlert type="error" text={formErrors} />
+        </div>
+      </div>
     </>
   );
 };

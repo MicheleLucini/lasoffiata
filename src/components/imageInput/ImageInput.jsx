@@ -38,8 +38,17 @@ const ImageInput = ({
   }, [setValue, images])
 
   return (
-    <>
-      <span>Immagine da caricare</span>
+    <div className={styles.wrapper}>
+      <label>Immagini da caricare:</label>
+      <div className={styles.previewsWrapper}>
+        {images.map((image) => (
+          <ImagePreviewer
+            key={image.name}
+            inputFile={image}
+            removeImage={removeImage}
+          />
+        ))}
+      </div>
       <input
         ref={inputFile}
         name="image-uploader"
@@ -52,20 +61,11 @@ const ImageInput = ({
       <Button
         icon="upload"
         text="Scegli immagini"
-        type="outlined"
+        // type="outlined"
         fullWidth
         onClick={() => inputFile.current.click()}
       />
-      <div className={styles.previewsWrapper}>
-        {images.map((image) => (
-          <ImagePreviewer
-            key={image.name}
-            inputFile={image}
-            removeImage={removeImage}
-          />
-        ))}
-      </div>
-    </>
+    </div>
   );
 };
 
