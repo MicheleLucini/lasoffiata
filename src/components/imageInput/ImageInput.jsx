@@ -18,12 +18,10 @@ const ImageInput = ({
 
   const { openSnackbar } = useSnackbars();
 
-  const wrapperClassName = useMemo(() => (
-    [
-      styles.wrapper,
-      disabled ? styles.disabled : null,
-    ].filter((x) => !!x).join(" ")
-  ), [disabled]);
+  const wrapperClassName = useMemo(() => [
+    styles.wrapper,
+    disabled ? styles.disabled : null,
+  ].filter((x) => !!x).join(" "), [disabled]);
 
   const onChange = useCallback((e) => {
     setImages((prev) => {
