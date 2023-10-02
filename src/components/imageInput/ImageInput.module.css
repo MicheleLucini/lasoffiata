@@ -31,7 +31,6 @@
 .previewsWrapper {
   --image-preview-width: 150px;
   display: grid;
-  background-color: var(--peachade);
   grid-template-columns: repeat(auto-fill,
       minmax(var(--image-preview-width), 1fr));
   padding: 10px;
@@ -45,7 +44,6 @@
 
 .previewsWrapper>div {
   position: relative;
-  /* border: 1px solid #212121; */
   border-radius: 8px;
   display: grid;
   place-items: center;
@@ -62,15 +60,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  color: #d50000;
-  background-color: #ffcdd2;
   width: 24px;
   height: 24px;
   display: grid;
   place-content: center;
   border-radius: 8px;
-  /* background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%; */
+  color: #d50000;
+  background-color: #ffcdd2;
 }
 
 .loading {

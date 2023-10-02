@@ -8,6 +8,8 @@ import { useSnackbars } from "@contexts/SnackbarsContext";
 const _fileId = (file) => file.name + "_" + file.size;
 
 const ImageInput = ({
+  label,
+  buttonText,
   setValue,
   disabled,
 }) => {
@@ -49,7 +51,7 @@ const ImageInput = ({
 
   return (
     <div className={wrapperClassName}>
-      <label>Immagini da caricare:</label>
+      <label>{label}</label>
       <div className={styles.previewsWrapper}>
         {images.map((image) => (
           <ImagePreviewer
@@ -70,7 +72,7 @@ const ImageInput = ({
       />
       <Button
         icon="upload"
-        text="Scegli immagini"
+        text={buttonText}
         fullWidth
         onClick={() => inputFile.current.click()}
         disabled={disabled}
@@ -80,11 +82,15 @@ const ImageInput = ({
 };
 
 ImageInput.propTypes = {
+  label: PropTypes.string,
+  buttonText: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
 
 ImageInput.defaultProps = {
+  label: "Immagini",
+  buttonText: "Scegli immagini",
   disabled: false,
 };
 
