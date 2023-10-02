@@ -4,13 +4,12 @@ import * as apiPublic from "@api/public";
 import * as logicAnnuncio from "@logic/annuncio";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
-import ImageInput from '@components/imageInput';
+import ImageInput, { FakeImageInput } from '@components/imageInput';
 import InlineAlert from '@components/inlineAlert';
 import TextInput from '@components/textInput';
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
-import ImagePreviewer from './ImagePreviewer';
-import styles from './ModificaAnnuncio.module.css';
+import { getAdvertisementImageUrl } from "@logic/annuncio"
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -86,17 +85,13 @@ const ModificaAnnuncio = () => {
       if (formDeletedImages.includes(x.id)) {
         return null;
       }
-      return (
-        <ImagePreviewer
-          key={x.id}
-          imageId={x.id}
-          advertisementId={initialValues.id}
-          userId={initialValues.userId}
-          removeImage={removeImage}
-        />
-      );
+      return getAdvertisementImageUrl({
+        userId: initialValues.userId,
+        advertisementId: initialValues.id,
+        imageId: x.id,
+      });
     });
-  }, [formDeletedImages, initialValues, removeImage]);
+  }, [formDeletedImages, initialValues]);
 
   useEffect(() => {
     loadAnnuncio();
@@ -104,53 +99,95 @@ const ModificaAnnuncio = () => {
 
   return (
     <>
-      <span>Modifica annuncio</span>
-      <SelectCategory
-        value={formCategory}
-        setValue={setFormCategory}
-        disabled={loading}
-      />
-      <TextInput
-        label="Titolo"
-        value={formTitolo}
-        setValue={setFormTitolo}
-        disabled={loading}
-      />
-      <SelectProvince
-        label="Provincia"
-        value={formProvince}
-        setValue={setFormProvince}
-        disabled={loading}
-      />
-      <TextInput
-        label="Luogo"
-        value={formCitta}
-        setValue={setFormCitta}
-        disabled={loading}
-      />
-      <TextInput
-        label="Descrizione"
-        value={formDescrizione}
-        setValue={setFormDescrizione}
-        disabled={loading}
-      />
-      <span>Immagini annuncio</span>
-      <div className={styles.previewsWrapper}>
-        {immaginiAnnuncio}
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Modifica annuncio</span>
+        </div>
       </div>
-      <ImageInput
-        setValue={setFormImages}
-        disabled={loading}
-      />
+      <div className='row'>
+        <div className='col'>
+          <SelectCategory
+            value={formCategory}
+            setValue={setFormCategory}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Titolo"
+            value={formTitolo}
+            setValue={setFormTitolo}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <SelectProvince
+            label="Provincia"
+            value={formProvince}
+            setValue={setFormProvince}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Luogo"
+            value={formCitta}
+            setValue={setFormCitta}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <TextInput
+            label="Descrizione"
+            value={formDescrizione}
+            setValue={setFormDescrizione}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <FakeImageInput
+            images={immaginiAnnuncio}
+            removeImage={removeImage}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <ImageInput
+            setValue={setFormImages}
+            disabled={loading}
+          />
+        </div>
+      </div>
       <br />
       <br />
       <br />
-      <Button
-        text="Salva"
-        icon="save"
-        onClick={onSalvaClick}
-      />
-      <InlineAlert type="error" text={formErrors} />
+      <div className='row'>
+        <div className='col'>
+          <Button
+            text="Salva"
+            icon="save"
+            onClick={onSalvaClick}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <InlineAlert type="error" text={formErrors} />
+        </div>
+      </div>
     </>
   );
 };
