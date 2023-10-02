@@ -10,6 +10,11 @@
   width: 100%;
 }
 
+.card.admin {
+  background-color: white;
+  border-color: #ff9800;
+}
+
 .card>span {
   grid-column: 1;
   font-size: 18px;

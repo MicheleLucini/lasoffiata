@@ -1,7 +1,7 @@
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
 import Icon from "@components/icon";
-import Link from "@components/link";
+// import Link from "@components/link";
 import React, { useState, useCallback } from "react";
 import styles from "./MyAccount.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
@@ -37,6 +37,19 @@ const MyAccount = () => {
     });
   }, [openDialog, logout]);
 
+  const iconRenderer = (iconName) => (
+    <div>
+      <Icon
+        name={iconName}
+        size={40}
+        fill={0}
+        weight={400}
+        grade={0}
+        opticalSize={40}
+      />
+    </div>
+  );
+
   if (!user.isLogged) {
     navigate(ROUTES.HOME);
     return null;
@@ -55,16 +68,7 @@ const MyAccount = () => {
           <div className={styles.card} onClick={() => navigate(ROUTES.PERSONAL_INFO)}>
             <span>Dati personali</span>
             <p>Visualizza i dati del tuo account</p>
-            <div>
-              <Icon
-                name="badge"
-                size={40}
-                fill={0}
-                weight={400}
-                grade={0}
-                opticalSize={40}
-              />
-            </div>
+            {iconRenderer("badge")}
           </div>
         </div>
       </div>
@@ -73,20 +77,69 @@ const MyAccount = () => {
           <div className={styles.card} onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}>
             <span>I tuoi annunci</span>
             <p>Visualizza l'elenco degli annunci che hai creato</p>
-            <div>
-              <Icon
-                name="list"
-                size={40}
-                fill={0}
-                weight={400}
-                grade={0}
-                opticalSize={40}
-              />
-            </div>
+            {iconRenderer("photo_prints")}
           </div>
         </div>
       </div>
-      <div className='row'>
+      {user.isAdmin && (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_VALIDAZIONE_ANNUNCI)}>
+                <span>Validazione annunci</span>
+                <p></p>
+                {iconRenderer("rule")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_PAGAMENTI)}>
+                <span>Gestisci pagamenti</span>
+                <p></p>
+                {iconRenderer("price_check")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_UTENTI)}>
+                <span>Gestisci utenti</span>
+                <p></p>
+                {iconRenderer("manage_accounts")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_EDIZIONI)}>
+                <span>Gestisci edizioni</span>
+                <p></p>
+                {iconRenderer("full_coverage")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_CATEGORIE)}>
+                <span>Gestisci categorie</span>
+                <p></p>
+                {iconRenderer("category")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_ESPORTA_ANNUNCI)}>
+                <span>Esporta annunci</span>
+                <p></p>
+                {iconRenderer("download")}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {/* <div className='row'>
         <div className='col'>
           <Button
             text="Checkout"
@@ -94,42 +147,8 @@ const MyAccount = () => {
             onClick={() => navigate(ROUTES.CHECKOUT)}
           />
         </div>
-      </div>
-      {user.isAdmin && (
-        <>
-          <br></br>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_VALIDAZIONE_ANNUNCI}>Validazione annunci</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_PAGAMENTI}>Gestisci pagamenti</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_UTENTI}>Gestisci utenti</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_EDIZIONI}>Gestisci edizioni</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_CATEGORIE}>Gestisci categorie</Link>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
-              <Link route={ROUTES.ADMIN_ESPORTA_ANNUNCI}>Esporta annunci</Link>
-            </div>
-          </div>
-        </>
-      )}
+      </div> */}
+      <br></br>
       <br></br>
       <div className='row'>
         <div className='col'>
