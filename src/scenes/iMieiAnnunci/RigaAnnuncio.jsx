@@ -73,6 +73,12 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
 
   return (
     <>
+      <div className={styles.mainInfo}>
+        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
+        <span className={styles.description}>{annuncio.description}</span>
+        <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
+        <span className={styles.extra}>{`${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
+      </div>
       <div
         className={styles.imageContainer}
         onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}
@@ -93,11 +99,6 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
             opticalSize={48}
           />
         )}
-      </div>
-      <div className={styles.mainInfo}>
-        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
-        <span className={styles.description}>{annuncio.description}</span>
-        <span className={styles.extra}>{`${annuncio.city} (${annuncio.province}) - ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
       <div className={styles.status}>
         {statoApprovazione}

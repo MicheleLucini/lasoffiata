@@ -72,7 +72,7 @@ const IMieiAnnunci = () => {
 
   const annunciList = useMemo(() => (
     advertisements.map((x) => (
-      <React.Fragment key={x.id}>
+      <div key={x.id} className={styles.annuncio}>
         <RigaAnnuncio
           annuncio={x}
           loading={loading}
@@ -80,8 +80,7 @@ const IMieiAnnunci = () => {
           onSospendi={sospendi}
           onElimina={onEliminaClick}
         />
-        <hr />
-      </React.Fragment>
+      </div>
     ))
   ), [advertisements, loading, ripubblica, sospendi, onEliminaClick]);
 
