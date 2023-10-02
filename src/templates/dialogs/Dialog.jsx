@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import React from "react";
 import { useDialogs } from "@contexts/DialogsContext";
 import Button from '@components/button';
 import styles from './Dialogs.module.css';
