@@ -121,6 +121,8 @@ const CreaAnnuncio = () => {
       <div className='row'>
         <div className='col'>
           <ImageInput
+            label="Foto"
+            buttonText="Aggiungi foto"
             setValue={setFormImages}
             disabled={loading}
           />

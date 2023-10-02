@@ -85,12 +85,15 @@ const ModificaAnnuncio = () => {
       if (formDeletedImages.includes(x.id)) {
         return null;
       }
-      return getAdvertisementImageUrl({
-        userId: initialValues.userId,
-        advertisementId: initialValues.id,
-        imageId: x.id,
-      });
-    });
+      return {
+        src: getAdvertisementImageUrl({
+          userId: initialValues.userId,
+          advertisementId: initialValues.id,
+          imageId: x.id,
+        }),
+        name: x.id,
+      };
+    }).filter((x) => x);
   }, [formDeletedImages, initialValues]);
 
   useEffect(() => {
@@ -157,6 +160,7 @@ const ModificaAnnuncio = () => {
       <div className='row'>
         <div className='col'>
           <FakeImageInput
+            label="Foto annuncio"
             images={immaginiAnnuncio}
             removeImage={removeImage}
             disabled={loading}
@@ -166,6 +170,8 @@ const ModificaAnnuncio = () => {
       <div className='row'>
         <div className='col'>
           <ImageInput
+            label="Nuove foto"
+            buttonText="Aggiungi foto"
             setValue={setFormImages}
             disabled={loading}
           />

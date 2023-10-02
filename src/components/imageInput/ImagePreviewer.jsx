@@ -3,10 +3,18 @@ import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import styles from "./ImageInput.module.css";
 
-const ImagePreviewer = ({ inputFile, removeImage }) => {
+const ImagePreviewer = ({
+  inputFile,
+  removeImage
+}) => {
   const [imageSrc, setImageSrc] = useState(null);
 
   useEffect(() => {
+    if (!inputFile) return;
+    if (!!inputFile.src) {
+      setImageSrc(inputFile.src)
+      return;
+    }
     const reader = new FileReader();
     reader.onload = function (event) {
       setImageSrc(event.target.result);
