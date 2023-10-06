@@ -16,17 +16,29 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
       return "";
     }
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
-  }, [annuncio]);
+  }, [annuncio.id, annuncio.images, annuncio.userId]);
 
   const isScaduto = useMemo(() => {
     return moment().diff(annuncio.expirationDate) > 0;
-  }, [annuncio]);
+  }, [annuncio.expirationDate]);
 
-  const statoApprovazione = useMemo(() => {
+  const isMaiStatoAttivato = useMemo(() => {
+    return annuncio.publishDate === "0001-01-01T00:00:00Z";
+  }, [annuncio.publishDate]);
+
+  const statoAnnuncio = useMemo(() => {
     let icon = "event_available";
     let className = styles.success;
     let text = "Attivo";
-    if (isScaduto) {
+    if (isMaiStatoAttivato) {
+      icon = "savings";
+      className = styles.warning;
+      text = "Pagamento richiesto";
+    } else if (annuncio.isSuspended) {
+      icon = "pause_circle";
+      className = styles.error;
+      text = "Sospeso";
+    } else if (isScaduto) {
       icon = "event_busy";
       className = styles.error;
       text = "Scaduto";
@@ -52,24 +64,7 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
         {text}
       </span>
     );
-  }, [annuncio, isScaduto]);
-
-  const statoPubblicazione = useMemo(() => {
-    if (!annuncio.isSuspended) return null;
-    return (
-      <span className={styles.error}>
-        <Icon
-          name="pause_circle"
-          size={18}
-          fill={0}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-        />
-        Sospeso
-      </span>
-    );
-  }, [annuncio.isSuspended]);
+  }, [annuncio.isSuspended, annuncio.validationStatus, isMaiStatoAttivato, isScaduto]);
 
   return (
     <>
@@ -77,7 +72,7 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
         <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
         <span className={styles.description}>{annuncio.description}</span>
         <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
-        <span className={styles.extra}>{`${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
+        <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
       <div
         className={styles.imageContainer}
@@ -101,26 +96,27 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
         )}
       </div>
       <div className={styles.status}>
-        {statoApprovazione}
-        {statoPubblicazione}
+        {statoAnnuncio}
       </div>
       <div className={styles.actions}>
-        {annuncio.isSuspended || isScaduto ? (
-          <Button
-            type="outlined"
-            text={isScaduto ? "Ripubblica" : "Riattiva"}
-            onClick={() => onRipubblica(annuncio.id)}
-            disabled={loading}
-            size="mini"
-          />
-        ) : (
-          <Button
-            type="outlined"
-            text="Sospendi"
-            onClick={() => onSospendi(annuncio.id)}
-            disabled={loading}
-            size="mini"
-          />
+        {!isMaiStatoAttivato && (
+          annuncio.isSuspended || isScaduto ? (
+            <Button
+              type="outlined"
+              text={isScaduto ? "Ripubblica" : "Riattiva"}
+              onClick={() => onRipubblica(annuncio.id)}
+              disabled={loading}
+              size="mini"
+            />
+          ) : (
+            <Button
+              type="outlined"
+              text="Sospendi"
+              onClick={() => onSospendi(annuncio.id)}
+              disabled={loading}
+              size="mini"
+            />
+          )
         )}
         <Button
           type="outlined"
