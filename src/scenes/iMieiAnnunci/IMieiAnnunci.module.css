@@ -2,13 +2,14 @@
 
 .wrapperAnnunci {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 16px 12px;
 }
 
 .annuncio {
   display: grid;
   grid-template-columns: 1fr 100px;
-  gap: 8px;
+  gap: 20px 10px;
   background-color: white;
   border-radius: 8px;
   border: 1px solid var(--blue-grey-lighten-3);
@@ -108,7 +109,7 @@
   grid-auto-flow: column;
 }
 
-@media only screen and (min-width: 770px) {
+/* @media only screen and (min-width: 770px) {
   .wrapperAnnunci {
     grid-template-columns: 100px 1fr;
   }
@@ -130,4 +131,4 @@
     grid-column: unset;
     grid-auto-flow: row;
   }
-}
+} */
