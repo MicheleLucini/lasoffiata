@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/lasoffiata/static/css/main.6b42c625.css",
+    "main.css": "/lasoffiata/static/css/main.febe4ace.css",
     "main.js": "/lasoffiata/static/js/main.42b061de.js",
     "index.html": "/lasoffiata/index.html",
-    "main.6b42c625.css.map": "/lasoffiata/static/css/main.6b42c625.css.map",
+    "main.febe4ace.css.map": "/lasoffiata/static/css/main.febe4ace.css.map",
     "main.42b061de.js.map": "/lasoffiata/static/js/main.42b061de.js.map"
   },
   "entrypoints": [
-    "static/css/main.6b42c625.css",
+    "static/css/main.febe4ace.css",
     "static/js/main.42b061de.js"
   ]
 }
