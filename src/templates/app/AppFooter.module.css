@@ -1,17 +1,18 @@
 .footer {
-  background-color: var(--blue-grey-lighten-4);
+  /* background-color: var(--blue-grey-lighten-4); */
   margin-top: 50px;
 }
 
 .footer>.footerContent {
   display: grid;
   padding: 20px;
+  padding-bottom: 80px;
   gap: 5px;
-  place-items: center;
+  /* place-items: center; */
 }
 
 .footer>.footerContent>.logo {
-  width: 100px;
+  width: 120px;
   margin-bottom: 5px;
 }
 

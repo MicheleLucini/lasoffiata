@@ -48,8 +48,8 @@ button {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--blue-grey-lighten-5);
-  background-color: hsl(204, 15%, 96%);
+  /* background-color: var(--blue-grey-lighten-5); */
+  /* background-color: hsl(204, 15%, 96%); */
 }
 
 body.block_scroll {
@@ -84,4 +84,6 @@ a {
   font-weight: 600;
   height: 20px;
   line-height: 20px;
+  display: block;
+  text-align: center;
 }

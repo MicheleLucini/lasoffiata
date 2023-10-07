@@ -8,15 +8,15 @@ import styles from "./AppTopBar.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AppTopBar = () => {
-  const { checkCurrentRoute } = useNavigator();
+  // const { checkCurrentRoute } = useNavigator();
   // const user = useSelector(selectUser);
 
-  const backArrowRoute = useMemo(() => {
-    // if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
-    if (checkCurrentRoute(ROUTES.PERSONAL_INFO)) return ROUTES.MY_ACCOUNT;
-    if (checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)) return ROUTES.MY_ACCOUNT;
-    return null;
-  }, [checkCurrentRoute]);
+  // const backArrowRoute = useMemo(() => {
+  //   // if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
+  //   if (checkCurrentRoute(ROUTES.PERSONAL_INFO)) return ROUTES.MY_ACCOUNT;
+  //   if (checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)) return ROUTES.MY_ACCOUNT;
+  //   return null;
+  // }, [checkCurrentRoute]);
 
   // const showCurrentUserGreeting = useMemo(() => (
   //   user.isLogged
@@ -41,7 +41,7 @@ const AppTopBar = () => {
   return (
     <div className={styles.topBar}>
       <div className={styles.topBarLeft}>
-        {backArrowRoute && (
+        {/* {backArrowRoute && (
           <Link route={backArrowRoute}>
             <Icon
               name="arrow_back"
@@ -51,12 +51,12 @@ const AppTopBar = () => {
               opticalSize={24}
             />
           </Link>
-        )}
+        )} */}
       </div>
       <div className={styles.topBarCenter}>
-        <Link route={ROUTES.HOME}>
+        {/* <Link route={ROUTES.HOME}> */}
           <Logo className={styles.logo} />
-        </Link>
+        {/* </Link> */}
       </div>
       <div className={styles.topBarRight}>
         {/* {!showLoginHero && !showRegisterHero && (

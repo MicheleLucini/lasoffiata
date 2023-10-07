@@ -1,0 +1,40 @@
+.navBar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 12px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-gap: 0;
+  justify-items: center;
+  color: black;
+  background: #f3f6fc;
+  z-index: 101;
+}
+
+.navBar>* {
+  height: 60px;
+  width: 100%;
+  display: grid;
+  place-content: center;
+}
+
+.navBar .active {
+  position: relative;
+  color: #001d35;
+}
+
+.navBar .active:before {
+  content: "";
+  position: absolute;
+  display: block;
+  top: -4px;
+  left: -12px;
+  height: calc(100% + 8px);
+  width: calc(100% + 24px);
+  z-index: -1;
+  border-radius: 100px;
+  background: #c2e7ff;
+}

@@ -10,6 +10,7 @@ import Snackbars from "@templates/snackbars";
 import Modals from "@templates/modals";
 import Dialogs from "@templates/dialogs";
 import AppTopBar from "./AppTopBar";
+import AppNavBar from "./AppNavBar";
 import AppRouting from "./AppRouting";
 import AppFooter from "./AppFooter";
 import styles from "./App.module.css";
@@ -27,6 +28,7 @@ const App = () => {
         <NavigatorProvider>
           <SnackbarsProvider>
             <DialogsProvider>
+              <AppNavBar />
               <div className={styles.page}>
                 <AppTopBar />
                 <div className={styles.body}>
