@@ -15,16 +15,16 @@ const Modal = ({
     <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
       <div className={styles.modalBody} >
         <div className={styles.modalTitle} onClick={(e) => e.stopPropagation()}>
+          <span>{title}</span>
           <div onClick={(e) => closeModal(id)}>
             <Icon
-              name="arrow_back"
+              name="close"
               fill={0}
               weight={400}
               grade={0}
               opticalSize={24}
             />
           </div>
-          <span>{title}</span>
         </div>
         {children}
       </div>

@@ -12,7 +12,7 @@ const AppTopBar = () => {
   // const user = useSelector(selectUser);
 
   const backArrowRoute = useMemo(() => {
-    if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
+    // if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
     if (checkCurrentRoute(ROUTES.PERSONAL_INFO)) return ROUTES.MY_ACCOUNT;
     if (checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)) return ROUTES.MY_ACCOUNT;
     return null;
