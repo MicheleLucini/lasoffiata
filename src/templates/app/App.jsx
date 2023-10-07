@@ -28,8 +28,8 @@ const App = () => {
         <NavigatorProvider>
           <SnackbarsProvider>
             <DialogsProvider>
-              <AppNavBar />
               <div className={styles.page}>
+                <AppNavBar />
                 <AppTopBar />
                 <div className={styles.body}>
                   <AppRouting />
