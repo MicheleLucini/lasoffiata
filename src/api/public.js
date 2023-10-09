@@ -64,9 +64,9 @@ export async function GetFeaturedAdvertisements() {
   return await post(`${CONTROLLER_URL}/GetFeaturedAdvertisements`);
 }
 
-export async function GetUser({ id }) {
+export async function GetUser({ userId }) {
   return await post(`${CONTROLLER_URL}/GetUser`, {
-    id
+    userId
   });
 }
 
