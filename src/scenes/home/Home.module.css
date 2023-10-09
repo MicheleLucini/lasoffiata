@@ -57,7 +57,9 @@
   /**/
   /* background-color: var(--blue-grey-lighten-5);
   background-color: #f3f6fc; */
-  background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgba(105, 145, 214, .08));
+  /* background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgba(105, 145, 214, .08)); */
+  /* background-color: #edf2fa; */
+  background-color: #f3f7fc;
   width: 100%;
   padding: 14px 12px;
   padding-left: 42px;
