@@ -7,7 +7,7 @@ import { selectUser } from '@store/userSlice';
 import { useSelector } from "react-redux";
 import { useSnackbars } from "@contexts/SnackbarsContext";
 
-const Home = () => {
+const PersonallInfo = () => {
   const user = useSelector(selectUser);
   const { openSnackbar } = useSnackbars();
 
@@ -169,4 +169,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default PersonallInfo;

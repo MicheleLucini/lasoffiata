@@ -72,6 +72,10 @@ const ROUTES = {
     title: "Il mio account",
     url: "/my-account",
   },
+  PERSONAL_BILLING_INFO: {
+    title: "Informazioni di fatturazione",
+    url: "/personal-billing-info",
+  },
   PERSONAL_INFO: {
     title: "Informazioni personali",
     url: "/personal-info",

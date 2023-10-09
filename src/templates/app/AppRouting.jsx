@@ -13,6 +13,7 @@ import IMieiAnnunci from "@scenes/iMieiAnnunci";
 import Login from "@scenes/login";
 import ModificaAnnuncio from "@scenes/modificaAnnuncio";
 import MyAccount from "@scenes/myAccount";
+import PersonalBillingInfo from "@scenes/personalBillingInfo";
 import PersonalInfo from "@scenes/personalInfo";
 import React, { useMemo } from "react";
 import Register from "@scenes/register";
@@ -50,6 +51,7 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
       {checkCurrentRoute(ROUTES.MODIFICA_ANNUNCIO) && <ModificaAnnuncio />}
       {checkCurrentRoute(ROUTES.MY_ACCOUNT) && <MyAccount />}
+      {checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO) && <PersonalBillingInfo />}
       {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
       {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
