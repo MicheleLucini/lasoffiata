@@ -12,6 +12,7 @@
   width: 100%;
   display: grid;
   align-content: start;
+  min-height: calc(100vh - 160px);
   /* grid-template-columns: minmax(0, 1fr); */
   /* padding: 20px 12px 50px; */
   /* gap: 20px; */
