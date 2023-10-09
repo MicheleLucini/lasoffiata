@@ -5,10 +5,9 @@
 
 .footer>.footerContent {
   display: grid;
-  padding: 20px;
-  padding-bottom: 80px;
   gap: 5px;
-  /* place-items: center; */
+  padding: 30px 20px 90px;
+  justify-items: center;
 }
 
 .footer>.footerContent>.logo {
