@@ -13,36 +13,7 @@ const PersonalBillinglInfo = () => {
   const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState({
-    // userId
-    userId: user.id,
-    // name
-    name: user.name,
-    // lastName
-    lastName: user.lastName,
-    // street
-    street: user.street,
-    // civic
-    civic: user.civic,
-    // city
-    city: user.city,
-    // zipCode
-    zipCode: user.zipCode,
-    // province
-    province: user.province,
-    // country
-    country: user.country,
-    // codiceFiscale
-    codiceFiscale: user.codiceFiscale,
-    // businessName
-    businessName: user.businessName,
-    // partitaIva
-    partitaIva: user.partitaIva,
-    // pec
-    pec: null,
-    // icfCode
-    icfCode: null,
-  });
+  const [values, setValues] = useState(user);
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -53,7 +24,10 @@ const PersonalBillinglInfo = () => {
 
   const onSave = useCallback(() => {
     setLoading(true);
-    dispatch(logicUser.editUserBillingData(values))
+    dispatch(logicUser.editUserBillingData({
+      ...values,
+      userId: user.id
+    }))
       .then(() => {
         openSnackbar("Dati aggiornati ✔️");
       })
@@ -63,7 +37,7 @@ const PersonalBillinglInfo = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, openSnackbar, values]);
+  }, [dispatch, openSnackbar, user.id, values]);
 
   return (
     <>
@@ -80,12 +54,12 @@ const PersonalBillinglInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="name" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
+          <TextInput label="lastName" value={values.lastName} setValue={(val) => onFormValueChange("lastName", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="lastName" value={values.lastName} setValue={(val) => onFormValueChange("lastName", val)} disabled={loading} />
+          <TextInput label="name" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>

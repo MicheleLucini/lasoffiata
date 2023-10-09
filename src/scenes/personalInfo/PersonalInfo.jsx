@@ -1,13 +1,16 @@
+import * as logicUser from "@logic/user";
 import Button from '@components/button';
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import SelectYear from "@templates/selectYear";
 import TextInput from '@components/textInput';
 import { getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const PersonallInfo = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const { openSnackbar } = useSnackbars();
 
@@ -21,9 +24,22 @@ const PersonallInfo = () => {
     }));
   }, []);
 
-  useEffect(() => {
-    setValues(user);
-  }, [user]);
+  const onSave = useCallback(() => {
+    setLoading(true);
+    dispatch(logicUser.editUser({
+      ...values,
+      userId: user.id
+    }))
+      .then(() => {
+        openSnackbar("Dati aggiornati ✔️");
+      })
+      .catch((e) => {
+        openSnackbar("Qualcosa è andato storto ❌");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [dispatch, openSnackbar, user.id, values]);
 
   return (
     <>
@@ -35,22 +51,7 @@ const PersonallInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <label>Informazioni speciali</label>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="id" value={values.id} setValue={(val) => onFormValueChange("id", val)} disabled={true} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="isAdmin" value={values.isAdmin} setValue={(val) => onFormValueChange("isAdmin", val)} disabled={true} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <label>Informazioni di base</label>
+          <label>Informazioni di contatto</label>
         </div>
       </div>
       <div className='row'>
@@ -160,7 +161,7 @@ const PersonallInfo = () => {
             color="primary"
             disabled={loading}
             fullWidth
-            onClick={() => openSnackbar("Non implementato")}
+            onClick={onSave}
             text="salva"
           />
         </div>

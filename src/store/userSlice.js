@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   civic: null, // "5"
   codiceFiscale: null, // "blljcp"
   country: null, // "italia"
+  credits: null, // 0
   email: null, // "admin"
   id: null, //  16
   isAdmin: null, //  true
@@ -33,11 +34,14 @@ export const userSlice = createSlice({
       ...action.payload,
       isLogged: true,
     }),
+    refreshData: (state, action) => ({
+      ...action.payload,
+    }),
     logout: () => INITIAL_STATE,
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, refreshData } = userSlice.actions;
 
 export const selectUser = (state) => state.user;
 
