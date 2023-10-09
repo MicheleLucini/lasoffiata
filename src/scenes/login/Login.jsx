@@ -4,6 +4,7 @@ import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
 import InlineAlert from '@components/inlineAlert';
+import { useSnackbars } from "@contexts/SnackbarsContext";
 import TextInput from '@components/textInput';
 
 const Login = () => {
@@ -14,11 +15,14 @@ const Login = () => {
   const [formErrors, setFormErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const { openSnackbar } = useSnackbars();
+
   const loginUser = useCallback((email, password) => {
     setLoading(true);
     setFormErrors(null);
     dispatch(logicUser.login({ email, password }))
       .then(() => {
+        openSnackbar("Bentornato ✨");
         navigate(ROUTES.HOME);
       })
       .catch((e) => {
@@ -27,7 +31,7 @@ const Login = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, openSnackbar]);
 
   const onAccediClick = useCallback(() => {
     loginUser(formEmail, formPassword);
@@ -39,12 +43,12 @@ const Login = () => {
 
   return (
     <>
-    <br></br>
-    <div className='row'>
-      <div className='col'>
-        <span className='page-title'>Accedi</span>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Accedi</span>
+        </div>
       </div>
-    </div>
       <div className='row'>
         <div className='col'>
           <TextInput
