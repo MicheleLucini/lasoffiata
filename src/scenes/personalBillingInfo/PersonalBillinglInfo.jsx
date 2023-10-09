@@ -41,7 +41,6 @@ const PersonalBillinglInfo = () => {
   }, [dispatch, openSnackbar, user.id, values]);
 
   useEffect(() => {
-    console.log(user)
     setValues(user);
   }, [user])
 
