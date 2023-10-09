@@ -1,16 +1,48 @@
+import * as logicUser from "@logic/user";
 import Button from '@components/button';
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import TextInput from '@components/textInput';
 import { selectUser } from '@store/userSlice';
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const PersonalBillinglInfo = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState(user);
+  const [values, setValues] = useState({
+    // userId
+    userId: user.id,
+    // name
+    name: user.name,
+    // lastName
+    lastName: user.lastName,
+    // street
+    street: user.street,
+    // civic
+    civic: user.civic,
+    // city
+    city: user.city,
+    // zipCode
+    zipCode: user.zipCode,
+    // province
+    province: user.province,
+    // country
+    country: user.country,
+    // codiceFiscale
+    codiceFiscale: user.codiceFiscale,
+    // businessName
+    businessName: user.businessName,
+    // partitaIva
+    partitaIva: user.partitaIva,
+    // pec
+    pec: null,
+    // icfCode
+    icfCode: null,
+  });
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -19,30 +51,19 @@ const PersonalBillinglInfo = () => {
     }));
   }, []);
 
-  // const onSave = useCallback(() => {
-  //   setLoading(true);
-  //   dispatch(logicAnnuncio.createAdvertisement({
-  //     title: formTitolo,
-  //     description: formDescrizione,
-  //     categoryId: formCategory,
-  //     province: formProvince,
-  //     city: formCitta,
-  //     imageBlob: filesBlobs.join("#"),
-  //   }))
-  //     .then(() => {
-  //       navigate(ROUTES.HOME);
-  //     })
-  //     .catch((e) => {
-  //       setFormErrors(e.message);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    setValues(user);
-  }, [user]);
+  const onSave = useCallback(() => {
+    setLoading(true);
+    dispatch(logicUser.editUserBillingData(values))
+      .then(() => {
+        openSnackbar("Dati aggiornati ✔️");
+      })
+      .catch((e) => {
+        openSnackbar("Qualcosa è andato storto ❌");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [dispatch, openSnackbar, values]);
 
   return (
     <>
@@ -52,16 +73,6 @@ const PersonalBillinglInfo = () => {
           <span className='page-title'>I tuoi dati di fatturazione</span>
         </div>
       </div>
-      {/* <div className='row'>
-        <div className='col'>
-          <label>Informazioni speciali</label>
-        </div>
-      </div> */}
-      {/* <div className='row'>
-        <div className='col'>
-          <TextInput label="accountType" value={getConstantDescriptionByValue(ACCOUNT_TYPE, values.accountType)} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
-        </div>
-      </div> */}
       <div className='row'>
         <div className='col'>
           <label>Informazioni di contatto</label>
@@ -144,7 +155,7 @@ const PersonalBillinglInfo = () => {
             color="primary"
             disabled={loading}
             fullWidth
-            onClick={() => openSnackbar("Non implementato")}
+            onClick={onSave}
             text="salva"
           />
         </div>

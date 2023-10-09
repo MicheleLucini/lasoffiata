@@ -35,3 +35,7 @@ export const restoreSignIn = () => async (dispatch) => {
   const user = await apiUser.RestoreSignIn();
   await dispatch(storeUser.login(user));
 };
+
+export const editUserBillingData = (body) => async (dispatch) => {
+  await apiUser.EditUserBillingData(body);
+};
