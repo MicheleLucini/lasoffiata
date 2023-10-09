@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback } from "react";
 // import moment from 'moment';
-// import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
 // import Icon from "@components/icon";
 import { BASE_URL } from "@api/utils"
 import styles from "./Home.module.css";
 
 const HomeAnnuncio = ({ annuncio, onAnnuncioClick }) => {
-  // const { navigate } = useNavigator();
+  const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
     if (!annuncio.images || annuncio.images.length === 0) {
@@ -17,9 +17,9 @@ const HomeAnnuncio = ({ annuncio, onAnnuncioClick }) => {
   }, [annuncio]);
 
   const onClickAnnuncio = useCallback(() => {
-    //navigate(ROUTES.ANNUNCIO, [annuncio.id]);
-    onAnnuncioClick(annuncio);
-  }, [onAnnuncioClick, annuncio]);
+    navigate(ROUTES.ANNUNCIO, [annuncio.id]);
+    // onAnnuncioClick(annuncio);
+  }, [annuncio.id, navigate]);
 
   return (
     <div className={styles.annuncio} onClick={onClickAnnuncio}>
