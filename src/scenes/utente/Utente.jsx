@@ -148,11 +148,6 @@ const Utente = () => {
           <TextInput label="tel" value={utente.tel} disabled />
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="website" value={utente.website} disabled />
-        </div>
-      </div>
     </>
   );
 };

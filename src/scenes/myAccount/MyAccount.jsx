@@ -65,19 +65,19 @@ const MyAccount = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <div className={styles.card} onClick={() => navigate(ROUTES.PERSONAL_INFO)}>
+          <div className={styles.card} onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}>
             <span>Dati personali</span>
-            <p>Visualizza i dati del tuo account</p>
-            {iconRenderer("badge")}
+            <p>Gestisci i tuoi dati privati</p>
+            {iconRenderer("encrypted")}
           </div>
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <div className={styles.card} onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}>
-            <span>Dati di fatturazione</span>
-            <p>Visualizza i tuoi dati di fatturazione</p>
-            {iconRenderer("receipt")}
+          <div className={styles.card} onClick={() => navigate(ROUTES.PERSONAL_INFO)}>
+            <span>Dati pubblici</span>
+            <p>Gestisci i tuoi dati pubblici</p>
+            {iconRenderer("badge")}
           </div>
         </div>
       </div>

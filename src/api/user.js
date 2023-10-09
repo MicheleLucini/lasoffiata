@@ -6,7 +6,14 @@ export async function RestoreSignIn() {
   return await post(`${CONTROLLER_URL}/RestoreSignIn`);
 }
 
-export async function CreateAdvertisement({ title, description, categoryId, province, city, imageBlob }) {
+export async function CreateAdvertisement({
+  title,
+  description,
+  categoryId,
+  province,
+  city,
+  imageBlob
+}) {
   return await post(`${CONTROLLER_URL}/CreateAdvertisement`, {
     title,
     description,
@@ -17,7 +24,16 @@ export async function CreateAdvertisement({ title, description, categoryId, prov
   });
 }
 
-export async function EditAdvertisement({ advertisementId, title, description, categoryId, province, city, newImageBlob, deletedImageIds }) {
+export async function EditAdvertisement({
+  advertisementId,
+  title,
+  description,
+  categoryId,
+  province,
+  city,
+  newImageBlob,
+  deletedImageIds
+}) {
   return await post(`${CONTROLLER_URL}/EditAdvertisement`, {
     advertisementId,
     title,
@@ -61,30 +77,36 @@ export async function DeleteImage({ imageId }) {
   });
 }
 
-export async function EditUser({ userId, name, lastName, advertisementName, yearBirth, street, civic, city, zipCode, province, country, codiceFiscale, tel, cel, email, businessName, partitaIva, webSite }) {
-  return await post(`${CONTROLLER_URL}/EditUser`, {
+export async function EditUserPublicData({
+  userId,
+  advertisementName,
+  tel,
+  cel,
+  email
+}) {
+  return await post(`${CONTROLLER_URL}/EditUserPublicData`, {
     userId,
-    name,
-    lastName,
     advertisementName,
-    yearBirth,
-    street,
-    civic,
-    city,
-    zipCode,
-    province,
-    country,
-    codiceFiscale,
     tel,
     cel,
-    email,
-    businessName,
-    partitaIva,
-    webSite
+    email
   });
 }
 
-export async function EditUserBillingData({ userId, name, lastName, street, civic, city, zipCode, province, country, codiceFiscale, businessName, partitaIva, pec, icfCode }) {
+export async function EditUserBillingData({
+  userId,
+  name,
+  lastName,
+  street,
+  civic,
+  city,
+  zipCode,
+  province,
+  country,
+  codiceFiscale,
+  businessName,
+  partitaIva
+}) {
   return await post(`${CONTROLLER_URL}/EditUserBillingData`, {
     userId,
     name,
@@ -97,9 +119,7 @@ export async function EditUserBillingData({ userId, name, lastName, street, civi
     country,
     codiceFiscale,
     businessName,
-    partitaIva,
-    pec,
-    icfCode
+    partitaIva
   });
 }
 

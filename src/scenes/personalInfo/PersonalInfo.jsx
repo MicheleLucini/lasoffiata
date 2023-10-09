@@ -26,7 +26,7 @@ const PersonallInfo = () => {
 
   const onSave = useCallback(() => {
     setLoading(true);
-    dispatch(logicUser.editUser({
+    dispatch(logicUser.editUserPublicData({
       ...values,
       userId: user.id
     }))
@@ -147,11 +147,6 @@ const PersonallInfo = () => {
       <div className='row'>
         <div className='col'>
           <TextInput label="tel" value={values.tel} setValue={(val) => onFormValueChange("tel", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="website" value={values.website} setValue={(val) => onFormValueChange("website", val)} disabled={loading} />
         </div>
       </div>
       <br></br>

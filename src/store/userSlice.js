@@ -2,27 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   isLogged: false,
-  accountType: null, //  1
+  accountType: null, // 1
   advertisementName: null, // "test nickname"
-  businessName: null, //  ""
+  businessName: null, // ""
   cel: null, // "348 123456"
   city: null, // "Bergamo Alta"
   civic: null, // "5"
   codiceFiscale: null, // "blljcp"
   country: null, // "italia"
-  credits: null, // 0
+  credits: null, // 0 
   email: null, // "admin"
-  id: null, //  16
-  isAdmin: null, //  true
+  id: null, // 16
+  isAdmin: null, // true
   lastName: null, // "Bellocchio"
   name: null, // "Jacopo"
-  partitaIva: null, //  ""
+  partitaIva: null, // ""
   province: null, // "BG"
   street: null, // "via del sottoscritto"
-  tel: null, //  ""
+  tel: null, // "123123"
   token: null, // "OykftCswoFguXatwWPYDxkhfPHAjUArSDGuGDv9M3MFBc/KdRZGlJLTIyqVRAsYE7+UCGUjK2epSQSXmFkB+/g=="
-  website: null, //  ""
-  yearBirth: null, //  0
   zipCode: null, // "20100"
 };
 
