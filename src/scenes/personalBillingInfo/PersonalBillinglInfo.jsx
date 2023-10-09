@@ -1,7 +1,8 @@
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import TextInput from '@components/textInput';
+import { checkConstant, getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -13,7 +14,7 @@ const PersonalBillinglInfo = () => {
   const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState(user);
+  const [values, setValues] = useState({});
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -39,6 +40,11 @@ const PersonalBillinglInfo = () => {
       });
   }, [dispatch, openSnackbar, user.id, values]);
 
+  useEffect(() => {
+    console.log(user)
+    setValues(user);
+  }, [user])
+
   return (
     <>
       <br></br>
@@ -54,39 +60,41 @@ const PersonalBillinglInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="lastName" value={values.lastName} setValue={(val) => onFormValueChange("lastName", val)} disabled={loading} />
+          <TextInput label="Tipo account" value={getConstantDescriptionByValue(ACCOUNT_TYPE, values.accountType)} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="name" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="codiceFiscale" value={values.codiceFiscale} setValue={(val) => onFormValueChange("codiceFiscale", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="businessName" value={values.businessName} setValue={(val) => onFormValueChange("businessName", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="partitaIva" value={values.partitaIva} setValue={(val) => onFormValueChange("partitaIva", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="pec" value={values.pec} setValue={(val) => onFormValueChange("pec", val)} disabled={loading} />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <TextInput label="icfCode" value={values.icfCode} setValue={(val) => onFormValueChange("icfCode", val)} disabled={loading} />
-        </div>
-      </div>
+      {checkConstant(ACCOUNT_TYPE.PRIVATO, values.accountType) ? (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <TextInput label="Cognome" value={values.lastName} setValue={(val) => onFormValueChange("lastName", val)} disabled={loading} />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <TextInput label="Nome" value={values.name} setValue={(val) => onFormValueChange("name", val)} disabled={loading} />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <TextInput label="Codice fiscale" value={values.codiceFiscale} setValue={(val) => onFormValueChange("codiceFiscale", val)} disabled={loading} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <TextInput label="Ragione sociale" value={values.businessName} setValue={(val) => onFormValueChange("businessName", val)} disabled={loading} />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <TextInput label="Partita IVA" value={values.partitaIva} setValue={(val) => onFormValueChange("partitaIva", val)} disabled={loading} />
+            </div>
+          </div>
+        </>
+      )}
       <div className='row'>
         <div className='col'>
           <label>Informazioni di indirizzo</label>
@@ -94,32 +102,32 @@ const PersonalBillinglInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="country" value={values.country} setValue={(val) => onFormValueChange("country", val)} disabled={loading} />
+          <TextInput label="Stato" value={values.country} setValue={(val) => onFormValueChange("country", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="province" value={values.province} setValue={(val) => onFormValueChange("province", val)} disabled={loading} />
+          <TextInput label="Provincia" value={values.province} setValue={(val) => onFormValueChange("province", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="zipCode" value={values.zipCode} setValue={(val) => onFormValueChange("zipCode", val)} disabled={loading} />
+          <TextInput label="CAP" value={values.zipCode} setValue={(val) => onFormValueChange("zipCode", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="city" value={values.city} setValue={(val) => onFormValueChange("city", val)} disabled={loading} />
+          <TextInput label="Comune" value={values.city} setValue={(val) => onFormValueChange("city", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="street" value={values.street} setValue={(val) => onFormValueChange("street", val)} disabled={loading} />
+          <TextInput label="Via" value={values.street} setValue={(val) => onFormValueChange("street", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="civic" value={values.civic} setValue={(val) => onFormValueChange("civic", val)} disabled={loading} />
+          <TextInput label="Civico" value={values.civic} setValue={(val) => onFormValueChange("civic", val)} disabled={loading} />
         </div>
       </div>
       <br></br>

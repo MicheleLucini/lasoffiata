@@ -1,8 +1,7 @@
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import TextInput from '@components/textInput';
-// import { getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -14,7 +13,7 @@ const PersonallInfo = () => {
   const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(false);
-  const [values, setValues] = useState(user);
+  const [values, setValues] = useState({});
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -40,6 +39,10 @@ const PersonallInfo = () => {
       });
   }, [dispatch, openSnackbar, user.id, values]);
 
+  useEffect(() => {
+    setValues(user);
+  }, [user])
+
   return (
     <>
       <br></br>
@@ -48,11 +51,6 @@ const PersonallInfo = () => {
           <span className='page-title'>I tuoi dati utente pubblici</span>
         </div>
       </div>
-      {/* <div className='row'>
-        <div className='col'>
-          <TextInput label="accountType" value={getConstantDescriptionByValue(ACCOUNT_TYPE, values.accountType)} setValue={(val) => onFormValueChange("accountType", val)} disabled={true} />
-        </div>
-      </div> */}
       <div className='row'>
         <div className='col'>
           <TextInput label="Username" value={values.advertisementName} setValue={(val) => onFormValueChange("advertisementName", val)} disabled={loading} />
@@ -60,17 +58,17 @@ const PersonallInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="email" value={values.email} setValue={(val) => onFormValueChange("email", val)} disabled={loading} />
+          <TextInput label="Email" value={values.email} setValue={(val) => onFormValueChange("email", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="cel" value={values.cel} setValue={(val) => onFormValueChange("cel", val)} disabled={loading} />
+          <TextInput label="Cellulare" value={values.cel} setValue={(val) => onFormValueChange("cel", val)} disabled={loading} />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <TextInput label="tel" value={values.tel} setValue={(val) => onFormValueChange("tel", val)} disabled={loading} />
+          <TextInput label="Telefono" value={values.tel} setValue={(val) => onFormValueChange("tel", val)} disabled={loading} />
         </div>
       </div>
       <br></br>
