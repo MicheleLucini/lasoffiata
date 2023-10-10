@@ -1,5 +1,6 @@
 import * as apiPublic from "@api/public";
 import Button from "@components/button";
+import DetailsGrid from '@components/detailsGrid';
 import PropTypes from "prop-types";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import moment from 'moment';
@@ -144,12 +145,10 @@ const Annuncio = ({ initialAnnuncio }) => {
       </div>
       <div className='row'>
         <div className='col'>
-          <div className={styles.infoSecondarie}>
-            <span>Categoria:</span><span>{getCategoryDescriptionById(annuncio.categoryId)}</span>
-            <span>Condizione:</span><span>Usato - Buono</span>
-            <span>Categoria:</span><span>{getCategoryDescriptionById(annuncio.categoryId)}</span>
-            <span>Descrizione</span><span>{annuncio.description}</span>
-          </div>
+          <DetailsGrid
+            labels={["Categoria", "Condizione", "Descrizione"]}
+            values={[getCategoryDescriptionById(annuncio.categoryId), "Usato - Buono", annuncio.description]}
+          />
         </div>
       </div>
       <br></br>
@@ -160,12 +159,10 @@ const Annuncio = ({ initialAnnuncio }) => {
       </div>
       <div className='row'>
         <div className='col'>
-          <div className={styles.infoSecondarie}>
-            <span>Nome</span><span>{annuncio.user.advertisementName}</span>
-            <span>Email</span><span>{annuncio.user.email}</span>
-            <span>Telefono</span><span>{annuncio.user.tel}</span>
-            <span>Cellulare</span><span>{annuncio.user.cel}</span>
-          </div>
+          <DetailsGrid
+            labels={["Username", "Email", "Cellulare", "Telefono"]}
+            values={[annuncio.user.advertisementName, annuncio.user.email, annuncio.user.cel, annuncio.user.tel]}
+          />
         </div>
       </div>
       <div className='row'>
@@ -177,20 +174,6 @@ const Annuncio = ({ initialAnnuncio }) => {
           />
         </div>
       </div>
-      {/* <Icon
-          name="face"
-          size={16}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-          className={styles.icon}
-        />
-        <span>{annuncio.user.advertisementName}</span> */}
-      {/* <a href={`mailto:${annuncio.user.email}?subject=${encodeURIComponent("La soffiata - annuncio: " + annuncio.title)}&body=${encodeURIComponent("Ciao! Sono interessato all'annuncio in oggetto, volevo sapere...")}`}>
-          <span>{annuncio.user.email}</span>
-        </a>
-    </div > */}
     </>
   );
 };

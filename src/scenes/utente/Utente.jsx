@@ -1,11 +1,11 @@
 import * as apiPublic from "@api/public";
+import DetailsGrid from '@components/detailsGrid';
 import React, { useState, useCallback, useEffect } from "react";
-import TextInput from '@components/textInput';
 import { useNavigator } from "@contexts/NavigatorContext";
 
 const Utente = () => {
   const { currentRoute } = useNavigator();
-  
+
   const [utente, setUtente] = useState(null);
 
   const loadUtente = useCallback(async () => {
@@ -23,32 +23,20 @@ const Utente = () => {
 
   return (
     <>
-    <br></br>
-    <div className='row'>
-      <div className='col'>
-        <span className='page-title'>Profilo utente di {utente.advertisementName}</span>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Profilo utente di {utente.advertisementName}</span>
+        </div>
       </div>
-    </div>
-    <div className='row'>
-      <div className='col'>
-        <TextInput label="Username" value={utente.advertisementName} disabled />
+      <div className='row'>
+        <div className='col'>
+          <DetailsGrid
+            labels={["Username", "Email", "Cellulare", "Telefono"]}
+            values={[utente.advertisementName, utente.email, utente.cel, utente.tel]}
+          />
+        </div>
       </div>
-    </div>
-    <div className='row'>
-      <div className='col'>
-        <TextInput label="Email" value={utente.email} disabled />
-      </div>
-    </div>
-    <div className='row'>
-      <div className='col'>
-        <TextInput label="Cellulare" value={utente.cel} disabled />
-      </div>
-    </div>
-    <div className='row'>
-      <div className='col'>
-        <TextInput label="Telefono" value={utente.tel} disabled />
-      </div>
-    </div>
     </>
   );
 };
