@@ -1,19 +1,26 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import moment from 'moment';
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import { useCategories } from "@contexts/CategoriesContext";
 import * as apiPublic from "@api/public";
 import Button from "@components/button";
-import { getAdvertisementImageUrl } from "@logic/annuncio"
+import PropTypes from "prop-types";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import moment from 'moment';
 import styles from "./Annuncio.module.css";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { getAdvertisementImageUrl } from "@logic/annuncio"
+import { selectUser } from '@store/userSlice';
+import { useCategories } from "@contexts/CategoriesContext";
+import { useSelector } from 'react-redux';
 
 const Annuncio = ({ initialAnnuncio }) => {
   const [annuncio, setAnnuncio] = useState(initialAnnuncio);
   const [indiceImmagineCorrente, setIndiceImmagineCorrente] = useState(0);
 
-  const { navigate, currentRoute } = useNavigator();
+  const user = useSelector(selectUser);
+  const { navigate, currentRoute, changePageTitle } = useNavigator();
   const { getCategoryDescriptionById } = useCategories();
+
+  const isMyAnnuncio = useMemo(() => (
+    annuncio?.user.id === user?.id
+  ), [annuncio, user?.id]);
 
   const loadAnnuncio = useCallback(async () => {
     const advertisementIdFromParams = currentRoute.params ? currentRoute.params[0] : null;
@@ -21,7 +28,16 @@ const Annuncio = ({ initialAnnuncio }) => {
       advertisementId: advertisementIdFromParams || initialAnnuncio?.id
     });
     setAnnuncio(data);
-  }, [currentRoute, initialAnnuncio?.id])
+    changePageTitle(data.title);
+  }, [changePageTitle, currentRoute.params, initialAnnuncio?.id])
+
+  const shareAnnuncio = useCallback(() => {
+    navigator.share({
+      title: document.title + " | La Soffiata",
+      text: annuncio.description,
+      url: window.location.href,
+    });
+  }, [annuncio])
 
   const foregroundImageSrc = useMemo(() => (
     getAdvertisementImageUrl({
@@ -91,38 +107,39 @@ const Annuncio = ({ initialAnnuncio }) => {
           </div>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <Button
-            color="primary"
-            fullWidth
-            onClick={() => { }}
-            text="Invia un messaggio al venditore"
-          />
+      {!isMyAnnuncio && (
+        <div className='row'>
+          <div className='col'>
+            <Button
+              color="primary"
+              fullWidth
+              onClick={() => { }}
+              text="Invia un messaggio al venditore"
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className='row'>
         <div className='col'>
           <div className={styles.azioniPrincipali}>
+            {isMyAnnuncio && (
+              <Button
+                text="Modifica"
+                onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
+              />
+            )}
             <Button
-              type="outlined"
-              text="Modifica"
-              onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
-            />
-            <Button
-              onClick={() => { }}
+              icon="share"
+              onClick={shareAnnuncio}
               text="Condividi"
-            />
-            <Button
-              onClick={() => { }}
-              text="..."
             />
           </div>
         </div>
       </div>
+      <br></br>
       <div className='row'>
         <div className='col'>
-          <span className="page-title">Dettagli</span>
+          <span className="page-section">Dettagli</span>
         </div>
       </div>
       <div className='row'>
@@ -138,7 +155,7 @@ const Annuncio = ({ initialAnnuncio }) => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className="page-title">Informazioni sul venditore</span>
+          <span className="page-section">Informazioni sul venditore</span>
         </div>
       </div>
       <div className='row'>
@@ -154,12 +171,9 @@ const Annuncio = ({ initialAnnuncio }) => {
       <div className='row'>
         <div className='col'>
           <Button
-            // className={styles.utenteButton}
-            // type="outlined"
-            // icon="face"
-            text="Visita il profilo"
             onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
-            fillIcon
+            size="mini"
+            text="Visita il profilo del venditore"
           />
         </div>
       </div>
