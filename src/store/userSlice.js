@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   country: null, // "italia"
   credits: null, // 0 
   email: null, // "admin"
+  hasAdvertisements: null, // true
   id: null, // 16
   isAdmin: null, // true
   lastName: null, // "Bellocchio"

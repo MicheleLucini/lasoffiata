@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-// import { useSelector } from 'react-redux';
-// import { selectUser } from '@store/userSlice';
-// import { ROUTES } from "@contexts/NavigatorContext";
+import { useSelector } from 'react-redux';
+import { selectUser } from '@store/userSlice';
+import { ROUTES } from "@contexts/NavigatorContext";
 import { useModals } from "@contexts/ModalsContext";
 import Icon from "@components/icon";
-// import Link from "@components/link";
+import Link from "@components/link";
 import * as apiPublic from "@api/public";
 import Annuncio from "@scenes/annuncio";
 import HomeAnnuncio from "./HomeAnnuncio";
@@ -17,7 +17,7 @@ const Home = () => {
   const [searchInput, setSearchInput] = useState("");
   // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
 
-  // const user = useSelector(selectUser);
+  const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
   const { openModal } = useModals();
 
@@ -96,9 +96,31 @@ const Home = () => {
 
   return (
     <>
-      {/* <div className={styles.links}>
+      <div className={styles.searchWrapper}>
+        <Icon
+          name="search"
+          className={styles.searchIcon}
+          size={22}
+          fill={0}
+          weight={400}
+          grade={0}
+          opticalSize={24}
+        />
+        <input
+          className={styles.searchInput}
+          onChange={onSearchInputChange}
+          onKeyPress={onSearchInputKeyPress}
+          placeholder='Cerca su La Soffiata'
+          value={searchInput}
+        />
+      </div>
+      {user.hasAdvertisements && (
+      <div className={styles.links}>
         <div>
-          <Link route={userIconLinkRoute}>
+          <Link route={ROUTES.I_MIEI_ANNUNCI}>
+            <span>I miei annunci</span>
+          </Link>
+          {/* <Link route={userIconLinkRoute}>
             <Icon
               name="person"
               fill={user.isLogged ? 1 : 0}
@@ -122,27 +144,10 @@ const Home = () => {
           )}
           <Link route={ROUTES.HOME}>
             <span>Categorie</span>
-          </Link>
+          </Link> */}
         </div>
-      </div> */}
-      <div className={styles.searchWrapper}>
-        <Icon
-          name="search"
-          className={styles.searchIcon}
-          size={22}
-          fill={0}
-          weight={400}
-          grade={0}
-          opticalSize={24}
-        />
-        <input
-          className={styles.searchInput}
-          onChange={onSearchInputChange}
-          onKeyPress={onSearchInputKeyPress}
-          placeholder='Cerca su La Soffiata'
-          value={searchInput}
-        />
       </div>
+      )}
       <br></br>
       <div className='row'>
         <div className='col'>

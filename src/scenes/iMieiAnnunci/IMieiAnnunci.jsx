@@ -99,6 +99,7 @@ const IMieiAnnunci = () => {
       <div className='row'>
         <div className='col'>
           <Button
+            color="primary"
             text="Crea annuncio"
             icon="add"
             onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
