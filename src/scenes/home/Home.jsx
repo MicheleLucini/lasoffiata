@@ -1,15 +1,15 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { useSelector } from 'react-redux';
-import { selectUser } from '@store/userSlice';
-import { ROUTES } from "@contexts/NavigatorContext";
-import { useModals } from "@contexts/ModalsContext";
-import Icon from "@components/icon";
-import Link from "@components/link";
 import * as apiPublic from "@api/public";
 import Annuncio from "@scenes/annuncio";
 import HomeAnnuncio from "./HomeAnnuncio";
 import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
+import Icon from "@components/icon";
+import Link from "@components/link";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import styles from "./Home.module.css";
+import { ROUTES } from "@contexts/NavigatorContext";
+import { selectUser } from '@store/userSlice';
+import { useModals } from "@contexts/ModalsContext";
+import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [featuredAdvertisements, setFeaturedAdvertisements] = useState([]);
@@ -115,12 +115,12 @@ const Home = () => {
         />
       </div>
       {user.hasAdvertisements && (
-      <div className={styles.links}>
-        <div>
-          <Link route={ROUTES.I_MIEI_ANNUNCI}>
-            <span>I miei annunci</span>
-          </Link>
-          {/* <Link route={userIconLinkRoute}>
+        <div className={styles.links}>
+          <div>
+            <Link route={ROUTES.I_MIEI_ANNUNCI}>
+              <span>I miei annunci</span>
+            </Link>
+            {/* <Link route={userIconLinkRoute}>
             <Icon
               name="person"
               fill={user.isLogged ? 1 : 0}
@@ -145,8 +145,8 @@ const Home = () => {
           <Link route={ROUTES.HOME}>
             <span>Categorie</span>
           </Link> */}
+          </div>
         </div>
-      </div>
       )}
       <br></br>
       <div className='row'>

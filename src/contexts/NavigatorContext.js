@@ -134,9 +134,13 @@ function NavigatorProvider({ children }) {
 
   const { closeAllModals } = React.useContext(ModalsContext);
 
+  const changePageTitle = useCallback((title) => (
+    document.title = title + " | La Soffiata"
+  ), []);
+
   const navigate = useCallback((route, params = null, dontChangeState) => {
     // console.log("navigating to", route.title);
-    document.title = route.title + " | La Soffiata";
+    changePageTitle(route.title);
 
     const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
     const destinationUrl = `${BASE_URL}${route.url}${formattedParams}`;
@@ -154,7 +158,7 @@ function NavigatorProvider({ children }) {
 
     window.scrollTo(0, 0);
     closeAllModals();
-  }, [closeAllModals]);
+  }, [changePageTitle, closeAllModals]);
 
   const onPopState = useCallback(() => {
     navigate(
@@ -196,7 +200,8 @@ function NavigatorProvider({ children }) {
     currentRoute,
     navigate,
     checkCurrentRoute,
-  }), [history, currentRoute, navigate, checkCurrentRoute]);
+    changePageTitle,
+  }), [history, currentRoute, navigate, checkCurrentRoute, changePageTitle]);
 
   return (
     <NavigatorContext.Provider value={navigatorContextValue}>
