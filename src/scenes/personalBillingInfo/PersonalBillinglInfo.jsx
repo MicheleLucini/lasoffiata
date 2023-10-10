@@ -54,7 +54,7 @@ const PersonalBillinglInfo = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <label>Informazioni di contatto</label>
+          <span className='page-section'>Informazioni di contatto</span>
         </div>
       </div>
       <div className='row'>
@@ -96,7 +96,7 @@ const PersonalBillinglInfo = () => {
       )}
       <div className='row'>
         <div className='col'>
-          <label>Informazioni di indirizzo</label>
+          <span className='page-section'>Informazioni di indirizzo</span>
         </div>
       </div>
       <div className='row'>

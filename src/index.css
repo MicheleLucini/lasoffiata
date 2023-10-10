@@ -78,12 +78,21 @@ a {
   margin: 0 16px;
 }
 
-.page-title {
-  font-size: 17px;
-  /* font-weight: 600; */
-  /* height: 20px; */
-  line-height: 20px;
+.page-title,
+.page-section {
   display: block;
   text-align: center;
   font-family: "Young Serif";
+}
+
+.page-title {
+  font-size: 18px;
+  line-height: 21px;
+  color: var(--primary-text)
+}
+
+.page-section {
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--blue-grey-darken-3)
 }
