@@ -1,15 +1,15 @@
-// import { selectUser } from '@store/userSlice';
-// import { useSelector } from 'react-redux';
 import Icon from "@components/icon";
 import Link from "@components/link";
 import Logo from "@components/svgs/Logo";
-import React, { useMemo } from "react";
+import React from "react";
 import styles from "./AppTopBar.module.css";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { ROUTES } from "@contexts/NavigatorContext";
+import { selectUser } from '@store/userSlice';
+import { useSelector } from 'react-redux';
 
 const AppTopBar = () => {
   // const { checkCurrentRoute } = useNavigator();
-  // const user = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   // const backArrowRoute = useMemo(() => {
   //   // if (checkCurrentRoute(ROUTES.ANNUNCIO)) return ROUTES.HOME;
@@ -55,21 +55,24 @@ const AppTopBar = () => {
       </div>
       <div className={styles.topBarCenter}>
         {/* <Link route={ROUTES.HOME}> */}
-          <Logo className={styles.logo} />
+        <Logo className={styles.logo} />
         {/* </Link> */}
       </div>
       <div className={styles.topBarRight}>
-        {/* {!showLoginHero && !showRegisterHero && (
-          <Link route={userIconLinkRoute}>
-            <Icon
-              name="person"
-              fill={user.isLogged ? 1 : 0}
-              weight={400}
-              grade={0}
-              opticalSize={24}
-            />
+        {!user?.credits && (
+          <Link route={ROUTES.BALANCE}>
+            <div className={styles.credits}>
+              <Icon
+                name="account_balance_wallet"
+                fill={0}
+                weight={500}
+                grade={0}
+                opticalSize={24}
+              />
+              <span>{user.credits}</span>
+            </div>
           </Link>
-        )} */}
+        )}
         {/* {userIsAdmin && (
           <Link route={ROUTES.ADMIN}>
             <Icon

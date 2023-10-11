@@ -6,6 +6,7 @@ import AdminUtenti from "@scenes/adminUtenti";
 import AdminValidazioneAnnunci from "@scenes/adminValidazioneAnnunci";
 import Administration from "@scenes/administration";
 import Annuncio from "@scenes/annuncio";
+import Balance from "@scenes/balance";
 import Checkout from "@scenes/checkout";
 import CreaAnnuncio from "@scenes/creaAnnuncio";
 import Home from "@scenes/home";
@@ -44,6 +45,7 @@ const AppRouting = () => {
         </>
       )}
       {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
+      {checkCurrentRoute(ROUTES.BALANCE) && <Balance />}
       {checkCurrentRoute(ROUTES.CHECKOUT) && <Checkout />}
       {checkCurrentRoute(ROUTES.CREA_ANNUNCIO) && <CreaAnnuncio />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}

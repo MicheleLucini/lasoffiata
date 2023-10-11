@@ -67,3 +67,12 @@
 .topBar > .topBarSub > .logged {
   font-size: 16px;
 } */
+
+.credits {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}

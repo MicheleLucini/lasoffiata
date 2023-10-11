@@ -90,6 +90,15 @@ const MyAccount = () => {
           </div>
         </div>
       </div>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.card} onClick={() => navigate(ROUTES.BALANCE)}>
+            <span>Il tuo bilancio</span>
+            <p>Visualizza e gestisci i tuoi crediti</p>
+            {iconRenderer("account_balance_wallet")}
+          </div>
+        </div>
+      </div>
       {user.isAdmin && (
         <>
           <div className='row'>

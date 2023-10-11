@@ -44,6 +44,10 @@ const ROUTES = {
     title: "Annuncio",
     url: "/annuncio",
   },
+  BALANCE: {
+    title: "Balance",
+    url: "/balance",
+  },
   CHECKOUT: {
     title: "Checkout",
     url: "/checkout",

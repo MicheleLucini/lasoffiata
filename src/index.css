@@ -78,6 +78,14 @@ a {
   margin: 0 16px;
 }
 
+.col-flex {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
 .page-title,
 .page-section {
   display: block;
