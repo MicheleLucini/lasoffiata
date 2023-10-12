@@ -1,6 +1,7 @@
 import * as logicUser from "@logic/user";
 import Button from "@components/button";
 import Badge from "@components/badge";
+import Card from "@components/card";
 import DetailsGrid from '@components/detailsGrid';
 import Icon from "@components/icon";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
@@ -78,30 +79,36 @@ const Balance = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className='page-section'>I tuoi dati di fatturazione</span>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <DetailsGrid
-            labels={datiDiFatturazione.map((x) => x.label)}
-            values={datiDiFatturazione.map((x) => x.value)}
-          />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col col-flex'>
-          <Badge
-            icon="warning"
-            text="Dati non completi"
-            type="warning"
-          />
-          <Button
-            icon="edit"
-            onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}
-            text="Modifica dati"
-            size="mini"
-          />
+          <Card>
+            <div className='row'>
+              <div className='col'>
+                <span className='page-section'>I tuoi dati di fatturazione</span>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <DetailsGrid
+                  labels={datiDiFatturazione.map((x) => x.label)}
+                  values={datiDiFatturazione.map((x) => x.value)}
+                />
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col col-flex' style={{ width: "auto", justifyContent: "space-between" }}>
+                <Badge
+                  icon="warning"
+                  text="Dati non completi"
+                  type="warning"
+                />
+                <Button
+                  icon="edit"
+                  onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}
+                  text="Modifica dati"
+                  size="mini"
+                />
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
       <br></br>

@@ -15,7 +15,7 @@
   grid-auto-flow: column;
   height: 48px;
   justify-content: center;
-  margin: auto;
+  /* margin: auto; */
   outline: none;
   overflow: hidden;
   padding: 0 28px;
