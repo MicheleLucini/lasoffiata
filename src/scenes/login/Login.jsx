@@ -21,8 +21,8 @@ const Login = () => {
     setLoading(true);
     setFormErrors(null);
     dispatch(logicUser.login({ email, password }))
-      .then(() => {
-        openSnackbar("Bentornato ✨");
+      .then((data) => {
+        openSnackbar("Bentornato " + data.name + " ✨");
         navigate(ROUTES.HOME);
       })
       .catch((e) => {

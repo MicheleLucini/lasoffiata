@@ -20,6 +20,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   const user = await apiPublic.SignIn({ email, password });
   await dispatch(storeUser.login(user));
   setLocal("user", "token", { token: user.token, id: user.id });
+  return user;
 };
 
 export const logout = () => async (dispatch) => {

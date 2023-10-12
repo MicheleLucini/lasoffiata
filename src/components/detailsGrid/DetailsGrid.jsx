@@ -9,10 +9,10 @@ const DetailsGrid = ({
   return (
     <div className={styles.wrapper}>
       {labels.map((x, i) => (
-        <>
+        <React.Fragment key={i}>
           <span>{x}</span>
           <span>{values[i]}</span>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

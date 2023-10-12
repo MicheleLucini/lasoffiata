@@ -1,7 +1,7 @@
 import Icon from "@components/icon";
 import Link from "@components/link";
 import Logo from "@components/svgs/Logo";
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./AppTopBar.module.css";
 import { ROUTES } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
@@ -18,9 +18,9 @@ const AppTopBar = () => {
   //   return null;
   // }, [checkCurrentRoute]);
 
-  // const showCurrentUserGreeting = useMemo(() => (
-  //   user.isLogged
-  // ), [user.isLogged]);
+  const showCredits = useMemo(() => (
+    !!user.credits || user.credits === 0
+  ), [user.credits]);
 
   // const userIconLinkRoute = useMemo(() => (
   //   user.isLogged ? ROUTES.PERSONAL_INFO : ROUTES.LOGIN
@@ -59,7 +59,7 @@ const AppTopBar = () => {
         {/* </Link> */}
       </div>
       <div className={styles.topBarRight}>
-        {!user?.credits && (
+        {showCredits && (
           <Link route={ROUTES.BALANCE}>
             <div className={styles.credits}>
               <Icon

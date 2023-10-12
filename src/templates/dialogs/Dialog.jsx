@@ -21,13 +21,13 @@ const Dialog = ({
         <span className={styles.body}>{body}</span>
         <div className={styles.actions}>
           <Button
-            type="text"
             text={cancelButtonText}
             onClick={cancelButtonAction}
           />
           <Button
             text={confirmButtonText}
             onClick={confirmButtonAction}
+            color="primary"
           />
         </div>
       </div>
