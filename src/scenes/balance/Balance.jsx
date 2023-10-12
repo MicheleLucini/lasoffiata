@@ -59,7 +59,7 @@ const Balance = () => {
         <div className='col'>
           <div className={styles.credits}>
             <Icon
-              name="account_balance_wallet"
+              name="credit_card"
               fill={0}
               weight={500}
               grade={0}
@@ -73,7 +73,7 @@ const Balance = () => {
       <div className='row'>
         <div className='col col-flex'>
           <Button
-            icon="add"
+            icon="add_card"
             onClick={() => { }}
             text="Aggiungi crediti"
             color="primary"

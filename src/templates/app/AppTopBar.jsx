@@ -63,7 +63,7 @@ const AppTopBar = () => {
           <Link route={ROUTES.BALANCE}>
             <div className={styles.credits}>
               <Icon
-                name="account_balance_wallet"
+                name="credit_card"
                 fill={0}
                 weight={500}
                 grade={0}
