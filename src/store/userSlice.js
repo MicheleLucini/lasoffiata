@@ -34,6 +34,7 @@ export const userSlice = createSlice({
       isLogged: true,
     }),
     refreshData: (state, action) => ({
+      ...state,
       ...action.payload,
     }),
     logout: () => INITIAL_STATE,

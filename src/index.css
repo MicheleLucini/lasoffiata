@@ -78,12 +78,17 @@ a {
   margin: 0 16px;
 }
 
-.col-flex {
+.col-flex,
+.col-flex-center {
   display: flex;
   gap: 15px;
-  justify-content: flex-start;
   flex-wrap: wrap;
-  width: fit-content;
+  justify-content: flex-start;
+  /* width: fit-content; */
+}
+
+.col-flex-center {
+  justify-content: center;
 }
 
 .page-title,

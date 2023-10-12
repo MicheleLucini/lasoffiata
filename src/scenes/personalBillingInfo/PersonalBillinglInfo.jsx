@@ -1,6 +1,7 @@
 import * as logicUser from "@logic/user";
+import Badge from "@components/badge";
 import Button from '@components/button';
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import TextInput from '@components/textInput';
 import { checkConstant, getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
@@ -15,6 +16,10 @@ const PersonalBillinglInfo = () => {
 
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({});
+
+  const areDatiDiFatturazioneCompleti = useMemo(() => (
+    logicUser.areUserBillingDataComplete(values)
+  ), [values]);
 
   const onFormValueChange = useCallback((fieldName, newValue) => {
     setValues((prev) => ({
@@ -131,13 +136,30 @@ const PersonalBillinglInfo = () => {
       </div>
       <br></br>
       <div className='row'>
+        <div className='col col-flex-center'>
+          {areDatiDiFatturazioneCompleti ? (
+            <Badge
+              icon="task_alt"
+              text="Tutti i campi sono stati compilati"
+              type="success"
+            />
+          ) : (
+            <Badge
+              icon="warning"
+              text="Attento, non hai compilato tutti i campi"
+              type="warning"
+            />
+          )}
+        </div>
+      </div>
+      <div className='row'>
         <div className='col'>
           <Button
             color="primary"
             disabled={loading}
             fullWidth
             onClick={onSave}
-            text="salva"
+            text="Salva"
           />
         </div>
       </div>

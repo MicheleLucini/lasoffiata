@@ -43,6 +43,10 @@ const Balance = () => {
     { label: "Civico", value: user.civic },
   ].filter((x) => x), [user]);
 
+  const areDatiDiFatturazioneCompleti = useMemo(() => (
+    logicUser.areUserBillingDataComplete(user)
+  ), [user]);
+
   return (
     <>
       <br></br>
@@ -95,17 +99,19 @@ const Balance = () => {
             </div>
             <div className='row'>
               <div className='col col-flex' style={{ width: "auto", justifyContent: "space-between" }}>
-                <Badge
-                  icon="warning"
-                  text="Dati non completi"
-                  type="warning"
-                />
                 <Button
                   icon="edit"
                   onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}
                   text="Modifica dati"
                   size="mini"
                 />
+                {!areDatiDiFatturazioneCompleti && (
+                  <Badge
+                    icon="warning"
+                    text="Dati non completi"
+                    type="warning"
+                  />
+                )}
               </div>
             </div>
           </Card>

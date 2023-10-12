@@ -2,6 +2,7 @@ import * as apiUser from "@api/user";
 import * as apiPublic from "@api/public";
 import * as storeUser from "@store/userSlice";
 import { setLocal, getLocal, delLocal } from "./localStorage"
+import { checkConstant, ACCOUNT_TYPE } from "@logic/constants";
 
 export const register = ({ email, password, accountType }) => async (dispatch) => {
   if (!email || !password) {
@@ -47,4 +48,22 @@ export const editUserBillingData = (body) => async (dispatch) => {
   await apiUser.EditUserBillingData(body);
   const user = await apiPublic.GetUser({ userId: body.userId });
   await dispatch(storeUser.refreshData(user));
+};
+
+//
+
+export const areUserBillingDataComplete = (user) => {
+  if (checkConstant(ACCOUNT_TYPE.PRIVATO, user.accountType)) {
+    if (!user.lastName || !user.name || !user.codiceFiscale) return false;
+  }
+  if (checkConstant(ACCOUNT_TYPE.AZIENDA, user.accountType)) {
+    if (!user.businessName || !user.partitaIva) return false;
+  }
+  if (!user.country
+    || !user.province
+    || !user.zipCode
+    || !user.city
+    || !user.street
+    || !user.civic) return false;
+  return true;
 };
