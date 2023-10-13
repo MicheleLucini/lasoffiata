@@ -18,7 +18,7 @@ const Balance = () => {
   // const dispatch = useDispatch();
   // const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
-  // const { openSnackbar } = useSnackbars();
+  const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(false);
   const [check10, setCheck10] = useState(false);
@@ -69,9 +69,9 @@ const Balance = () => {
         <div className='col'>
           <Button
             color="primary"
-            disabled={loading}
+            disabled={loading || (!check10 && !check25 && !check50 && !check100)}
             fullWidth
-            onClick={() => { }}
+            onClick={() => { openSnackbar("TODO hehe") }}
             text="Acquista"
           />
         </div>
