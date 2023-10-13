@@ -1,24 +1,27 @@
 import * as logicUser from "@logic/user";
-import Button from "@components/button";
 import Badge from "@components/badge";
+import BalanceModalAddCredits from "./BalanceModalAddCredits";
+import Button from "@components/button";
 import Card from "@components/card";
 import DetailsGrid from '@components/detailsGrid';
 import Icon from "@components/icon";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import TextInput from '@components/textInput';
+import styles from "./Balance.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { checkConstant, getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
 import { useDispatch } from "react-redux";
+import { useModals } from "@contexts/ModalsContext";
 import { useSelector } from "react-redux";
 import { useSnackbars } from "@contexts/SnackbarsContext";
-import styles from "./Balance.module.css";
 
 const Balance = () => {
   // const dispatch = useDispatch();
+  // const { openSnackbar } = useSnackbars();
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
-  // const { openSnackbar } = useSnackbars();
+  const { openModal } = useModals();
 
   // const [loading, setLoading] = useState(false);
 
@@ -47,6 +50,13 @@ const Balance = () => {
     logicUser.areUserBillingDataComplete(user)
   ), [user]);
 
+  const onAddCreditsClick = useCallback((annuncio) => {
+    openModal({
+      title: "Aggiungi crediti",
+      children: <BalanceModalAddCredits />,
+    });
+  }, [openModal]);
+
   return (
     <>
       <br></br>
@@ -73,10 +83,10 @@ const Balance = () => {
       <div className='row'>
         <div className='col col-flex'>
           <Button
-            icon="add_card"
-            onClick={() => { }}
-            text="Aggiungi crediti"
             color="primary"
+            icon="add_card"
+            onClick={onAddCreditsClick}
+            text="Aggiungi crediti"
           />
         </div>
       </div>
@@ -102,8 +112,8 @@ const Balance = () => {
                 <Button
                   icon="edit"
                   onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}
-                  text="Modifica dati"
                   size="mini"
+                  text="Modifica dati"
                 />
                 {!areDatiDiFatturazioneCompleti && (
                   <Badge
@@ -117,19 +127,6 @@ const Balance = () => {
           </Card>
         </div>
       </div>
-      <br></br>
-      {/* <br></br>
-      <div className='row'>
-        <div className='col'>
-          <Button
-            color="primary"
-            disabled={loading}
-            fullWidth
-            onClick={onSave}
-            text="salva"
-          />
-        </div>
-      </div> */}
     </>
   );
 };

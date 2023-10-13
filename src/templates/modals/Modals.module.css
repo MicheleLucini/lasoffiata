@@ -42,10 +42,11 @@
 }
 
 .modalTitle>span {
-  font-weight: 700;
   font-size: 18px;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--primary-text);
+  font-family: "Young Serif";
 }
