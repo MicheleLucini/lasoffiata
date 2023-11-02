@@ -1,0 +1,247 @@
+/* Links */
+
+.links {
+  padding: 2px 12px 0;
+  background-color: white;
+  overflow-x: auto;
+}
+
+.links::-webkit-scrollbar {
+  display: none;
+}
+
+.links>div {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  place-content: start;
+  gap: 12px;
+  width: max-content;
+}
+
+.links>div>a {
+  background-color: var(--blue-grey-lighten-5);
+  background-color: #d3e3fd;
+  color: #37474F !important;
+  border-radius: 24px;
+  display: block;
+  padding: 0 16px;
+}
+
+.links>div>a>span {
+  color: #37474F !important;
+  line-height: 48px;
+  font-weight: 600;
+}
+
+/* Search */
+
+.searchWrapper {
+  position: relative;
+  background-color: white;
+  padding: 12px 12px;
+}
+
+.searchWrapper>.searchIcon {
+  position: absolute;
+  top: 25px;
+  left: 24px;
+  color: var(--blue-grey-darken-1);
+}
+
+.searchWrapper>.searchInput {
+  border: none;
+  outline: none;
+  user-select: none;
+  -webkit-appearance: none;
+  /**/
+  /* background-color: var(--blue-grey-lighten-5);
+  background-color: #f3f6fc; */
+  /* background: linear-gradient(0deg, rgba(105, 145, 214, .08), rgba(105, 145, 214, .08)); */
+  /* background-color: #edf2fa; */
+  background-color: #f3f7fc;
+  width: 100%;
+  padding: 14px 12px;
+  padding-left: 42px;
+  border-radius: 24px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.searchWrapper>.searchInput::placeholder {
+  color: var(--blue-grey-darken-4);
+}
+
+/* Search modal */
+
+.searchModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.32);
+  z-index: 10;
+}
+
+.searchModalOverlay.active {
+  display: block;
+}
+
+.searchModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  margin: auto;
+  background-color: var(--floral-white);
+  border-radius: 0 0 24px 24px;
+  max-width: 600px;
+  z-index: 11;
+}
+
+.searchModal.active {
+  display: block;
+}
+
+.searchModal>.searchModalBody {
+  display: grid;
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  padding: 20px 12px 50px;
+}
+
+.searchModal>.searchModalBody>.title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+/* Annunci */
+
+.wrapperAnnunci {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px 12px;
+}
+
+.wrapperAnnunci>span {
+  grid-column: span 2;
+  font-weight: 600;
+}
+
+.annuncio {
+  display: grid;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid var(--blue-grey-lighten-4);
+  padding: 0px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* .annuncio>.featured {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 13px;
+  background-color: var(--bundaberg-sand);
+  color: var(--coarse-wool);
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 11px;
+  padding: 1px 4px;
+} */
+
+.annuncio>.imageContainer {
+  background-color: hsl(210, 15%, 88%);
+  display: grid;
+  /* place-content: center; */
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.annuncio>.imageContainer>img {
+  /* width: inherit;
+  height: inherit;
+  object-fit: cover; */
+  height: 100%;
+  width: 100%;
+  object-fit: none;
+}
+
+/* .annuncio>.imageContainer>.imagePlaceholderIcon {
+  color: var(--raisin-black);
+  opacity: 0.6;
+} */
+
+.annuncio>span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+  font-weight: 400;
+  padding: 0 4px;
+}
+
+.annuncio>span:first-of-type {
+  margin-top: 2px;
+}
+
+.annuncio>span:last-child {
+  margin-bottom: 4px;
+}
+
+
+.annuncio>.price {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+}
+
+.annuncio>.title {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.annuncio>.place {
+  font-size: 13px;
+  line-height: 17px;
+  color: #616161;
+}
+
+
+.anteprimaAnnuncio>.imageContainer,
+.anteprimaAnnuncio>span {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  background-color: #efefef;
+  background: linear-gradient(90deg,
+      hsl(210, 15%, 88%),
+      hsl(210, 15%, 95%),
+      hsl(210, 15%, 88%));
+  background-size: 200%;
+  animation: loader 1s infinite reverse;
+}
+
+@keyframes loader {
+  from {
+    background-position: -100% 0;
+  }
+
+  to {
+    background-position: 100% 0;
+  }
+}
+
+/* 
+.anteprimaAnnuncio>.imageContainer>.imagePlaceholderIcon {
+  opacity: 0.25;
+} */

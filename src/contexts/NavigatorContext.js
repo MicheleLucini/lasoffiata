@@ -88,6 +88,10 @@ const ROUTES = {
     title: "Registrati",
     url: "/register",
   },
+  SEARCH: {
+    title: "Cerca",
+    url: "/cerca",
+  },
   UTENTE: {
     title: "Utente",
     url: "/utente",

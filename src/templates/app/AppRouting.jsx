@@ -18,6 +18,7 @@ import PersonalBillingInfo from "@scenes/personalBillingInfo";
 import PersonalInfo from "@scenes/personalInfo";
 import React, { useMemo } from "react";
 import Register from "@scenes/register";
+import Search from "@scenes/search";
 import Utente from "@scenes/utente";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
@@ -56,6 +57,7 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO) && <PersonalBillingInfo />}
       {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
+      {checkCurrentRoute(ROUTES.SEARCH) && <Search />}
       {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
     </>
   );

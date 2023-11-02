@@ -18,6 +18,10 @@ const AppNavBar = () => {
     return checkCurrentRoute(ROUTES.HOME);
   }, [checkCurrentRoute]);
 
+  const isSearchCurrentRoute = useMemo(() => {
+    return checkCurrentRoute(ROUTES.SEARCH);
+  }, [checkCurrentRoute]);
+
   const isMyAccountCurrentRoute = useMemo(() => {
     return checkCurrentRoute(routeMyAccount);
   }, [checkCurrentRoute, routeMyAccount]);
@@ -51,13 +55,14 @@ const AppNavBar = () => {
           size={26}
         />
       </Link>
-      <Link route={ROUTES.HOME}>
+      <Link route={ROUTES.SEARCH}>
         <Icon
           name="search"
           fill={0}
-          weight={400}
+          weight={isSearchCurrentRoute ? 700 : 400}
           grade={0}
           opticalSize={24}
+          className={isSearchCurrentRoute ? styles.active : ""}
           size={26}
         />
       </Link>

@@ -51,9 +51,9 @@ export async function GetUserAdvertisements({ userId }) {
   });
 }
 
-export async function SearchAdvertisements({ description, categoryId, province, page }) {
+export async function SearchAdvertisements({ searchText, categoryId, province, page }) {
   return await post(`${CONTROLLER_URL}/SearchAdvertisements`, {
-    description,
+    searchText,
     categoryId,
     province,
     page
