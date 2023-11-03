@@ -77,7 +77,7 @@ const AppNavBar = () => {
           size={26}
         />
       </Link>
-      <Link route={ROUTES.HOME}>
+      {/* <Link route={ROUTES.HOME}>
         <Icon
           name="menu"
           fill={0}
@@ -86,7 +86,7 @@ const AppNavBar = () => {
           opticalSize={24}
           size={26}
         />
-      </Link>
+      </Link> */}
     </div>
   );
 };
