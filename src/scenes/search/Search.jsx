@@ -45,7 +45,7 @@ const Search = () => {
         <HomeAnnuncio
           key={x.id}
           annuncio={x}
-          // onAnnuncioClick={onAnnuncioClick}
+        // onAnnuncioClick={onAnnuncioClick}
         />
       ))
   ), [loading, advertisements]);
@@ -66,8 +66,8 @@ const Search = () => {
     try {
       const data = await apiPublic.SearchAdvertisements({
         searchText: q,
-        // categoryId: category,
-        // province,
+        categoryId: 0,
+        province: "",
         page: 1,
       });
       setAdvertisements(data);
@@ -117,7 +117,7 @@ const Search = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className='page-title'>Consigliato oggi</span>
+          <span className='page-title'>Risultati ricerca</span>
         </div>
       </div>
       <div className='row'>
