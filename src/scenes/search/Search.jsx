@@ -1,18 +1,18 @@
 import * as apiPublic from "@api/public";
-import Annuncio from "@scenes/annuncio";
+// import Annuncio from "@scenes/annuncio";
 import HomeAnnuncio from "../home/HomeAnnuncio";
 import HomeAnnuncioPlaceholder from "../home/HomeAnnuncioPlaceholder";
 import Icon from "@components/icon";
-import Link from "@components/link";
+// import Link from "@components/link";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import styles from "./Search.module.css";
-import { ROUTES } from "@contexts/NavigatorContext";
-import { selectUser } from '@store/userSlice';
-import { useModals } from "@contexts/ModalsContext";
-import { useSelector } from 'react-redux';
+// import { ROUTES } from "@contexts/NavigatorContext";
+// import { selectUser } from '@store/userSlice';
+// import { useModals } from "@contexts/ModalsContext";
+// import { useSelector } from 'react-redux';
 
 const Search = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [advertisements, setAdvertisements] = useState([]);
   // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
@@ -91,7 +91,14 @@ const Search = () => {
   // }, []);
 
   useEffect(() => {
-    searchAdvertisements(searchInput);
+    if (searchInput) {
+      const debounced = setTimeout(() => {
+        searchAdvertisements(searchInput);
+      }, 500);
+      return () => clearTimeout(debounced);
+    } else {
+      setAdvertisements([]);
+    }
   }, [searchAdvertisements, searchInput]);
 
   return (
@@ -112,6 +119,7 @@ const Search = () => {
           // onKeyPress={onSearchInputKeyPress}
           placeholder='Cerca su La Soffiata'
           value={searchInput}
+          autoFocus
         />
       </div>
       <br></br>

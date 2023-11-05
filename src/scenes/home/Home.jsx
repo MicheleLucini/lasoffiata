@@ -9,16 +9,17 @@ import styles from "./Home.module.css";
 import { ROUTES } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
 import { useModals } from "@contexts/ModalsContext";
+import { useNavigator } from "@contexts/NavigatorContext";
 import { useSelector } from 'react-redux';
 
 const Home = () => {
   const [featuredAdvertisements, setFeaturedAdvertisements] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
 
   const user = useSelector(selectUser);
-  // const { navigate } = useNavigator();
+  const { navigate } = useNavigator();
   const { openModal } = useModals();
 
   // const userIconLinkRoute = useMemo(() => (
@@ -77,18 +78,18 @@ const Home = () => {
   //   setLoadingSearchedAdvertisements(false);
   // }, []);
 
-  const onSearchInputChange = useCallback((e) => {
-    setSearchInput(e.target.value);
-  }, []);
+  // const onSearchInputChange = useCallback((e) => {
+  //   setSearchInput(e.target.value);
+  // }, []);
 
-  const onSearchInputKeyPress = useCallback((e) => {
-    if (!e) e = window.event;
-    var keyCode = e.code || e.key;
-    if (keyCode === "Enter") {
-      // setSearchActive(true);
-      return false;
-    }
-  }, []);
+  // const onSearchInputKeyPress = useCallback((e) => {
+  //   if (!e) e = window.event;
+  //   var keyCode = e.code || e.key;
+  //   if (keyCode === "Enter") {
+  //     // setSearchActive(true);
+  //     return false;
+  //   }
+  // }, []);
 
   useEffect(() => {
     loadFeaturedAdvertisements();
@@ -108,10 +109,11 @@ const Home = () => {
         />
         <input
           className={styles.searchInput}
-          onChange={onSearchInputChange}
-          onKeyPress={onSearchInputKeyPress}
+          // onChange={onSearchInputChange}
+          // onKeyPress={onSearchInputKeyPress}
           placeholder='Cerca su La Soffiata'
-          value={searchInput}
+          // value={searchInput}
+          onClick={() => navigate(ROUTES.SEARCH)}
         />
       </div>
       {user.hasAdvertisements && (
