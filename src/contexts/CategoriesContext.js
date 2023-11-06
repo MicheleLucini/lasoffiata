@@ -10,7 +10,7 @@ function CategoriesProvider({ children }) {
   const loadCategories = useCallback(async () => {
     try {
       const data = await apiPublic.GetCategories();
-      setCategories(data);
+      setCategories(data.slice().sort((a, b) => a.name > b.name ? 1 : -1));
     } catch {
       setCategories([]);
     }
