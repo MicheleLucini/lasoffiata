@@ -1,11 +1,12 @@
 import * as apiPublic from "@api/public";
-// import Annuncio from "@scenes/annuncio";
 import HomeAnnuncio from "../home/HomeAnnuncio";
 import HomeAnnuncioPlaceholder from "../home/HomeAnnuncioPlaceholder";
 import Icon from "@components/icon";
-// import Link from "@components/link";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import styles from "./Search.module.css";
+import { useCategories } from "@contexts/CategoriesContext";
+// import Annuncio from "@scenes/annuncio";
+// import Link from "@components/link";
 // import { ROUTES } from "@contexts/NavigatorContext";
 // import { selectUser } from '@store/userSlice';
 // import { useModals } from "@contexts/ModalsContext";
@@ -14,9 +15,11 @@ import styles from "./Search.module.css";
 const Search = () => {
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
   const [advertisements, setAdvertisements] = useState([]);
   // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
 
+  const { categories } = useCategories();
   // const user = useSelector(selectUser);
   // const { navigate } = useNavigator();
   // const { openModal } = useModals();
@@ -24,6 +27,10 @@ const Search = () => {
   // const userIconLinkRoute = useMemo(() => (
   //   user.isLogged ? ROUTES.MY_ACCOUNT : ROUTES.LOGIN
   // ), [user.isLogged]);
+
+  const showCategoriesList = useMemo(() => (
+    !loading && advertisements.length === 0 && !categoryId
+  ), [advertisements.length, loading, categoryId]);
 
   // const onAnnuncioClick = useCallback((annuncio) => {
   //   openModal({
@@ -61,12 +68,12 @@ const Search = () => {
   //   setLoading(false);
   // }, []);
 
-  const searchAdvertisements = useCallback(async (q) => {
+  const searchAdvertisements = useCallback(async (q, cId) => {
     setLoading(true);
     try {
       const data = await apiPublic.SearchAdvertisements({
         searchText: q,
-        categoryId: 0,
+        categoryId: cId,
         province: "",
         page: 1,
       });
@@ -91,15 +98,17 @@ const Search = () => {
   // }, []);
 
   useEffect(() => {
-    if (searchInput) {
+    if (searchInput || categoryId) {
+      setLoading(true);
       const debounced = setTimeout(() => {
-        searchAdvertisements(searchInput);
+        searchAdvertisements(searchInput, categoryId);
       }, 500);
       return () => clearTimeout(debounced);
     } else {
       setAdvertisements([]);
+      setLoading(false);
     }
-  }, [searchAdvertisements, searchInput]);
+  }, [searchAdvertisements, searchInput, categoryId]);
 
   return (
     <>
@@ -123,18 +132,45 @@ const Search = () => {
         />
       </div>
       <br></br>
-      <div className='row'>
-        <div className='col'>
-          <span className='page-title'>Risultati ricerca</span>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <div className={styles.wrapperAnnunci}>
-            {annunciList}
+      {showCategoriesList ? (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <span className='page-title'>Categorie</span>
+            </div>
           </div>
-        </div>
-      </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.wrapperCategorie}>
+                {categories.map((category) => (
+                  <div key={category.id} onClick={() => setCategoryId(category.id)} >{category.name}</div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <span className='page-title'>Risultati ricerca</span>
+            </div>
+          </div>
+          <div className='row'>
+            {annunciList.length === 0 ? (
+              <div className='col col-flex-center'>
+                <span style={{ marginTop: 20 }}>Nessun annuncio trovato</span>
+              </div>
+            ) : (
+              <div className='col'>
+                <div className={styles.wrapperAnnunci}>
+                  {annunciList}
+                </div>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };
