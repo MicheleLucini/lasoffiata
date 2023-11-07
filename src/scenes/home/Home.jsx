@@ -2,9 +2,9 @@ import * as apiPublic from "@api/public";
 import Annuncio from "@scenes/annuncio";
 import HomeAnnuncio from "./HomeAnnuncio";
 import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
-import Icon from "@components/icon";
 import Link from "@components/link";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+import SearchInput from "@components/searchInput";
 import styles from "./Home.module.css";
 import { ROUTES } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
@@ -78,43 +78,17 @@ const Home = () => {
   //   setLoadingSearchedAdvertisements(false);
   // }, []);
 
-  // const onSearchInputChange = useCallback((e) => {
-  //   setSearchInput(e.target.value);
-  // }, []);
-
-  // const onSearchInputKeyPress = useCallback((e) => {
-  //   if (!e) e = window.event;
-  //   var keyCode = e.code || e.key;
-  //   if (keyCode === "Enter") {
-  //     // setSearchActive(true);
-  //     return false;
-  //   }
-  // }, []);
-
   useEffect(() => {
     loadFeaturedAdvertisements();
   }, [loadFeaturedAdvertisements]);
 
   return (
     <>
-      <div className={styles.searchWrapper}>
-        <Icon
-          name="search"
-          className={styles.searchIcon}
-          size={22}
-          fill={0}
-          weight={400}
-          grade={0}
-          opticalSize={24}
-        />
-        <input
-          className={styles.searchInput}
-          // onChange={onSearchInputChange}
-          // onKeyPress={onSearchInputKeyPress}
-          placeholder='Cerca su La Soffiata'
-          // value={searchInput}
-          onClick={() => navigate(ROUTES.SEARCH)}
-        />
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <SearchInput onClick={() => navigate(ROUTES.SEARCH)} />
+        </div>
       </div>
       {user.hasAdvertisements && (
         <div className={styles.links}>

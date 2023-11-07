@@ -1,11 +1,14 @@
 import * as apiPublic from "@api/public";
 import HomeAnnuncio from "../home/HomeAnnuncio";
 import HomeAnnuncioPlaceholder from "../home/HomeAnnuncioPlaceholder";
-import Icon from "@components/icon";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+import SearchInput from "@components/searchInput";
+import SelectCategory from "@templates/selectCategory";
+import SelectProvince from "@templates/selectProvince";
 import styles from "./Search.module.css";
 import { useCategories } from "@contexts/CategoriesContext";
 // import Annuncio from "@scenes/annuncio";
+// import Icon from "@components/icon";
 // import Link from "@components/link";
 // import { ROUTES } from "@contexts/NavigatorContext";
 // import { selectUser } from '@store/userSlice';
@@ -14,8 +17,9 @@ import { useCategories } from "@contexts/CategoriesContext";
 
 const Search = () => {
   const [loading, setLoading] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
-  const [categoryId, setCategoryId] = useState(0);
+  const [filterText, setFilterText] = useState("");
+  const [filterCategoryId, setFilterCategoryId] = useState(0);
+  const [filterProvince, setFilterProvince] = useState(null);
   const [advertisements, setAdvertisements] = useState([]);
   // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
 
@@ -29,8 +33,8 @@ const Search = () => {
   // ), [user.isLogged]);
 
   const showCategoriesList = useMemo(() => (
-    !loading && advertisements.length === 0 && !categoryId
-  ), [advertisements.length, loading, categoryId]);
+    !loading && advertisements.length === 0 && !filterText && !filterCategoryId
+  ), [advertisements.length, loading, filterText, filterCategoryId]);
 
   // const onAnnuncioClick = useCallback((annuncio) => {
   //   openModal({
@@ -68,13 +72,13 @@ const Search = () => {
   //   setLoading(false);
   // }, []);
 
-  const searchAdvertisements = useCallback(async (q, cId) => {
+  const searchAdvertisements = useCallback(async (q, cId, p) => {
     setLoading(true);
     try {
       const data = await apiPublic.SearchAdvertisements({
         searchText: q,
         categoryId: cId,
-        province: "",
+        province: p,
         page: 1,
       });
       setAdvertisements(data);
@@ -84,56 +88,30 @@ const Search = () => {
     setLoading(false);
   }, []);
 
-  const onSearchInputChange = useCallback((e) => {
-    setSearchInput(e.target.value);
-  }, []);
-
-  // const onSearchInputKeyPress = useCallback((e) => {
-  //   if (!e) e = window.event;
-  //   var keyCode = e.code || e.key;
-  //   if (keyCode === "Enter") {
-  //     // setSearchActive(true);
-  //     return false;
-  //   }
-  // }, []);
-
   useEffect(() => {
-    if (searchInput || categoryId) {
+    if (filterText || filterCategoryId) {
       setLoading(true);
       const debounced = setTimeout(() => {
-        searchAdvertisements(searchInput, categoryId);
+        searchAdvertisements(filterText, filterCategoryId, filterProvince);
       }, 500);
       return () => clearTimeout(debounced);
     } else {
       setAdvertisements([]);
       setLoading(false);
     }
-  }, [searchAdvertisements, searchInput, categoryId]);
+  }, [searchAdvertisements, filterText, filterCategoryId, filterProvince]);
 
   return (
     <>
-      <div className={styles.searchWrapper}>
-        <Icon
-          name="search"
-          className={styles.searchIcon}
-          size={22}
-          fill={0}
-          weight={400}
-          grade={0}
-          opticalSize={24}
-        />
-        <input
-          className={styles.searchInput}
-          onChange={onSearchInputChange}
-          // onKeyPress={onSearchInputKeyPress}
-          placeholder='Cerca su La Soffiata'
-          value={searchInput}
-          autoFocus
-        />
-      </div>
       <br></br>
+      <div className='row'>
+        <div className='col'>
+          <SearchInput value={filterText} setValue={setFilterText} autoFocus />
+        </div>
+      </div>
       {showCategoriesList ? (
         <>
+          <br></br>
           <div className='row'>
             <div className='col'>
               <span className='page-title'>Categorie</span>
@@ -143,7 +121,7 @@ const Search = () => {
             <div className='col'>
               <div className={styles.wrapperCategorie}>
                 {categories.map((category) => (
-                  <div key={category.id} onClick={() => setCategoryId(category.id)} >{category.name}</div>
+                  <div key={category.id} onClick={() => setFilterCategoryId(category.id)} >{category.name}</div>
                 ))}
               </div>
             </div>
@@ -151,6 +129,25 @@ const Search = () => {
         </>
       ) : (
         <>
+          <div className='row'>
+            <div className='col'>
+              <SelectCategory
+                value={filterCategoryId}
+                setValue={setFilterCategoryId}
+                disabled={loading}
+              />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <SelectProvince
+                label="Provincia"
+                value={filterProvince}
+                setValue={setFilterProvince}
+                disabled={loading}
+              />
+            </div>
+          </div>
           <div className='row'>
             <div className='col'>
               <span className='page-title'>Risultati ricerca</span>
