@@ -102,7 +102,7 @@ const RigaAnnuncio = ({
         <Button
           icon="settings"
           text="Gestisci"
-          // onClick={() => onElimina(annuncio)}
+          onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}
           disabled={loading}
           size="mini"
         />
@@ -128,7 +128,7 @@ const RigaAnnuncio = ({
         <Button
           type="outlined"
           text="Modifica"
-          onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
+          onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
           disabled={loading}
           size="mini"
         />

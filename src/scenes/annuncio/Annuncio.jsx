@@ -126,7 +126,7 @@ const Annuncio = ({ initialAnnuncio }) => {
             {isMyAnnuncio && (
               <Button
                 text="Modifica"
-                onClick={() => navigate(ROUTES.MODIFICA_ANNUNCIO, [annuncio.id])}
+                onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
               />
             )}
             <Button

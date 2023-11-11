@@ -44,6 +44,18 @@ const ROUTES = {
     title: "Annuncio",
     url: "/annuncio",
   },
+  ANNUNCIO_CREA: {
+    title: "Crea annuncio",
+    url: "/crea-annuncio",
+  },
+  ANNUNCIO_GESTISCI: {
+    title: "Gestisci annuncio",
+    url: "/gestisci-annuncio",
+  },
+  ANNUNCIO_MODIFICA: {
+    title: "Modifica annuncio",
+    url: "/modifica-annuncio",
+  },
   BALANCE: {
     title: "Balance",
     url: "/balance",
@@ -51,10 +63,6 @@ const ROUTES = {
   CHECKOUT: {
     title: "Checkout",
     url: "/checkout",
-  },
-  CREA_ANNUNCIO: {
-    title: "Crea annuncio",
-    url: "/crea-annuncio",
   },
   HOME: {
     title: "Home",
@@ -67,10 +75,6 @@ const ROUTES = {
   LOGIN: {
     title: "Accedi",
     url: "/login",
-  },
-  MODIFICA_ANNUNCIO: {
-    title: "Modifica annuncio",
-    url: "/modifica-annuncio",
   },
   MY_ACCOUNT: {
     title: "Il mio account",

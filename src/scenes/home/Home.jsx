@@ -113,7 +113,7 @@ const Home = () => {
               <Link route={ROUTES.HOME}>
                 <span>Messaggi</span>
               </Link>
-              <Link route={ROUTES.CREA_ANNUNCIO}>
+              <Link route={ROUTES.ANNUNCIO_CREA}>
                 <span>Vendi</span>
               </Link>
             </>

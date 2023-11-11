@@ -102,7 +102,7 @@ const IMieiAnnunci = () => {
             color="primary"
             text="Crea annuncio"
             icon="add"
-            onClick={() => navigate(ROUTES.CREA_ANNUNCIO)}
+            onClick={() => navigate(ROUTES.ANNUNCIO_CREA)}
           />
         </div>
       </div>

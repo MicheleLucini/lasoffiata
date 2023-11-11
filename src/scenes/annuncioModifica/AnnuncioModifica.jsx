@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import * as apiPublic from "@api/public";
 import * as logicAnnuncio from "@logic/annuncio";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
-import ImageInput from '@components/imageInput';
+import ImageInput, { FakeImageInput } from '@components/imageInput';
 import InlineAlert from '@components/inlineAlert';
 import TextInput from '@components/textInput';
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
+import { getAdvertisementImageUrl } from "@logic/annuncio"
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -22,51 +24,88 @@ const fromFileInputToBlobPromise = (file) => {
   });
 };
 
-const CreaAnnuncio = () => {
+const AnnuncioModifica = () => {
+  const dispatch = useDispatch();
+  const { navigate, currentRoute } = useNavigator();
   const [loading, setLoading] = useState(false);
+  const [initialValues, setInitialValues] = useState(null);
   const [formCategory, setFormCategory] = useState(null);
   const [formProvince, setFormProvince] = useState(null);
   const [formTitolo, setFormTitolo] = useState("");
   const [formCitta, setFormCitta] = useState("");
   const [formDescrizione, setFormDescrizione] = useState("");
   const [formImages, setFormImages] = useState([]);
+  const [formDeletedImages, setFormDeletedImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
 
-  const dispatch = useDispatch();
-  const { navigate } = useNavigator();
+  const loadAnnuncio = useCallback(async () => {
+    const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
+    setInitialValues(data);
+    setFormCategory(data.categoryId); // 14
+    setFormProvince(data.province); // "CR"
+    setFormTitolo(data.title); // "test"
+    setFormCitta(data.city); // "test"
+    setFormDescrizione(data.description); // "test"
+    setFormDeletedImages([]);
+  }, [currentRoute])
 
-  const onCreaClick = useCallback(async () => {
+
+  const onSalvaClick = useCallback(async () => {
     setLoading(true);
     setFormErrors(null);
 
     const filePromises = formImages.map(fromFileInputToBlobPromise);
     const filesBlobs = await Promise.all(filePromises);
 
-    dispatch(logicAnnuncio.createAdvertisement({
+    dispatch(logicAnnuncio.editAdvertisement({
+      advertisementId: initialValues.id,
       title: formTitolo,
       description: formDescrizione,
       categoryId: formCategory,
       province: formProvince,
       city: formCitta,
-      imageBlob: filesBlobs.join("#"),
+      newImageBlob: filesBlobs.join("#"),
+      deletedImageIds: formDeletedImages.join(";"),
     }))
       .then(() => {
-        navigate(ROUTES.HOME);
+        navigate(ROUTES.ANNUNCIO, [initialValues.id]);
       })
       .catch((e) => {
         setFormErrors(e.message);
-      })
-      .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, navigate, formCategory, formCitta, formDescrizione, formProvince, formTitolo, formImages]);
+  }, [formImages, dispatch, initialValues, formTitolo, formDescrizione, formCategory, formProvince, formCitta, formDeletedImages, navigate]);
+
+  const removeImage = useCallback((id) => {
+    setFormDeletedImages((prev) => prev.includes(id) ? prev : [...prev, id]);
+  }, []);
+
+  const immaginiAnnuncio = useMemo(() => {
+    return initialValues?.images.map((x) => {
+      if (formDeletedImages.includes(x.id)) {
+        return null;
+      }
+      return {
+        src: getAdvertisementImageUrl({
+          userId: initialValues.userId,
+          advertisementId: initialValues.id,
+          imageId: x.id,
+        }),
+        name: x.id,
+      };
+    }).filter((x) => x);
+  }, [formDeletedImages, initialValues]);
+
+  useEffect(() => {
+    loadAnnuncio();
+  }, [loadAnnuncio])
 
   return (
     <>
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className='page-title'>Crea annuncio</span>
+          <span className='page-title'>Modifica annuncio</span>
         </div>
       </div>
       <div className='row'>
@@ -120,8 +159,18 @@ const CreaAnnuncio = () => {
       </div>
       <div className='row'>
         <div className='col'>
+          <FakeImageInput
+            label="Foto annuncio"
+            images={immaginiAnnuncio}
+            removeImage={removeImage}
+            disabled={loading}
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
           <ImageInput
-            label="Foto"
+            label="Nuove foto"
             buttonText="Aggiungi foto"
             setValue={setFormImages}
             disabled={loading}
@@ -129,12 +178,14 @@ const CreaAnnuncio = () => {
         </div>
       </div>
       <br />
+      <br />
+      <br />
       <div className='row'>
         <div className='col'>
           <Button
-            text="Crea"
-            icon="add"
-            onClick={onCreaClick}
+            text="Salva"
+            icon="save"
+            onClick={onSalvaClick}
           />
         </div>
       </div>
@@ -147,4 +198,4 @@ const CreaAnnuncio = () => {
   );
 };
 
-export default CreaAnnuncio;
+export default AnnuncioModifica;

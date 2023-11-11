@@ -6,13 +6,14 @@ import AdminUtenti from "@scenes/adminUtenti";
 import AdminValidazioneAnnunci from "@scenes/adminValidazioneAnnunci";
 import Administration from "@scenes/administration";
 import Annuncio from "@scenes/annuncio";
+import AnnuncioCrea from "@scenes/annuncioCrea";
+import AnnuncioGestisci from "@scenes/annuncioGestisci";
+import AnnuncioModifica from "@scenes/annuncioModifica";
 import Balance from "@scenes/balance";
 import Checkout from "@scenes/checkout";
-import CreaAnnuncio from "@scenes/creaAnnuncio";
 import Home from "@scenes/home";
 import IMieiAnnunci from "@scenes/iMieiAnnunci";
 import Login from "@scenes/login";
-import ModificaAnnuncio from "@scenes/modificaAnnuncio";
 import MyAccount from "@scenes/myAccount";
 import PersonalBillingInfo from "@scenes/personalBillingInfo";
 import PersonalInfo from "@scenes/personalInfo";
@@ -46,13 +47,14 @@ const AppRouting = () => {
         </>
       )}
       {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}
+      {checkCurrentRoute(ROUTES.ANNUNCIO_CREA) && <AnnuncioCrea />}
+      {checkCurrentRoute(ROUTES.ANNUNCIO_GESTISCI) && <AnnuncioGestisci />}
+      {checkCurrentRoute(ROUTES.ANNUNCIO_MODIFICA) && <AnnuncioModifica />}
       {checkCurrentRoute(ROUTES.BALANCE) && <Balance />}
       {checkCurrentRoute(ROUTES.CHECKOUT) && <Checkout />}
-      {checkCurrentRoute(ROUTES.CREA_ANNUNCIO) && <CreaAnnuncio />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}
       {checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI) && <IMieiAnnunci />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
-      {checkCurrentRoute(ROUTES.MODIFICA_ANNUNCIO) && <ModificaAnnuncio />}
       {checkCurrentRoute(ROUTES.MY_ACCOUNT) && <MyAccount />}
       {checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO) && <PersonalBillingInfo />}
       {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
