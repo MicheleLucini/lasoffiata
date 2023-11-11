@@ -98,13 +98,14 @@ const RigaAnnuncio = ({
         <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
       <div className={styles.actions}>
+        {statoAnnuncio}
         <Button
           icon="settings"
           text="Gestisci"
           // onClick={() => onElimina(annuncio)}
           disabled={loading}
+          size="mini"
         />
-        {statoAnnuncio}
         {/* {!isMaiStatoAttivato && (
           annuncio.isSuspended || isScaduto ? (
             <Button

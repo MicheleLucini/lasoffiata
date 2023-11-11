@@ -37,6 +37,7 @@ const Button = ({
           name={icon}
           opticalSize={24}
           weight={400}
+          size={size === "mini" ? 20 : 24}
         />
       )}
       {text && text}
