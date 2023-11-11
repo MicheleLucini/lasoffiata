@@ -84,7 +84,7 @@ const MyAccount = () => {
       <div className='row'>
         <div className='col'>
           <div className={styles.card} onClick={() => navigate(ROUTES.I_MIEI_ANNUNCI)}>
-            <span>I tuoi annunci</span>
+            <span>I miei annunci</span>
             <p>Visualizza l'elenco degli annunci che hai creato</p>
             {iconRenderer("photo_prints")}
           </div>

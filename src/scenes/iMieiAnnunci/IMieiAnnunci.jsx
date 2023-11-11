@@ -1,20 +1,20 @@
 import * as apiPublic from "@api/public";
-import * as apiUser from "@api/user";
+// import * as apiUser from "@api/user";
 import Button from "@components/button";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import RigaAnnuncio from "./RigaAnnuncio";
 import styles from "./IMieiAnnunci.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
-import { useDialogs } from "@contexts/DialogsContext";
+// import { useDialogs } from "@contexts/DialogsContext";
 import { useSelector } from "react-redux";
-import { useSnackbars } from "@contexts/SnackbarsContext";
+// import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const IMieiAnnunci = () => {
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
-  const { openDialog } = useDialogs();
-  const { openSnackbar } = useSnackbars();
+  // const { openDialog } = useDialogs();
+  // const { openSnackbar } = useSnackbars();
 
   const [loading, setLoading] = useState(true);
   const [advertisements, setAdvertisements] = useState([]);
@@ -31,44 +31,44 @@ const IMieiAnnunci = () => {
     setLoading(false);
   }, [user.id]);
 
-  const ripubblica = useCallback(async (id) => {
-    setLoading(true);
-    try {
-      await apiUser.RepublishAdvertisement({ advertisementId: id });
-    } catch (e) {
-      openSnackbar(e.message);
-    }
-    loadUserAdvertisements();
-  }, [loadUserAdvertisements, openSnackbar]);
+  // const ripubblica = useCallback(async (id) => {
+  //   setLoading(true);
+  //   try {
+  //     await apiUser.RepublishAdvertisement({ advertisementId: id });
+  //   } catch (e) {
+  //     openSnackbar(e.message);
+  //   }
+  //   loadUserAdvertisements();
+  // }, [loadUserAdvertisements, openSnackbar]);
 
-  const sospendi = useCallback(async (id) => {
-    setLoading(true);
-    try {
-      await apiUser.SuspendAdvertisement({ advertisementId: id });
-    } catch (e) {
-      openSnackbar(e.message);
-    }
-    loadUserAdvertisements();
-  }, [loadUserAdvertisements, openSnackbar]);
+  // const sospendi = useCallback(async (id) => {
+  //   setLoading(true);
+  //   try {
+  //     await apiUser.SuspendAdvertisement({ advertisementId: id });
+  //   } catch (e) {
+  //     openSnackbar(e.message);
+  //   }
+  //   loadUserAdvertisements();
+  // }, [loadUserAdvertisements, openSnackbar]);
 
-  const elimina = useCallback(async (id) => {
-    setLoading(true);
-    try {
-      await apiUser.DeleteAdvertisement({ advertisementId: id });
-    } catch (e) {
-      openSnackbar(e.message);
-    }
-    loadUserAdvertisements();
-  }, [loadUserAdvertisements, openSnackbar]);
+  // const elimina = useCallback(async (id) => {
+  //   setLoading(true);
+  //   try {
+  //     await apiUser.DeleteAdvertisement({ advertisementId: id });
+  //   } catch (e) {
+  //     openSnackbar(e.message);
+  //   }
+  //   loadUserAdvertisements();
+  // }, [loadUserAdvertisements, openSnackbar]);
 
-  const onEliminaClick = useCallback(({ id, title }) => {
-    openDialog({
-      title: 'Eliminare l\'annuncio "' + title + '"?',
-      body: 'Se confermi l\'annuncio verrà rimosso definitivamente.',
-      confirmButtonText: "Elimina",
-      confirmButtonAction: () => elimina(id),
-    });
-  }, [openDialog, elimina]);
+  // const onEliminaClick = useCallback(({ id, title }) => {
+  //   openDialog({
+  //     title: 'Eliminare l\'annuncio "' + title + '"?',
+  //     body: 'Se confermi l\'annuncio verrà rimosso definitivamente.',
+  //     confirmButtonText: "Elimina",
+  //     confirmButtonAction: () => elimina(id),
+  //   });
+  // }, [openDialog, elimina]);
 
   const annunciList = useMemo(() => (
     advertisements.map((x) => (
@@ -76,13 +76,13 @@ const IMieiAnnunci = () => {
         <RigaAnnuncio
           annuncio={x}
           loading={loading}
-          onRipubblica={ripubblica}
-          onSospendi={sospendi}
-          onElimina={onEliminaClick}
+          // onRipubblica={ripubblica}
+          // onSospendi={sospendi}
+          // onElimina={onEliminaClick}
         />
       </div>
     ))
-  ), [advertisements, loading, ripubblica, sospendi, onEliminaClick]);
+  ), [advertisements, loading]); //, ripubblica, sospendi, onEliminaClick]);
 
   useEffect(() => {
     loadUserAdvertisements();

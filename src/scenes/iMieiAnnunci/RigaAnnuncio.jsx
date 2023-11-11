@@ -8,7 +8,9 @@ import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
-const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }) => {
+const RigaAnnuncio = ({ 
+  annuncio, loading, // onRipubblica, onSospendi, onElimina,
+}) => {
   const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
@@ -52,7 +54,7 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
       text = "Rifiutato";
     }
     return (
-      <span className={className}>
+      <span className={styles.status + " " + className}>
         <Icon
           name={icon}
           size={18}
@@ -68,12 +70,6 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
 
   return (
     <>
-      <div className={styles.mainInfo}>
-        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
-        <span className={styles.description}>{annuncio.description}</span>
-        <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
-        <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
-      </div>
       <div
         className={styles.imageContainer}
         onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}
@@ -95,11 +91,21 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
           />
         )}
       </div>
-      <div className={styles.status}>
-        {statoAnnuncio}
+      <div className={styles.mainInfo}>
+        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
+        <span className={styles.description}>{annuncio.description}</span>
+        <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
+        <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
       <div className={styles.actions}>
-        {!isMaiStatoAttivato && (
+        <Button
+          icon="settings"
+          text="Gestisci"
+          // onClick={() => onElimina(annuncio)}
+          disabled={loading}
+        />
+        {statoAnnuncio}
+        {/* {!isMaiStatoAttivato && (
           annuncio.isSuspended || isScaduto ? (
             <Button
               type="outlined"
@@ -131,7 +137,7 @@ const RigaAnnuncio = ({ annuncio, loading, onRipubblica, onSospendi, onElimina }
           onClick={() => onElimina(annuncio)}
           disabled={loading}
           size="mini"
-        />
+        /> */}
       </div>
     </>
   );
@@ -167,9 +173,9 @@ RigaAnnuncio.propTypes = {
     validationStatus: PropTypes.number,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
-  onRipubblica: PropTypes.func.isRequired,
-  onSospendi: PropTypes.func.isRequired,
-  onElimina: PropTypes.func.isRequired,
+  // onRipubblica: PropTypes.func.isRequired,
+  // onSospendi: PropTypes.func.isRequired,
+  // onElimina: PropTypes.func.isRequired,
 };
 
 RigaAnnuncio.defaultProps = {
