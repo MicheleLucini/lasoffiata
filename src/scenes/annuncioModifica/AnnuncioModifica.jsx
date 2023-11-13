@@ -183,7 +183,7 @@ const AnnuncioModifica = () => {
         <div className='col col-flex-center'>
           <Button
             color="primary"
-            icon="save"
+            // icon="save"
             onClick={onSalvaClick}
             text="Salva"
           />

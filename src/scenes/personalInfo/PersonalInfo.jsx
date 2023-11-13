@@ -73,13 +73,14 @@ const PersonallInfo = () => {
       </div>
       <br></br>
       <div className='row'>
-        <div className='col'>
+        <div className='col col-flex-center'>
           <Button
             color="primary"
             disabled={loading}
-            fullWidth
+            // fullWidth
+            // icon="save"
             onClick={onSave}
-            text="salva"
+            text="Salva"
           />
         </div>
       </div>

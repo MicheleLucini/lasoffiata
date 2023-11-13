@@ -69,22 +69,23 @@ const Balance = () => {
         <div className='col'>
           <div className={styles.credits}>
             <Icon
-              name="credit_card"
+              name="savings"
+              // name="credit_card"
               fill={0}
               weight={500}
               grade={0}
               opticalSize={40}
-              size={32}
+              size={40}
             />
             <span>{user.credits}</span>
           </div>
         </div>
       </div>
       <div className='row'>
-        <div className='col col-flex'>
+        <div className='col col-flex-center'>
           <Button
             color="primary"
-            icon="add_card"
+            // icon="add_card"
             onClick={onAddCreditsClick}
             text="Aggiungi crediti"
           />

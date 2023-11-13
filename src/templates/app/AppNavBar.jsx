@@ -23,8 +23,14 @@ const AppNavBar = () => {
   }, [checkCurrentRoute]);
 
   const isMyAccountCurrentRoute = useMemo(() => {
-    return checkCurrentRoute(routeMyAccount);
-  }, [checkCurrentRoute, routeMyAccount]);
+    return checkCurrentRoute(ROUTES.LOGIN)
+      || checkCurrentRoute(ROUTES.MY_ACCOUNT)
+      || checkCurrentRoute(ROUTES.BALANCE)
+      || checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)
+      || checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO)
+      || checkCurrentRoute(ROUTES.PERSONAL_INFO)
+      || checkCurrentRoute(ROUTES.REGISTER);
+  }, [checkCurrentRoute]);
 
   // const showCurrentUserGreeting = useMemo(() => (
   //   user.isLogged

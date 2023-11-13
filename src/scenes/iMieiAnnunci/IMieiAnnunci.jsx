@@ -97,7 +97,7 @@ const IMieiAnnunci = () => {
         </div>
       </div>
       <div className='row'>
-        <div className='col'>
+        <div className='col col-flex-center'>
           <Button
             color="primary"
             text="Crea annuncio"
