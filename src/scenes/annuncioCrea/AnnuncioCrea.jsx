@@ -129,12 +129,14 @@ const AnnuncioCrea = () => {
         </div>
       </div>
       <br />
+      <br />
       <div className='row'>
-        <div className='col'>
+        <div className='col col-flex-center'>
           <Button
-            text="Crea"
-            icon="add"
+            color="primary"
+            icon="save"
             onClick={onCreaClick}
+            text="Salva"
           />
         </div>
       </div>

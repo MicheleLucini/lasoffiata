@@ -179,13 +179,13 @@ const AnnuncioModifica = () => {
       </div>
       <br />
       <br />
-      <br />
       <div className='row'>
-        <div className='col'>
+        <div className='col col-flex-center'>
           <Button
-            text="Salva"
+            color="primary"
             icon="save"
             onClick={onSalvaClick}
+            text="Salva"
           />
         </div>
       </div>

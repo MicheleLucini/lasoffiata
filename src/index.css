@@ -80,7 +80,8 @@ a {
 }
 
 .col-flex,
-.col-flex-center {
+.col-flex-center,
+.col-flex-end {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
@@ -90,6 +91,10 @@ a {
 
 .col-flex-center {
   justify-content: center;
+}
+
+.col-flex-end {
+  justify-content: flex-end;
 }
 
 .page-title,
