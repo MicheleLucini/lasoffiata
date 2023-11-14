@@ -1,14 +1,14 @@
 import * as apiPublic from "@api/public";
-// import * as apiUser from "@api/user";
+import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
 import Button from "@components/button";
+import Icon from "@components/icon";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import RigaAnnuncio from "./RigaAnnuncio";
+import moment from 'moment';
 import styles from "./IMieiAnnunci.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
 import { selectUser } from '@store/userSlice';
-// import { useDialogs } from "@contexts/DialogsContext";
 import { useSelector } from "react-redux";
-// import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const IMieiAnnunci = () => {
   const user = useSelector(selectUser);
@@ -40,7 +40,6 @@ const IMieiAnnunci = () => {
   //   }
   //   loadUserAdvertisements();
   // }, [loadUserAdvertisements, openSnackbar]);
-
   // const sospendi = useCallback(async (id) => {
   //   setLoading(true);
   //   try {
@@ -50,7 +49,6 @@ const IMieiAnnunci = () => {
   //   }
   //   loadUserAdvertisements();
   // }, [loadUserAdvertisements, openSnackbar]);
-
   // const elimina = useCallback(async (id) => {
   //   setLoading(true);
   //   try {
@@ -60,7 +58,6 @@ const IMieiAnnunci = () => {
   //   }
   //   loadUserAdvertisements();
   // }, [loadUserAdvertisements, openSnackbar]);
-
   // const onEliminaClick = useCallback(({ id, title }) => {
   //   openDialog({
   //     title: 'Eliminare l\'annuncio "' + title + '"?',
@@ -71,18 +68,68 @@ const IMieiAnnunci = () => {
   // }, [openDialog, elimina]);
 
   const annunciList = useMemo(() => (
-    advertisements.map((x) => (
-      <div key={x.id} className={styles.annuncio}>
-        <RigaAnnuncio
+    advertisements.map((x) => {
+      const isScaduto = moment().diff(x.expirationDate) > 0;
+      const isMaiStatoAttivato = x.publishDate === "0001-01-01T00:00:00Z";
+
+      let icon = "event_available";
+      let className = styles.success;
+      let text = "Attivo";
+      if (isMaiStatoAttivato) {
+        icon = "savings";
+        className = styles.warning;
+        text = "Pagamento richiesto";
+      } else if (x.isSuspended) {
+        icon = "pause_circle";
+        className = styles.error;
+        text = "Sospeso";
+      } else if (isScaduto) {
+        icon = "event_busy";
+        className = styles.error;
+        text = "Scaduto";
+      } else if (checkConstant(VALIDATION_STATUS.WAITING, x.validationStatus)) {
+        icon = "hourglass_empty";
+        className = "";
+        text = "In attesa di verifica";
+      } else if (checkConstant(VALIDATION_STATUS.REFUSED, x.validationStatus)) {
+        icon = "block";
+        className = styles.error;
+        text = "Rifiutato";
+      }
+
+      return (
+        <AnnuncioPreview
+          key={x.id}
           annuncio={x}
           loading={loading}
-          // onRipubblica={ripubblica}
-          // onSospendi={sospendi}
-          // onElimina={onEliminaClick}
-        />
-      </div>
-    ))
-  ), [advertisements, loading]); //, ripubblica, sospendi, onEliminaClick]);
+        // onRipubblica={ripubblica}
+        // onSospendi={sospendi}
+        // onElimina={onEliminaClick}
+        >
+          <div className={styles.actions}>
+          <span className={styles.status + " " + className}>
+            <Icon
+              name={icon}
+              size={18}
+              fill={1}
+              weight={400}
+              grade={-25}
+              opticalSize={20}
+            />
+            {text}
+          </span>
+          <Button
+            icon="settings"
+            text="Gestisci"
+            onClick={() => navigate(ROUTES.ANNUNCIO, [x.id])}
+            disabled={loading}
+            size="mini"
+          />
+          </div>
+        </AnnuncioPreview>
+      );
+    })
+  ), [advertisements, loading, navigate]); //, ripubblica, sospendi, onEliminaClick]);
 
   useEffect(() => {
     loadUserAdvertisements();
