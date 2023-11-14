@@ -12,7 +12,7 @@ export async function CreateAdvertisement({
   categoryId,
   province,
   city,
-  imageBlob
+  imagesBlobs
 }) {
   return await post(`${CONTROLLER_URL}/CreateAdvertisement`, {
     title,
@@ -20,7 +20,7 @@ export async function CreateAdvertisement({
     categoryId,
     province,
     city,
-    imageBlob
+    imagesBlobs
   });
 }
 
@@ -31,7 +31,7 @@ export async function EditAdvertisement({
   categoryId,
   province,
   city,
-  newImageBlob,
+  newImagesBlobs,
   deletedImageIds
 }) {
   return await post(`${CONTROLLER_URL}/EditAdvertisement`, {
@@ -41,7 +41,7 @@ export async function EditAdvertisement({
     categoryId,
     province,
     city,
-    newImageBlob,
+    newImagesBlobs,
     deletedImageIds
   });
 }
@@ -64,10 +64,10 @@ export async function SuspendAdvertisement({ advertisementId }) {
   });
 }
 
-export async function UploadImage({ image, advertisementId }) {
+export async function UploadImage({ advertisementId, image, }) {
   return await post(`${CONTROLLER_URL}/UploadImage`, {
-    image,
-    advertisementId
+    advertisementId,
+    image
   });
 }
 
@@ -123,9 +123,14 @@ export async function EditUserBillingData({
   });
 }
 
-export async function CreatePayment({ cartItems }) {
+export async function GetMyPayments() {
+  return await post(`${CONTROLLER_URL}/GetMyPayments`);
+}
+
+export async function CreatePayment({ service, quantity }) {
   return await post(`${CONTROLLER_URL}/CreatePayment`, {
-    cartItems
+    service,
+    quantity
   });
 }
 
@@ -134,8 +139,4 @@ export async function ExecutePayment({ paymentID, payerID }) {
     paymentID,
     payerID
   });
-}
-
-export async function GetMyPayments() {
-  return await post(`${CONTROLLER_URL}/GetMyPayments`);
 }

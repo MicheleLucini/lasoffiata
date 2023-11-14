@@ -1,13 +1,13 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import * as logicAnnuncio from "@logic/annuncio";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
 import ImageInput from '@components/imageInput';
 import InlineAlert from '@components/inlineAlert';
-import TextInput from '@components/textInput';
+import React, { useState, useCallback } from "react";
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
+import TextInput from '@components/textInput';
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useDispatch } from "react-redux";
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -48,7 +48,7 @@ const AnnuncioCrea = () => {
       categoryId: formCategory,
       province: formProvince,
       city: formCitta,
-      imageBlob: filesBlobs.join("#"),
+      imagesBlobs: filesBlobs,
     }))
       .then(() => {
         navigate(ROUTES.HOME);

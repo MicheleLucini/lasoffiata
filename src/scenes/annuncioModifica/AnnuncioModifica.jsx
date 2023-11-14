@@ -1,15 +1,15 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import * as apiPublic from "@api/public";
 import * as logicAnnuncio from "@logic/annuncio";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from "@components/button";
 import ImageInput, { FakeImageInput } from '@components/imageInput';
 import InlineAlert from '@components/inlineAlert';
-import TextInput from '@components/textInput';
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
+import TextInput from '@components/textInput';
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { getAdvertisementImageUrl } from "@logic/annuncio"
+import { useDispatch } from "react-redux";
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -25,8 +25,6 @@ const fromFileInputToBlobPromise = (file) => {
 };
 
 const AnnuncioModifica = () => {
-  const dispatch = useDispatch();
-  const { navigate, currentRoute } = useNavigator();
   const [loading, setLoading] = useState(false);
   const [initialValues, setInitialValues] = useState(null);
   const [formCategory, setFormCategory] = useState(null);
@@ -38,6 +36,9 @@ const AnnuncioModifica = () => {
   const [formDeletedImages, setFormDeletedImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
 
+  const dispatch = useDispatch();
+  const { navigate, currentRoute } = useNavigator();
+
   const loadAnnuncio = useCallback(async () => {
     const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
     setInitialValues(data);
@@ -48,7 +49,6 @@ const AnnuncioModifica = () => {
     setFormDescrizione(data.description); // "test"
     setFormDeletedImages([]);
   }, [currentRoute])
-
 
   const onSalvaClick = useCallback(async () => {
     setLoading(true);
@@ -64,8 +64,8 @@ const AnnuncioModifica = () => {
       categoryId: formCategory,
       province: formProvince,
       city: formCitta,
-      newImageBlob: filesBlobs.join("#"),
-      deletedImageIds: formDeletedImages.join(";"),
+      newImagesBlobs: filesBlobs,
+      deletedImageIds: formDeletedImages,
     }))
       .then(() => {
         navigate(ROUTES.ANNUNCIO, [initialValues.id]);

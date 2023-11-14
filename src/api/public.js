@@ -26,11 +26,25 @@ export async function Register({ email, password, accountType }) {
   });
 }
 
-export async function VerifyEmail({ verificationToken }) {
-  return await post(`${CONTROLLER_URL}/VerifyEmail`, {
-    verificationToken
+export async function SendResetPasswordEmail({ email }) {
+  return await post(`${CONTROLLER_URL}/SendResetPasswordEmail`, {
+    email
   });
 }
+
+export async function ResetPassword({ userToken, token, newPassword }) {
+  return await post(`${CONTROLLER_URL}/ResetPassword`, {
+    userToken,
+    token,
+    newPassword
+  });
+}
+
+// export async function VerifyEmail({ verificationToken }) {
+//   return await post(`${CONTROLLER_URL}/VerifyEmail`, {
+//     verificationToken
+//   });
+// }
 
 export async function SignIn({ email, password }) {
   return await post(`${CONTROLLER_URL}/SignIn`, {
@@ -51,6 +65,10 @@ export async function GetUserAdvertisements({ userId }) {
   });
 }
 
+export async function GetFeaturedAdvertisements() {
+  return await post(`${CONTROLLER_URL}/GetFeaturedAdvertisements`);
+}
+
 export async function SearchAdvertisements({ searchText, categoryId, province, page }) {
   return await post(`${CONTROLLER_URL}/SearchAdvertisements`, {
     searchText,
@@ -60,26 +78,8 @@ export async function SearchAdvertisements({ searchText, categoryId, province, p
   });
 }
 
-export async function GetFeaturedAdvertisements() {
-  return await post(`${CONTROLLER_URL}/GetFeaturedAdvertisements`);
-}
-
 export async function GetUser({ userId }) {
   return await post(`${CONTROLLER_URL}/GetUser`, {
     userId
-  });
-}
-
-export async function SendResetPasswordEmail({ email }) {
-  return await post(`${CONTROLLER_URL}/SendResetPasswordEmail`, {
-    email
-  });
-}
-
-export async function ResetPassword({ userToken, token, newPassword }) {
-  return await post(`${CONTROLLER_URL}/ResetPassword`, {
-    userToken,
-    token,
-    newPassword
   });
 }

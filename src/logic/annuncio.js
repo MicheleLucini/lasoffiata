@@ -15,7 +15,7 @@ export const createAdvertisement = ({
   categoryId,
   province,
   city,
-  imageBlob,
+  imagesBlobs,
 }) => async (dispatch) => {
   if (!title) {
     throw new Error("Devi specificare il titolo.");
@@ -38,7 +38,7 @@ export const createAdvertisement = ({
     categoryId,
     province,
     city,
-    imageBlob,
+    imagesBlobs,
   });
 };
 
@@ -49,7 +49,7 @@ export const editAdvertisement = ({
   categoryId,
   province,
   city,
-  newImageBlob,
+  newImagesBlobs,
   deletedImageIds,
 }) => async (dispatch) => {
   if (!advertisementId) {
@@ -77,7 +77,7 @@ export const editAdvertisement = ({
     categoryId,
     province,
     city,
-    newImageBlob,
+    newImagesBlobs,
     deletedImageIds,
   });
 };
