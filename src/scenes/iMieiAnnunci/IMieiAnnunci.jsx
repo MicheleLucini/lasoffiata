@@ -121,7 +121,7 @@ const IMieiAnnunci = () => {
           <Button
             icon="settings"
             text="Gestisci"
-            onClick={() => navigate(ROUTES.ANNUNCIO, [x.id])}
+            onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [x.id])}
             disabled={loading}
             size="mini"
           />

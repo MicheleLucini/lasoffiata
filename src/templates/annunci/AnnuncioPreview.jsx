@@ -51,9 +51,11 @@ const AnnuncioPreview = ({
         <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
         <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
-      <div className={styles.children}>
-        {children}
-      </div>
+      {!!children && (
+        <div className={styles.children}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };
