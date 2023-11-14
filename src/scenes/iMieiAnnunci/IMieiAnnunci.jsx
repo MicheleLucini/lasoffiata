@@ -101,30 +101,31 @@ const IMieiAnnunci = () => {
         <AnnuncioPreview
           key={x.id}
           annuncio={x}
-          loading={loading}
+          suppressNavigation
+        // loading={loading}
         // onRipubblica={ripubblica}
         // onSospendi={sospendi}
         // onElimina={onEliminaClick}
         >
           <div className={styles.actions}>
-          <span className={styles.status + " " + className}>
-            <Icon
-              name={icon}
-              size={18}
-              fill={1}
-              weight={400}
-              grade={-25}
-              opticalSize={20}
+            <span className={styles.status + " " + className}>
+              <Icon
+                name={icon}
+                size={18}
+                fill={1}
+                weight={400}
+                grade={-25}
+                opticalSize={20}
+              />
+              {text}
+            </span>
+            <Button
+              icon="settings"
+              text="Gestisci"
+              onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [x.id])}
+              disabled={loading}
+              size="mini"
             />
-            {text}
-          </span>
-          <Button
-            icon="settings"
-            text="Gestisci"
-            onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [x.id])}
-            disabled={loading}
-            size="mini"
-          />
           </div>
         </AnnuncioPreview>
       );

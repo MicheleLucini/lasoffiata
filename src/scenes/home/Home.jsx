@@ -1,14 +1,16 @@
+// import Annuncio from "@scenes/annuncio";
+// import AnnuncioPreviewPlaceholder from '@templates/annunci/AnnuncioPreviewPlaceholder';
+// import HomeAnnuncio from "./HomeAnnuncio";
+// import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
+// import { useModals } from "@contexts/ModalsContext";
 import * as apiPublic from "@api/public";
-import Annuncio from "@scenes/annuncio";
-import HomeAnnuncio from "./HomeAnnuncio";
-import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
+import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
 import Link from "@components/link";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import SearchInput from "@components/searchInput";
 import styles from "./Home.module.css";
 import { ROUTES } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
-import { useModals } from "@contexts/ModalsContext";
 import { useNavigator } from "@contexts/NavigatorContext";
 import { useSelector } from 'react-redux';
 
@@ -20,36 +22,31 @@ const Home = () => {
 
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
-  const { openModal } = useModals();
+  // const { openModal } = useModals();
 
   // const userIconLinkRoute = useMemo(() => (
   //   user.isLogged ? ROUTES.MY_ACCOUNT : ROUTES.LOGIN
   // ), [user.isLogged]);
 
-  const onAnnuncioClick = useCallback((annuncio) => {
-    openModal({
-      title: annuncio.description,
-      children: (
-        <Annuncio initialAnnuncio={annuncio} />
-      ),
-    });
-  }, [openModal]);
+  // const onAnnuncioClick = useCallback((annuncio) => {
+  //   openModal({
+  //     title: annuncio.description,
+  //     children: (
+  //       <Annuncio initialAnnuncio={annuncio} />
+  //     ),
+  //   });
+  // }, [openModal]);
 
   const featuredAnnunciList = useMemo(() => (
     loading
       ? [...Array(20)].map((_, i) => (
-        <HomeAnnuncioPlaceholder
-          key={i}
-        />
+        // <HomeAnnuncioPlaceholder key={i} />
+        <AnnuncioPreview key={i} loading />
       ))
       : featuredAdvertisements.map((x) => (
-        <HomeAnnuncio
-          key={x.id}
-          annuncio={x}
-          onAnnuncioClick={onAnnuncioClick}
-        />
+        <AnnuncioPreview key={x.id} annuncio={x} />
       ))
-  ), [loading, featuredAdvertisements, onAnnuncioClick]);
+  ), [loading, featuredAdvertisements]);
 
   const loadFeaturedAdvertisements = useCallback(async () => {
     setLoading(true);
@@ -87,7 +84,7 @@ const Home = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <SearchInput onClick={() => navigate(ROUTES.SEARCH)} />
+          <SearchInput onClick={() => navigate(ROUTES.SEARCH)} setValue={() => { }} />
         </div>
       </div>
       {user.hasAdvertisements && (

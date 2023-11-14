@@ -44,6 +44,7 @@ const AnnuncioGestisci = () => {
           <AnnuncioPreview
             annuncio={annuncio}
             loading={loading}
+            suppressNavigation
           />
         </div>
       </div>

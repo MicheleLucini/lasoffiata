@@ -1,33 +1,36 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import moment from 'moment';
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Icon from "@components/icon";
-import { BASE_URL } from "@api/utils"
+import PropTypes from "prop-types";
+import React, { useMemo, useCallback } from "react";
+import moment from 'moment';
 import styles from "./annunci.module.css";
+import { BASE_URL } from "@api/utils"
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AnnuncioPreview = ({
-  annuncio, loading, children
+  annuncio, loading, suppressNavigation, children
 }) => {
   const { navigate } = useNavigator();
 
   const photoUrl = useMemo(() => {
-    if (!annuncio.images || annuncio.images.length === 0) {
+    if (!annuncio || !annuncio.images || annuncio.images.length === 0) {
       return "";
     }
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
-  }, [annuncio.id, annuncio.images, annuncio.userId]);
+  }, [annuncio]);
 
   const isMaiStatoAttivato = useMemo(() => {
-    return annuncio.publishDate === "0001-01-01T00:00:00Z";
-  }, [annuncio.publishDate]);
+    return annuncio?.publishDate === "0001-01-01T00:00:00Z";
+  }, [annuncio?.publishDate]);
+
+  const onClick = useCallback(() => {
+    if (!suppressNavigation && annuncio?.id) {
+      navigate(ROUTES.ANNUNCIO, [annuncio.id]);
+    }
+  }, [suppressNavigation, annuncio, navigate]);
 
   return (
-    <div className={styles.annuncioPreview}>
-      <div
-        className={styles.imageContainer}
-        onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}
-      >
+    <div className={styles.annuncioPreview + " " + (loading ? styles.loading : "")} onClick={onClick}>
+      <div className={styles.imageContainer}>
         {photoUrl ? (
           <img
             src={photoUrl}
@@ -45,12 +48,25 @@ const AnnuncioPreview = ({
           />
         )}
       </div>
-      <div className={styles.mainInfo}>
-        <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
-        <span className={styles.description}>{annuncio.description}</span>
-        <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
-        <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
-      </div>
+      {annuncio && !loading && (
+        <div className={styles.mainInfo}>
+          <span className={styles.price}>€ 100</span>
+          <span className={styles.title}>{annuncio.title}</span>
+          <span className={styles.description}>{annuncio.description}</span>
+          <span className={styles.extra}>
+            {`${annuncio.city} (${annuncio.province})`}
+            {` - `}
+            {isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}
+          </span>
+        </div>
+      )}
+      {loading && (
+        <div className={styles.mainInfo}>
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
       {!!children && (
         <div className={styles.children}>
           {children}
@@ -88,12 +104,16 @@ AnnuncioPreview.propTypes = {
     }),
     userId: PropTypes.number,
     validationStatus: PropTypes.number,
-  }).isRequired,
-  loading: PropTypes.bool.isRequired,
+  }),
+  loading: PropTypes.bool,
+  suppressNavigation: PropTypes.bool,
   children: PropTypes.node,
 };
 
 AnnuncioPreview.defaultProps = {
+  annuncio: undefined,
+  loading: false,
+  suppressNavigation: false,
 };
 
 export default AnnuncioPreview;
