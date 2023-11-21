@@ -19,6 +19,8 @@ import PersonalBillingInfo from "@scenes/personalBillingInfo";
 import PersonalInfo from "@scenes/personalInfo";
 import React, { useMemo } from "react";
 import Register from "@scenes/register";
+import ForgotPassword from "@scenes/forgotPassword";
+import ResetPassword from "@scenes/resetPassword";
 import Search from "@scenes/search";
 import Utente from "@scenes/utente";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
@@ -59,6 +61,8 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO) && <PersonalBillingInfo />}
       {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
+      {checkCurrentRoute(ROUTES.FORGOT_PASSWORD) && <ForgotPassword />}
+      {checkCurrentRoute(ROUTES.RESET_PASSWORD) && <ResetPassword />}
       {checkCurrentRoute(ROUTES.SEARCH) && <Search />}
       {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
     </>

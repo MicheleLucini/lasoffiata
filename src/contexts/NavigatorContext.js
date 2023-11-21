@@ -92,6 +92,14 @@ const ROUTES = {
     title: "Registrati",
     url: "/register",
   },
+  FORGOT_PASSWORD: {
+    title: "Recupero password",
+    url: "/forgot-password",
+  },
+  RESET_PASSWORD: {
+    title: "Reset password",
+    url: "/reset-password",
+  },
   SEARCH: {
     title: "Cerca",
     url: "/cerca",
@@ -105,7 +113,9 @@ const ROUTES = {
 const BASE_URL = window.location.host === "michelelucini.github.io" ? "/lasoffiata" : "";
 
 function getStandardizedWindowLocationPathname() {
-  return window.location.pathname.toLowerCase().replace("/lasoffiata", "");
+  // TODO toLowerCase() rimosso, verificare se non si rompe il comparator degli URL
+  // TODO toLowerCase() solo della prima parte, non dei parametri
+  return window.location.pathname/*.toLowerCase()*/.replace("/lasoffiata", "");
 }
 
 function getRouteUrlFromWindowLocation() {

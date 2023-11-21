@@ -29,7 +29,9 @@ const AppNavBar = () => {
       || checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI)
       || checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO)
       || checkCurrentRoute(ROUTES.PERSONAL_INFO)
-      || checkCurrentRoute(ROUTES.REGISTER);
+      || checkCurrentRoute(ROUTES.REGISTER)
+      || checkCurrentRoute(ROUTES.FORGOT_PASSWORD)
+      || checkCurrentRoute(ROUTES.RESET_PASSWORD);
   }, [checkCurrentRoute]);
 
   // const showCurrentUserGreeting = useMemo(() => (

@@ -50,6 +50,23 @@ export const editUserBillingData = (body) => async (dispatch) => {
   await dispatch(storeUser.refreshData(user));
 };
 
+export const sendResetPasswordEmail = ({ email }) => async (dispatch) => {
+  if (!email) {
+    throw new Error("Inserisci la tua email.");
+  }
+  await apiPublic.SendResetPasswordEmail({ email });
+};
+
+export const resetPassword = ({ userToken, token, newPassword, repeatNewPassword }) => async (dispatch) => {
+  if (!newPassword) {
+    throw new Error("Inserisci la tua password.");
+  }
+  if (newPassword !== repeatNewPassword) {
+    throw new Error("Le password devono essere uguali.");
+  }
+  await apiPublic.ResetPassword({ userToken, token, newPassword });
+};
+
 //
 
 export const areUserBillingDataComplete = (user) => {

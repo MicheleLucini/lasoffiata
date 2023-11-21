@@ -41,6 +41,10 @@ const Login = () => {
     navigate(ROUTES.REGISTER);
   }, [navigate]);
 
+  const onForgotPasswordClick = useCallback(() => {
+    navigate(ROUTES.FORGOT_PASSWORD);
+  }, [navigate]);
+
   return (
     <>
       <br></br>
@@ -90,6 +94,16 @@ const Login = () => {
             fullWidth
             onClick={onNonHoUnAccountClick}
             text="Non hai un account? Registrati!"
+          />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Button
+            disabled={loading}
+            fullWidth
+            onClick={onForgotPasswordClick}
+            text="Hai dimenticato la password?"
           />
         </div>
       </div>
