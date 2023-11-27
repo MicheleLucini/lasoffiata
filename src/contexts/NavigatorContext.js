@@ -165,7 +165,7 @@ function NavigatorProvider({ children }) {
     changePageTitle(route.title);
 
     const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
-    const destinationUrl = `${BASE_URL}${route.url}${formattedParams}`;
+    const destinationUrl = `${BASE_URL}${route.url}${formattedParams}${window.location.search}`;
 
     if (dontChangeState) {
       window.history.replaceState({}, "", destinationUrl);

@@ -6,7 +6,7 @@ import Card from "@components/card";
 import DetailsGrid from '@components/detailsGrid';
 import Icon from "@components/icon";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import TextInput from '@components/textInput';
+// import TextInput from '@components/textInput';
 import styles from "./Balance.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { checkConstant, getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
@@ -14,16 +14,22 @@ import { selectUser } from '@store/userSlice';
 import { useDispatch } from "react-redux";
 import { useModals } from "@contexts/ModalsContext";
 import { useSelector } from "react-redux";
-import { useSnackbars } from "@contexts/SnackbarsContext";
+import InlineAlert from '@components/inlineAlert';
+// import { useSnackbars } from "@contexts/SnackbarsContext";
+import * as apiUser from "@api/user";
+//import * as storeUser from "@store/userSlice";
 
 const Balance = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const { openSnackbar } = useSnackbars();
+  
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
   const { openModal } = useModals();
 
-  // const [loading, setLoading] = useState(false);
+  // const [formSuccess, setFormSuccess] = useState(null);
+  const [formErrors, setFormErrors] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const datiDiFatturazione = useMemo(() => [
     {
@@ -57,6 +63,31 @@ const Balance = () => {
     });
   }, [openModal]);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentID = urlParams.get("paymentId");
+    const payerID = urlParams.get("PayerID");
+    if(paymentID && payerID){
+      setLoading(true);
+      dispatch(async () => {
+        return await apiUser.ExecutePayment({
+          paymentID: paymentID,
+          payerID: payerID
+        });
+      })
+      .then((result) => {
+        window.location.search = "";
+      })
+      .catch((e) => {
+        setFormErrors(e.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    }
+  }, [dispatch]);
+
   return (
     <>
       <br></br>
@@ -88,6 +119,7 @@ const Balance = () => {
             // icon="add_card"
             onClick={onAddCreditsClick}
             text="Aggiungi crediti"
+            disabled={loading}
           />
         </div>
       </div>
@@ -115,6 +147,7 @@ const Balance = () => {
                   onClick={() => navigate(ROUTES.PERSONAL_BILLING_INFO)}
                   size="mini"
                   text="Modifica dati"
+                  disabled={loading}
                 />
                 {!areDatiDiFatturazioneCompleti && (
                   <Badge
@@ -126,6 +159,13 @@ const Balance = () => {
               </div>
             </div>
           </Card>
+        </div>
+      </div>
+      
+      <div className='row'>
+        <div className='col'>
+          <InlineAlert type="error" text={formErrors} />
+          {/* <InlineAlert type="success" text={formSuccess} /> */}
         </div>
       </div>
     </>
