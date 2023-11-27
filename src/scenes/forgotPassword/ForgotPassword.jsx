@@ -1,18 +1,18 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
 import InlineAlert from '@components/inlineAlert';
+import React, { useState, useCallback } from "react";
 import TextInput from '@components/textInput';
+import { useDispatch } from "react-redux";
 
 const ForgotPassword = () => {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [formEmail, setFormEmail] = useState("");
   const [formSuccess, setFormSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  
+  const dispatch = useDispatch();
+
   const sendResetPasswordEmail = useCallback((email) => {
     setLoading(true);
     setFormErrors(null);

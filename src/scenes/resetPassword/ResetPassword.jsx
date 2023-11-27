@@ -1,29 +1,24 @@
-import React, { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import * as logicUser from "@logic/user";
 import Button from '@components/button';
 import InlineAlert from '@components/inlineAlert';
+import React, { useState, useCallback } from "react";
 import TextInput from '@components/textInput';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useDispatch } from "react-redux";
 
 const ResetPassword = () => {
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const [formPassword, setFormPassword] = useState("");
   const [formRepeatPassword, setFormRepeatPassword] = useState("");
   // const [formSuccess, setFormSuccess] = useState(null);
   const [formErrors, setFormErrors] = useState(null);
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
   const { currentRoute, navigate } = useNavigator();
 
-  
-  const resetPassword = useCallback((newPassword, repeatNewPassword) => {
-    
+  const resetPassword = useCallback((userToken, token, newPassword, repeatNewPassword) => {
     setLoading(true);
     setFormErrors(null);
-
-    const userToken = currentRoute.params ? decodeURIComponent(currentRoute.params[0]) : null;
-    const token = currentRoute.params ? decodeURIComponent(currentRoute.params[1]) : null;
-
     dispatch(logicUser.resetPassword({ userToken, token, newPassword, repeatNewPassword }))
       .then(() => {
         navigate(ROUTES.LOGIN);
@@ -34,12 +29,13 @@ const ResetPassword = () => {
       .finally(() => {
         setLoading(false);
       });
-
-  }, [dispatch, currentRoute.params, navigate]);
+  }, [dispatch, navigate]);
 
   const onSaveClick = useCallback(() => {
-    resetPassword(formPassword, formRepeatPassword);
-  }, [resetPassword, formPassword, formRepeatPassword]);
+    const userToken = currentRoute.params ? decodeURIComponent(currentRoute.params[0]) : null;
+    const token = currentRoute.params ? decodeURIComponent(currentRoute.params[1]) : null;
+    resetPassword(userToken, token, formPassword, formRepeatPassword,);
+  }, [resetPassword, currentRoute.params, formPassword, formRepeatPassword]);
 
   return (
     <>
@@ -52,24 +48,24 @@ const ResetPassword = () => {
       <div className='row'>
         <div className='col'>
           <TextInput
-            label="Nuova password"
-            value={formPassword}
-            setValue={setFormPassword}
-            onKeyPressEnter={onSaveClick}
             disabled={loading}
+            label="Nuova password"
+            onKeyPressEnter={onSaveClick}
+            setValue={setFormPassword}
             type="password"
+            value={formPassword}
           />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
           <TextInput
-            label="Ripeti"
-            value={formRepeatPassword}
-            setValue={setFormRepeatPassword}
-            onKeyPressEnter={onSaveClick}
             disabled={loading}
+            label="Ripeti"
+            onKeyPressEnter={onSaveClick}
+            setValue={setFormRepeatPassword}
             type="password"
+            value={formRepeatPassword}
           />
         </div>
       </div>
