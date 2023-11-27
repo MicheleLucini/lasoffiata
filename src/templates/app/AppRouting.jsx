@@ -11,6 +11,7 @@ import AnnuncioGestisci from "@scenes/annuncioGestisci";
 import AnnuncioModifica from "@scenes/annuncioModifica";
 import Balance from "@scenes/balance";
 import Checkout from "@scenes/checkout";
+import ForgotPassword from "@scenes/forgotPassword";
 import Home from "@scenes/home";
 import IMieiAnnunci from "@scenes/iMieiAnnunci";
 import Login from "@scenes/login";
@@ -19,7 +20,6 @@ import PersonalBillingInfo from "@scenes/personalBillingInfo";
 import PersonalInfo from "@scenes/personalInfo";
 import React, { useMemo } from "react";
 import Register from "@scenes/register";
-import ForgotPassword from "@scenes/forgotPassword";
 import ResetPassword from "@scenes/resetPassword";
 import Search from "@scenes/search";
 import Utente from "@scenes/utente";
@@ -54,6 +54,7 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.ANNUNCIO_MODIFICA) && <AnnuncioModifica />}
       {checkCurrentRoute(ROUTES.BALANCE) && <Balance />}
       {checkCurrentRoute(ROUTES.CHECKOUT) && <Checkout />}
+      {checkCurrentRoute(ROUTES.FORGOT_PASSWORD) && <ForgotPassword />}
       {checkCurrentRoute(ROUTES.HOME) && <Home />}
       {checkCurrentRoute(ROUTES.I_MIEI_ANNUNCI) && <IMieiAnnunci />}
       {checkCurrentRoute(ROUTES.LOGIN) && <Login />}
@@ -61,7 +62,6 @@ const AppRouting = () => {
       {checkCurrentRoute(ROUTES.PERSONAL_BILLING_INFO) && <PersonalBillingInfo />}
       {checkCurrentRoute(ROUTES.PERSONAL_INFO) && <PersonalInfo />}
       {checkCurrentRoute(ROUTES.REGISTER) && <Register />}
-      {checkCurrentRoute(ROUTES.FORGOT_PASSWORD) && <ForgotPassword />}
       {checkCurrentRoute(ROUTES.RESET_PASSWORD) && <ResetPassword />}
       {checkCurrentRoute(ROUTES.SEARCH) && <Search />}
       {checkCurrentRoute(ROUTES.UTENTE) && <Utente />}
