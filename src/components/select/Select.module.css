@@ -70,7 +70,6 @@
 }
 
 .select.disabled>label {
-  /* background-color: var(--peachade); */
   pointer-events: none;
 }
 

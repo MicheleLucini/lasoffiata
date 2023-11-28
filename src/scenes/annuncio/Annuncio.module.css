@@ -1,11 +1,13 @@
 /* Wrapper immagini */
 
 .wrapperImmagini {
-  background-color: var(--blue-grey-darken-4);
+  background-color: var(--blue-grey-darken-2);
   display: grid;
   grid-template-rows: 300px auto;
   overflow: hidden;
   position: relative;
+  padding: 10px 0;
+  gap: 10px;
 }
 
 .immagineBGBlur {
@@ -39,13 +41,11 @@
 }
 
 .caroselloImmagini {
-  background-color: var(--peachade);
   border-radius: 6px;
   display: grid;
   grid-auto-flow: column;
   height: 50px;
   justify-items: center;
-  margin: 10px 0;
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
