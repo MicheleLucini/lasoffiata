@@ -1,26 +1,32 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import * as apiPublic from "@api/public";
 // import * as logicAnnuncio from "@logic/annuncio";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
-import Button from "@components/button";
-// import TextInput from '@components/textInput';
 // import SelectCategory from "@templates/selectCategory";
 // import SelectProvince from "@templates/selectProvince";
+// import TextInput from '@components/textInput';
+// import { useDispatch } from "react-redux";
+import * as apiPublic from "@api/public";
 import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
+import Button from "@components/button";
+import Card from "@components/card";
+import Icon from "@components/icon";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
+import moment from 'moment';
+import styles from "./AnnuncioGestisci.module.css";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AnnuncioGestisci = () => {
   const [loading, setLoading] = useState(false);
   const [annuncio, setAnnuncio] = useState(false);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { navigate, currentRoute } = useNavigator();
+  const { openSnackbar } = useSnackbars();
 
-  const idAnnuncio = useMemo(()=> currentRoute.params[0],[currentRoute.params]);
+  const idAnnuncio = useMemo(() => currentRoute.params[0], [currentRoute.params]);
 
   const loadAnnuncio = useCallback(() => {
     setLoading(true);
-    apiPublic.GetAdvertisement({ advertisementId:idAnnuncio  })
+    apiPublic.GetAdvertisement({ advertisementId: idAnnuncio })
       .then((data) => {
         setAnnuncio(data);
       })
@@ -46,6 +52,100 @@ const AnnuncioGestisci = () => {
             loading={loading}
             suppressNavigation
           />
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col col-flex-center'>
+          <Button
+            color="secondary"
+            onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
+            text="Modifica"
+          // size="mini"
+          />
+        </div>
+      </div>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <Card>
+            <div className='row'>
+              <div className='col'>
+                <span className='page-section'>Annuncio online!</span>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <div className={styles.onlineWrapper}>
+                  <Icon
+                    fill={0}
+                    grade={0}
+                    name="public"
+                    opticalSize={40}
+                    size={40}
+                    weight={400}
+                    className={styles.icon}
+                  />
+                  <span>Il tuo annuncio è visibile online sulla soffiata!</span>
+                  <span>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
+                  <span>{`L'annuncio scadrà il ${moment(annuncio.expirationDate).format("D MMMM YYYY")}`}</span>
+                  <span>{`${moment(annuncio.expirationDate).diff(annuncio.publishDate, 'days')} giorni restanti`}</span>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col col-flex-center'>
+                <Button
+                  color="primary"
+                  onClick={() => openSnackbar("TODO hehe ✨")}
+                  text="Estendi"
+                  size="mini"
+                />
+                <Button
+                  color="secondary"
+                  onClick={() => openSnackbar("TODO hehe ✨")}
+                  text="Rimuovi"
+                  size="mini"
+                />
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col'>
+          <Card>
+            <div className='row'>
+              <div className='col'>
+                <span className='page-section'>Annuncio non su cartaceo</span>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <div className={styles.cartaceoWrapper}>
+                  <Icon
+                    fill={0}
+                    grade={0}
+                    name="newspaper"
+                    opticalSize={40}
+                    size={40}
+                    weight={400}
+                    className={styles.icon}
+                  />
+                  <span>Il tuo annuncio non verrà stampato sui volantini della soffiata!</span>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col col-flex-center'>
+                <Button
+                  color="primary"
+                  onClick={() => openSnackbar("TODO hehe ✨")}
+                  text="Pubblica"
+                  size="mini"
+                />
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </>

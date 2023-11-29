@@ -125,8 +125,8 @@ const Annuncio = ({ initialAnnuncio }) => {
           <div className={styles.azioniPrincipali}>
             {isMyAnnuncio && (
               <Button
-                text="Modifica"
-                onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
+                text="Gestisci"
+                onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [annuncio.id])}
               />
             )}
             <Button
