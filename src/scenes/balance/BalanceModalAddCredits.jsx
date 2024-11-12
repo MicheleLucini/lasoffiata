@@ -4,7 +4,7 @@ import Checkbox from "@components/checkbox";
 // import Card from "@components/card";
 // import DetailsGrid from '@components/detailsGrid';
 // import Icon from "@components/icon";
-import React, { useState, /*useMemo, useCallback, useEffect */} from "react";
+import React, { useState, /*useMemo, useCallback, useEffect */ } from "react";
 // import TextInput from '@components/textInput';
 // import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 // import { checkConstant, getConstantDescriptionByValue, ACCOUNT_TYPE } from "@logic/constants";
@@ -26,7 +26,7 @@ const Balance = () => {
   const [check25, setCheck25] = useState(false);
   const [check50, setCheck50] = useState(false);
   const [check100, setCheck100] = useState(false);
-  
+
   const resetCheckboxes = () => {
     setCheck10(false); setCheck25(false); setCheck50(false); setCheck100(false);
   };
@@ -41,26 +41,26 @@ const Balance = () => {
 
     let quantity;
 
-    if(check10) quantity = 10;
-    if(check25) quantity = 25;
-    if(check50) quantity = 50;
-    if(check100) quantity = 100;
-    
-    dispatch(() => {
-      return apiUser.CreatePayment({
-        service: 1, // Crediti
-        quantity: quantity
-      });
-    })
-      .then((result) => {
-        window.location = result.links[1].href;
-      })
-      .catch((e) => {
-        //setFormErrors(e.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (check10) quantity = 10;
+    if (check25) quantity = 25;
+    if (check50) quantity = 50;
+    if (check100) quantity = 100;
+
+    // dispatch(() => {
+    //   return apiUser.CreatePayment({
+    //     service: 1, // Crediti
+    //     quantity: quantity
+    //   });
+    // })
+    //   .then((result) => {
+    //     window.location = result.links[1].href;
+    //   })
+    //   .catch((e) => {
+    //     //setFormErrors(e.message);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   }
 
   return (

@@ -64,18 +64,18 @@ export async function SuspendAdvertisement({ advertisementId }) {
   });
 }
 
-export async function UploadImage({ advertisementId, image, }) {
-  return await post(`${CONTROLLER_URL}/UploadImage`, {
-    advertisementId,
-    image
-  });
-}
+// export async function UploadImage({ advertisementId, image, }) {
+//   return await post(`${CONTROLLER_URL}/UploadImage`, {
+//     advertisementId,
+//     image
+//   });
+// }
 
-export async function DeleteImage({ imageId }) {
-  return await post(`${CONTROLLER_URL}/DeleteImage`, {
-    imageId
-  });
-}
+// export async function DeleteImage({ imageId }) {
+//   return await post(`${CONTROLLER_URL}/DeleteImage`, {
+//     imageId
+//   });
+// }
 
 export async function EditUserPublicData({
   userId,
@@ -123,20 +123,36 @@ export async function EditUserBillingData({
   });
 }
 
+export async function PurchaseFeatured({ advertisementId }) {
+  return await post(`${CONTROLLER_URL}/PurchaseFeatured`, {
+    advertisementId
+  });
+}
+
+export async function PurchasePublishOnline({ advertisementId }) {
+  return await post(`${CONTROLLER_URL}/PurchasePublishOnline`, {
+    advertisementId
+  });
+}
+
 export async function GetMyPayments() {
   return await post(`${CONTROLLER_URL}/GetMyPayments`);
 }
 
-export async function CreatePayment({ service, quantity }) {
-  return await post(`${CONTROLLER_URL}/CreatePayment`, {
-    service,
-    quantity
-  });
+export async function GetMyCreditTransactions() {
+  return await post(`${CONTROLLER_URL}/GetMyCreditTransactions`);
 }
 
-export async function ExecutePayment({ paymentID, payerID }) {
-  return await post(`${CONTROLLER_URL}/ExecutePayment`, {
-    paymentID,
-    payerID
-  });
-}
+// export async function CreatePayment({ service, quantity }) {
+//   return await post(`${CONTROLLER_URL}/CreatePayment`, {
+//     service,
+//     quantity
+//   });
+// }
+
+// export async function ExecutePayment({ paymentID, payerID }) {
+//   return await post(`${CONTROLLER_URL}/ExecutePayment`, {
+//     paymentID,
+//     payerID
+//   });
+// }

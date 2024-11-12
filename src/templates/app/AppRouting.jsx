@@ -1,10 +1,6 @@
+import AdminAnnunciEUtenti from "@scenes/adminAnnunciEUtenti";
 import AdminCategorie from "@scenes/adminCategorie";
-import AdminEdizioni from "@scenes/adminEdizioni";
-import AdminEsportaAnnunci from "@scenes/adminEsportaAnnunci";
 import AdminPagamenti from "@scenes/adminPagamenti";
-import AdminUtenti from "@scenes/adminUtenti";
-import AdminValidazioneAnnunci from "@scenes/adminValidazioneAnnunci";
-import Administration from "@scenes/administration";
 import Annuncio from "@scenes/annuncio";
 import AnnuncioCrea from "@scenes/annuncioCrea";
 import AnnuncioGestisci from "@scenes/annuncioGestisci";
@@ -39,13 +35,9 @@ const AppRouting = () => {
     <>
       {userIsAdmin && (
         <>
-          {checkCurrentRoute(ROUTES.ADMIN) && <Administration />}
+          {checkCurrentRoute(ROUTES.ADMIN_ANNUNCI_E_UTENTI) && <AdminAnnunciEUtenti />}
           {checkCurrentRoute(ROUTES.ADMIN_CATEGORIE) && <AdminCategorie />}
-          {checkCurrentRoute(ROUTES.ADMIN_EDIZIONI) && <AdminEdizioni />}
-          {checkCurrentRoute(ROUTES.ADMIN_ESPORTA_ANNUNCI) && <AdminEsportaAnnunci />}
           {checkCurrentRoute(ROUTES.ADMIN_PAGAMENTI) && <AdminPagamenti />}
-          {checkCurrentRoute(ROUTES.ADMIN_UTENTI) && <AdminUtenti />}
-          {checkCurrentRoute(ROUTES.ADMIN_VALIDAZIONE_ANNUNCI) && <AdminValidazioneAnnunci />}
         </>
       )}
       {checkCurrentRoute(ROUTES.ANNUNCIO) && <Annuncio />}

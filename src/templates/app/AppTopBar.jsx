@@ -74,17 +74,6 @@ const AppTopBar = () => {
             </div>
           </Link>
         )}
-        {/* {userIsAdmin && (
-          <Link route={ROUTES.ADMIN}>
-            <Icon
-              name="key"
-              fill={0}
-              weight={400}
-              grade={0}
-              opticalSize={24}
-            />
-          </Link>
-        )} */}
       </div >
     </div >
   );

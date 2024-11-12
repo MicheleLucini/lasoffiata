@@ -6,17 +6,17 @@ export async function GetCategories() {
   return await post(`${CONTROLLER_URL}/GetCategories`);
 }
 
-export async function GetPaperCategories() {
-  return await post(`${CONTROLLER_URL}/GetPaperCategories`);
-}
+// export async function GetPaperCategories() {
+//   return await post(`${CONTROLLER_URL}/GetPaperCategories`);
+// }
 
-export async function GetCategoryPrices() {
-  return await post(`${CONTROLLER_URL}/GetCategoryPrices`);
-}
+// export async function GetCategoryPrices() {
+//   return await post(`${CONTROLLER_URL}/GetCategoryPrices`);
+// }
 
-export async function GetEditions() {
-  return await post(`${CONTROLLER_URL}/GetEditions`);
-}
+// export async function GetEditions() {
+//   return await post(`${CONTROLLER_URL}/GetEditions`);
+// }
 
 export async function Register({ email, password, accountType }) {
   return await post(`${CONTROLLER_URL}/Register`, {
@@ -41,7 +41,7 @@ export async function ResetPassword({ userToken, token, newPassword }) {
 }
 
 // export async function VerifyEmail({ verificationToken }) {
-//   return await post(`${CONTROLLER_URL}/VerifyEmail`, {
+//   return await get(`${CONTROLLER_URL}/VerifyEmail`, {
 //     verificationToken
 //   });
 // }

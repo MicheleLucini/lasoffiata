@@ -5,9 +5,9 @@ import { ModalsContext } from './ModalsContext';
 const NavigatorContext = React.createContext();
 
 const ROUTES = {
-  ADMIN: {
-    title: "Amministrazione",
-    url: "/amministrazione",
+  ADMIN_ANNUNCI_E_UTENTI: {
+    title: "Amministrazione - Annunci e utenti",
+    url: "/amministrazione-annunci-utenti",
     isAdmin: true
   },
   ADMIN_CATEGORIE: {
@@ -15,29 +15,9 @@ const ROUTES = {
     url: "/amministrazione-gestione-categorie",
     isAdmin: true
   },
-  ADMIN_EDIZIONI: {
-    title: "Amministrazione - Gestione edizioni",
-    url: "/amministrazione-gestione-edizioni",
-    isAdmin: true
-  },
-  ADMIN_ESPORTA_ANNUNCI: {
-    title: "Amministrazione - Esporta annunci",
-    url: "/amministrazione-esporta-annunci",
-    isAdmin: true
-  },
   ADMIN_PAGAMENTI: {
     title: "Amministrazione - Gestione pagamenti",
     url: "/amministrazione-gestione-pagamenti",
-    isAdmin: true
-  },
-  ADMIN_UTENTI: {
-    title: "Amministrazione - Gestione utenti",
-    url: "/amministrazione-gestione-utenti",
-    isAdmin: true
-  },
-  ADMIN_VALIDAZIONE_ANNUNCI: {
-    title: "Amministrazione - Validazione annunci",
-    url: "/amministrazione-validazione-annunci",
     isAdmin: true
   },
   ANNUNCIO: {

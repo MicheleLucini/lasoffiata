@@ -103,7 +103,7 @@ const MyAccount = () => {
         <>
           <div className='row'>
             <div className='col'>
-              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_VALIDAZIONE_ANNUNCI)}>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_ANNUNCI_E_UTENTI)}>
                 <span>Validazione annunci</span>
                 <p></p>
                 {iconRenderer("rule")}

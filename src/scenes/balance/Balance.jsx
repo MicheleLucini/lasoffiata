@@ -22,7 +22,7 @@ import * as apiUser from "@api/user";
 const Balance = () => {
   const dispatch = useDispatch();
   // const { openSnackbar } = useSnackbars();
-  
+
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
   const { openModal } = useModals();
@@ -63,30 +63,30 @@ const Balance = () => {
     });
   }, [openModal]);
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paymentID = urlParams.get("paymentId");
-    const payerID = urlParams.get("PayerID");
-    if(paymentID && payerID){
-      setLoading(true);
-      dispatch(async () => {
-        return await apiUser.ExecutePayment({
-          paymentID: paymentID,
-          payerID: payerID
-        });
-      })
-      .then((result) => {
-        window.location.search = "";
-      })
-      .catch((e) => {
-        setFormErrors(e.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   const paymentID = urlParams.get("paymentId");
+  //   const payerID = urlParams.get("PayerID");
+  //   if(paymentID && payerID){
+  //     setLoading(true);
+  //     dispatch(async () => {
+  //       return await apiUser.ExecutePayment({
+  //         paymentID: paymentID,
+  //         payerID: payerID
+  //       });
+  //     })
+  //     .then((result) => {
+  //       window.location.search = "";
+  //     })
+  //     .catch((e) => {
+  //       setFormErrors(e.message);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
 
-    }
-  }, [dispatch]);
+  //   }
+  // }, [dispatch]);
 
   return (
     <>
@@ -161,7 +161,7 @@ const Balance = () => {
           </Card>
         </div>
       </div>
-      
+
       <div className='row'>
         <div className='col'>
           <InlineAlert type="error" text={formErrors} />
