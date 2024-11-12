@@ -61,6 +61,7 @@
 }
 
 .button.secondary {
+  background-color: #C3DBFF;
   background-color: var(--blue-grey-lighten-5);
   background-color: hsl(204, 15%, 90%);
   /* color: #37474F; */

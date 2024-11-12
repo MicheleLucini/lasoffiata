@@ -60,7 +60,7 @@ const MyAccount = () => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className='page-title'>Benvenuto, {user.name + " " + user.lastName}</span>
+          <span className='page-title'>Benvenuto, {user.name}</span>
         </div>
       </div>
       <div className='row'>

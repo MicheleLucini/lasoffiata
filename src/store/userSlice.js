@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  isLogged: false,
   accountType: null, // 1
   advertisementName: null, // "test nickname"
   businessName: null, // ""
@@ -23,6 +22,8 @@ const INITIAL_STATE = {
   tel: null, // "123123"
   token: null, // "OykftCswoFguXatwWPYDxkhfPHAjUArSDGuGDv9M3MFBc/KdRZGlJLTIyqVRAsYE7+UCGUjK2epSQSXmFkB+/g=="
   zipCode: null, // "20100"
+  // Client only
+  isLogged: false,
 };
 
 export const userSlice = createSlice({

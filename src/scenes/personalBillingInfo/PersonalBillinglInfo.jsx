@@ -46,7 +46,20 @@ const PersonalBillinglInfo = () => {
   }, [dispatch, openSnackbar, user.id, values]);
 
   useEffect(() => {
-    setValues(user);
+    setValues({
+      accountType: user.accountType,
+      lastName: user.lastName,
+      name: user.name,
+      codiceFiscale: user.codiceFiscale,
+      businessName: user.businessName,
+      partitaIva: user.partitaIva,
+      country: user.country,
+      province: user.province,
+      zipCode: user.zipCode,
+      city: user.city,
+      street: user.street,
+      civic: user.civic,
+    });
   }, [user])
 
   return (

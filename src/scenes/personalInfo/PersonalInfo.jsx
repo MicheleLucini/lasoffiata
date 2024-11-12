@@ -40,7 +40,12 @@ const PersonallInfo = () => {
   }, [dispatch, openSnackbar, user.id, values]);
 
   useEffect(() => {
-    setValues(user);
+    setValues({
+      advertisementName: user.advertisementName,
+      email: user.email,
+      cel: user.cel,
+      tel: user.tel,
+    });
   }, [user])
 
   return (
