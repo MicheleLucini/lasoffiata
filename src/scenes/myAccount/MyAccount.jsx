@@ -103,6 +103,15 @@ const MyAccount = () => {
         <>
           <div className='row'>
             <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_CATEGORIE)}>
+                <span>Gestisci categorie</span>
+                <p></p>
+                {iconRenderer("category")}
+              </div>
+            </div>
+          </div>
+          {/* <div className='row'>
+            <div className='col'>
               <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_ANNUNCI_E_UTENTI)}>
                 <span>Validazione annunci</span>
                 <p></p>
@@ -139,22 +148,13 @@ const MyAccount = () => {
           </div>
           <div className='row'>
             <div className='col'>
-              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_CATEGORIE)}>
-                <span>Gestisci categorie</span>
-                <p></p>
-                {iconRenderer("category")}
-              </div>
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col'>
               <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_ESPORTA_ANNUNCI)}>
                 <span>Esporta annunci</span>
                 <p></p>
                 {iconRenderer("download")}
               </div>
             </div>
-          </div>
+          </div> */}
         </>
       )}
       {/* <div className='row'>

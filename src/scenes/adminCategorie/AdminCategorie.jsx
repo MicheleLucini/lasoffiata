@@ -1,381 +1,89 @@
-import React, { useState, useEffect } from "react";
-import styles from "./AdminCategorie.module.css";
-import { useDispatch } from "react-redux";
-import * as apiPublic from "@api/public";
 import * as apiAdministration from "@api/administration";
-import InlineAlert from '@components/inlineAlert';
-import TextInput from '@components/textInput';
+import * as apiPublic from "@api/public";
+import AdminCategorieModalEditCategory from './AdminCategorieModalEditCategory';
 import Button from '@components/button';
+import React, { useState, useCallback, useEffect } from "react";
+import styles from "./AdminCategorie.module.css";
+import { useModals } from "@contexts/ModalsContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AdminCategorie = () => {
+  const { openSnackbar } = useSnackbars();
+  const { openModal } = useModals();
 
-  const dispatch = useDispatch();
-
-  const [formIDCategoria, setFormIDCategoria] = useState("");
-  const [formNomeCategoria, setFormNomeCategoria] = useState("");
-  const [formIDCategoriaCartaceo, setFormIDCategoriaCartaceo] = useState("");
-  const [formParentIDCategoria, setFormParentIDCategoria] = useState("");
-
-  const [formIDPaperCategory, setFormIDPaperCategory] = useState("");
-  const [formNomePaperCategory, setFormNomePaperCategory] = useState("");
-
-  const [categories, setCategories] = useState([]);
-  const [paperCategories, setPaperCategories] = useState([]);
-  // const [formSuccess, setFormSuccess] = useState(null);
-  const [formErrors, setFormErrors] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
+  const loadCategories = useCallback(() => {
     setLoading(true);
-    setFormErrors(null);
-    dispatch(async () => {
-      const categoriesData = await apiPublic.GetCategories();
-      setCategories(categoriesData);
+    apiPublic.GetCategories()
+      .then(setCategories)
+      .catch(() => openSnackbar("Qualcosa è andato storto durante il caricamento delle categorie ❌"))
+      .finally(() => setLoading(false));
+  }, [openSnackbar]);
 
-      const paperCategoriesData = await apiPublic.GetPaperCategories();
-      setPaperCategories(paperCategoriesData);
-    })
-      .then(() => {
-      })
-      .catch((e) => {
-        setFormErrors(e.message);
-      })
-      .finally(() => {
+  const createCategory = useCallback(() => {
+    setLoading(true);
+    apiAdministration.CreateCategory()
+      .then(() => loadCategories())
+      .catch(() => {
+        openSnackbar("Qualcosa è andato storto durante la creazione di una categoria ❌");
         setLoading(false);
       });
-      
-  }, [dispatch]);
+  }, [loadCategories, openSnackbar]);
 
-  const clearFormCategorie = () => {
-    setFormIDCategoria("");
-    setFormNomeCategoria("");
-    setFormIDCategoriaCartaceo("");
-    setFormParentIDCategoria("");
-  }
-
-  const clearFormPaperCategory = () => {
-    setFormIDPaperCategory("");
-    setFormNomePaperCategory("");
-  }
-
-  const handleCreateCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.CreateCategory({
-        name: "New Category",
-        parentCategoryId: 0,
-        paperCategoryId: 0,
-      });
-
-      clearFormCategorie();
-      
-      const updatedCategories = await apiPublic.GetCategories();
-      setCategories(updatedCategories);
-    })
-    .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
+  const onEditCategoryClick = useCallback((category) => {
+    openModal({
+      title: "Modifica categoria " + (category.name || "senza nome"),
+      children: <AdminCategorieModalEditCategory
+        categories={categories}
+        category={category}
+        onEditCallback={loadCategories}
+      />,
     });
-  };
+  }, [categories, loadCategories, openModal]);
 
-  const handleSaveCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.EditCategory({
-        categoryId: formIDCategoria,
-        name: formNomeCategoria,
-        parentCategoryId: formParentIDCategoria,
-        paperCategoryId: formIDCategoriaCartaceo,
-      });
-
-      clearFormCategorie();
-      
-      const updatedCategories = await apiPublic.GetCategories();
-      setCategories(updatedCategories);
-    })
-    .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
-  
-  const handleDeleteCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.DeleteCategory({
-        categoryId: formIDCategoria
-      });
-
-      clearFormCategorie();
-      
-      const updatedCategories = await apiPublic.GetCategories();
-      setCategories(updatedCategories);
-    })
-    .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
-
-  const handleCreatePaperCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.CreatePaperCategory({
-        name: "New Category"
-      });
-      
-      clearFormPaperCategory();
-
-      const updatedPaperCategories = await apiPublic.GetPaperCategories();
-      setPaperCategories(updatedPaperCategories);
-    })
-      .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
-
-  const handleSavePaperCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.EditPaperCategory({
-        paperCategoryId: formIDPaperCategory,
-        name: formNomePaperCategory
-      });
-
-      clearFormPaperCategory();
-      
-      const updatedPaperCategories = await apiPublic.GetPaperCategories();
-      setPaperCategories(updatedPaperCategories);
-    })
-    .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
-  
-  const handleDeletePaperCategory = async () => {
-    setLoading(true);
-    setFormErrors(null);
-    dispatch(async ()=>{
-      await apiAdministration.DeletePaperCategory({
-        paperCategoryId: formIDPaperCategory
-      });
-
-      clearFormPaperCategory();
-      
-      const updatedPaperCategories = await apiPublic.GetPaperCategories();
-      setPaperCategories(updatedPaperCategories);
-    })
-    .then(() => {
-    })
-    .catch((e) => {
-      setFormErrors(e.message);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  };
-
-  const handleOpenCategoria = async(id) => {
-    const pickedCategory = categories.find((element) => element.id === id);
-    setFormIDCategoria(pickedCategory.id);
-    setFormNomeCategoria(pickedCategory.name);
-    setFormIDCategoriaCartaceo(pickedCategory.paperCategoryId);
-    setFormParentIDCategoria(pickedCategory.parentCategoryId);
-  }
-
-  const handleOpenPaperCategory = async(id) => {
-    const pickedPaperCategory = paperCategories.find((element) => element.id === id);
-    setFormIDPaperCategory(pickedPaperCategory.id);
-    setFormNomePaperCategory(pickedPaperCategory.name);
-  }
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories])
 
   return (
     <>
-      <span>Gestione categorie</span>
-      <div className={styles.wrapperAnnunci}>
-        <h2>Categories</h2>
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleCreateCategory}
-                text="Create Category"
-            />
-          </div>
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Gestione delle categorie</span>
         </div>
-        <ul>
-          {categories.map((category) => (
-            <li key={category.id} onClick={() => handleOpenCategoria(category.id)}>{category.name}</li>
-          ))}
-        </ul>
-        
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="ID"
-              value={formIDCategoria}
-              setValue={setFormIDCategoria}
-              disabled={true}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="Nome"
-              value={formNomeCategoria}
-              setValue={setFormNomeCategoria}
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="Parent ID"
-              value={formParentIDCategoria}
-              setValue={setFormParentIDCategoria}
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="Paper Category ID"
-              value={formIDCategoriaCartaceo}
-              setValue={setFormIDCategoriaCartaceo}
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleSaveCategory}
-                text="Save Category"
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleDeleteCategory}
-                text="Delete Category"
-            />
-          </div>
-        </div>
-
-        <h2>Paper Categories</h2>
-        
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleCreatePaperCategory}
-                text="Create Paper Category"
-            />
-          </div>
-        </div>
-        <ul>
-          {paperCategories.map((paperCategory) => (
-            <li key={paperCategory.id} onClick={() => handleOpenPaperCategory(paperCategory.id)}>{paperCategory.name}</li>
-          ))}
-        </ul>
-
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="ID"
-              value={formIDPaperCategory}
-              setValue={setFormIDPaperCategory}
-              disabled={true}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <TextInput
-              label="Nome"
-              value={formNomePaperCategory}
-              setValue={setFormNomePaperCategory}
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleSavePaperCategory}
-                text="Save Category"
-            />
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col'>
-            <Button
-                color="primary"
-                disabled={loading}
-                fullWidth
-                onClick={handleDeletePaperCategory}
-                text="Delete Category"
-            />
-          </div>
-        </div>
-
       </div>
       <div className='row'>
         <div className='col'>
-          <InlineAlert type="error" text={formErrors} />
-          {/* <InlineAlert type="success" text={formSuccess} /> */}
+          <div className={styles.table}>
+            <span>Id</span>
+            <span>Name</span>
+            <span>CategoryPrices</span>
+            <span></span>
+            {categories.map((x) => (
+              <>
+                <span>{x.id}</span>
+                <span>{x.name}</span>
+                <span>{x.categoryPrices}</span>
+                <Button
+                  disabled={loading}
+                  onClick={() => onEditCategoryClick(x)}
+                  icon="edit"
+                  size="mini"
+                />
+              </>
+            ))}
+            <div>
+              <Button
+                disabled={loading}
+                fullWidth
+                onClick={createCategory}
+                text="Crea nuova categoria"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>

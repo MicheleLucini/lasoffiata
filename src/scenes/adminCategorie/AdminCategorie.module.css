@@ -1,0 +1,10 @@
+.table {
+  display: grid;
+  grid-template-columns: auto repeat(2, 1fr) auto;
+  gap: 15px 10px;
+  align-items: center;
+}
+
+.table>div {
+  grid-column: 1 / 5;
+}
