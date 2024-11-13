@@ -80,6 +80,7 @@ a {
 }
 
 .col-flex,
+.col-flex-between,
 .col-flex-center,
 .col-flex-end {
   display: flex;
@@ -87,6 +88,10 @@ a {
   flex-wrap: wrap;
   justify-content: flex-start;
   /* width: fit-content; */
+}
+
+.col-flex-between {
+  justify-content: space-between;
 }
 
 .col-flex-center {

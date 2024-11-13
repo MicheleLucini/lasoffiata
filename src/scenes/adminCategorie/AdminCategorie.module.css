@@ -1,10 +1,23 @@
-.table {
+.tableCategorie {
   display: grid;
   grid-template-columns: auto repeat(2, 1fr) auto;
   gap: 15px 10px;
   align-items: center;
 }
 
-.table>div {
+.tableCategorie>.btnCrea {
   grid-column: 1 / 5;
+}
+
+/**/
+
+.tablePrezzi {
+  display: grid;
+  grid-template-columns: auto repeat(4, 1fr) auto;
+  gap: 15px 10px;
+  align-items: center;
+}
+
+.tablePrezzi>.btnCrea {
+  grid-column: 1 / 7;
 }

@@ -57,13 +57,13 @@ const AdminCategorie = () => {
       </div>
       <div className='row'>
         <div className='col'>
-          <div className={styles.table}>
+          <div className={styles.tableCategorie}>
             <span>Id</span>
             <span>Name</span>
             <span>CategoryPrices</span>
             <span></span>
             {categories.map((x) => (
-              <>
+              <React.Fragment key={x.id}>
                 <span>{x.id}</span>
                 <span>{x.name}</span>
                 <span>{x.categoryPrices}</span>
@@ -73,9 +73,9 @@ const AdminCategorie = () => {
                   icon="edit"
                   size="mini"
                 />
-              </>
+              </React.Fragment>
             ))}
-            <div>
+            <div className={styles.btnCrea}>
               <Button
                 disabled={loading}
                 fullWidth
