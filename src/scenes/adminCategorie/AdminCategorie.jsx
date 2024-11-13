@@ -9,7 +9,7 @@ import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AdminCategorie = () => {
   const { openSnackbar } = useSnackbars();
-  const { openModal } = useModals();
+  const { openModal, closeAllModals } = useModals();
 
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -38,10 +38,13 @@ const AdminCategorie = () => {
       children: <AdminCategorieModalEditCategory
         categories={categories}
         category={category}
-        onEditCallback={loadCategories}
+        onEditCallback={() => {
+          closeAllModals();
+          loadCategories();
+        }}
       />,
     });
-  }, [categories, loadCategories, openModal]);
+  }, [categories, closeAllModals, loadCategories, openModal]);
 
   useEffect(() => {
     loadCategories();

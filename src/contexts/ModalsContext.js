@@ -21,6 +21,7 @@ function ModalsProvider({ children }) {
         children,
       }
     ]);
+    return newId;
   }, []);
 
   const closeAllModals = useCallback(() => {

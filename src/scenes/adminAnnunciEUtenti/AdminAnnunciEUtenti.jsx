@@ -2,10 +2,9 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as apiAdministration from "@api/administration";
 
-import styles from "./AdminValidazioneAnnunci.module.css";
+import styles from "./AdminAnnunciEUtenti.module.css";
 
-const AdminValidazioneAnnunci = () => {
-  
+const AdminAnnunciEUtenti = () => {
   const [annunci, setAnnunci] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState(null);
@@ -57,34 +56,34 @@ const AdminValidazioneAnnunci = () => {
   }, [loadAnnunci]);
 
   const annunciList = useMemo(() => {
-    return annunci?.map((x) => 
-    <div key={x.id}>
-      Titolo: {x.title}<br/>
-      Descrizione: {x.description}<br/>
+    return annunci?.map((x) =>
+      <div key={x.id}>
+        Titolo: {x.title}<br />
+        Descrizione: {x.description}<br />
 
-      <button
-        onClick={() => navigate(ROUTES.ANNUNCIO, [x.id])}
-        disabled={loading}>
-        visualizza
-      </button>
+        <button
+          onClick={() => navigate(ROUTES.ANNUNCIO, [x.id])}
+          disabled={loading}>
+          visualizza
+        </button>
 
-      <button
-        disabled={loading}>
-        modifica
-      </button>
-      
-      <button
-        onClick={() => onApprovaClick(x.id)}
-        disabled={loading}>
-        approva
-      </button>
-        
-      <button
-        onClick={() => onRifiutaClick(x.id)}
-        disabled={loading}>
-        rifiuta
-      </button>
-    </div>)
+        <button
+          disabled={loading}>
+          modifica
+        </button>
+
+        <button
+          onClick={() => onApprovaClick(x.id)}
+          disabled={loading}>
+          approva
+        </button>
+
+        <button
+          onClick={() => onRifiutaClick(x.id)}
+          disabled={loading}>
+          rifiuta
+        </button>
+      </div>)
   }, [annunci, loading, onApprovaClick, onRifiutaClick, navigate]);
 
   return (
@@ -98,4 +97,4 @@ const AdminValidazioneAnnunci = () => {
   );
 };
 
-export default AdminValidazioneAnnunci;
+export default AdminAnnunciEUtenti;

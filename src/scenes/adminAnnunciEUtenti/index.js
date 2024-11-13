@@ -1,3 +1,3 @@
-import AdminValidazioneAnnunci from "./AdminValidazioneAnnunci";
+import AdminAnnunciEUtenti from "./AdminAnnunciEUtenti";
 
-export default AdminValidazioneAnnunci;
+export default AdminAnnunciEUtenti;
