@@ -6,13 +6,13 @@ export const VALIDATION_STATUS = {
 }
 
 export const SERVICE_TYPE = {
-  TEST_SERVICE: { value: 1, label: "TestService" },
-  FEATURED_ONE_DAY: { value: 2, label: "FeaturedOneDay" },
-  PUBLISH_ONLINE: { value: 3, label: "PublishOnline" },
-  PUBLISH_PAPER: { value: 4, label: "PublishPaper" },
-  PUBLISH_PAPER_GUARANTEED: { value: 5, label: "PublishPaperGuaranteed" },
-  PHOTO_ADVERTISEMENT: { value: 6, label: "PhotoAdvertisement" },
-  BOXED: { value: 7, label: "Boxed" }
+  FEATURED: { value: 1, label: "Sponsorizzazione" },
+  PUBLISH_ONLINE: { value: 2, label: "Pubblicazione online" },
+  // TEST_SERVICE: { value: 1, label: "TestService" },
+  // PUBLISH_PAPER: { value: 4, label: "PublishPaper" },
+  // PUBLISH_PAPER_GUARANTEED: { value: 5, label: "PublishPaperGuaranteed" },
+  // PHOTO_ADVERTISEMENT: { value: 6, label: "PhotoAdvertisement" },
+  // BOXED: { value: 7, label: "Boxed" }
 }
 
 export const PAYMENT_STATUS = {

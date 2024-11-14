@@ -6,11 +6,12 @@ export async function CreateCategory() {
   return await post(`${CONTROLLER_URL}/CreateCategory`);
 }
 
-export async function EditCategory({ categoryId, name, parentCategoryId }) {
+export async function EditCategory({ categoryId, name, parentCategoryId, prices }) {
   return await post(`${CONTROLLER_URL}/EditCategory`, {
     categoryId,
     name,
     parentCategoryId,
+    prices,
   });
 }
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Icon from '../icon';
 import styles from "./Select.module.css";
@@ -43,6 +43,13 @@ const Select = ({
       ))}
     </>
   ), [options, clearable]);
+
+  useEffect(() => {
+    if (!clearable && !value && options?.lenght > 0) {
+      setValue(options[0].value);
+    }
+  }, [clearable, options, setValue, value])
+
 
   return (
     <div className={wrapperClassName}>

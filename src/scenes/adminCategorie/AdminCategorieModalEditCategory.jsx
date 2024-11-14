@@ -1,13 +1,19 @@
 import * as apiAdministration from "@api/administration";
 import Button from '@components/button';
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import TextInput from '@components/textInput';
-import { useSnackbars } from "@contexts/SnackbarsContext";
 import Select from "@components/select";
+import TextInput from '@components/textInput';
 import styles from "./AdminCategorie.module.css";
-import { getSelectOptionsFromConstant, ACCOUNT_TYPE } from "@logic/constants";
+import { ACCOUNT_TYPE, SERVICE_TYPE, getConstantDescriptionByValue, getSelectOptionsFromConstant } from "@logic/constants";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
-const generateUuid = () => "new" + Math.floor(Math.random() * 9999);
+const pricesSortingFn = (a, b) => {
+  if (a.accountType < b.accountType) return -1;
+  if (a.accountType > b.accountType) return 1;
+  if (a.serviceType < b.serviceType) return -1;
+  if (a.serviceType > b.serviceType) return 1;
+  return 0;
+};
 
 const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback }) => {
   const { openSnackbar } = useSnackbars();
@@ -22,16 +28,17 @@ const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback 
     }));
   }, []);
 
-  const onFormPriceValueChange = useCallback((priceId, fieldName, newValue) => {
+  const onFormPriceValueChange = useCallback((price, fieldName, newValue) => {
+    const isSamePriceFn = (pa, pb) => pa.accountType === pb.accountType && pa.serviceType === pb.serviceType;
     setValues((prev) => {
       const p = {
-        ...prev.categoryPrices.find((x) => x.id === priceId),
+        ...prev.prices.find((x) => isSamePriceFn(x, price)),
         [fieldName]: newValue,
       };
       return {
         ...prev,
-        categoryPrices: [
-          ...prev.categoryPrices.filter((x) => x.id !== priceId),
+        prices: [
+          ...prev.prices.filter((x) => !isSamePriceFn(x, price)),
           p,
         ],
       };
@@ -43,19 +50,24 @@ const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback 
     apiAdministration.EditCategory({
       categoryId: category.id,
       name: values.name,
-      parentCategoryId: values.parentCategoryId,
+      parentCategoryId: values.parentCategoryId || 0,
+      prices: values.prices.map((x) => ({
+        accountType: x.accountType || 0,
+        serviceType: x.serviceType || 0,
+        price: Number(x.price) || 0,
+      })),
     })
       .then(() => {
         openSnackbar("Dati aggiornati ✔️");
         onEditCallback();
       })
       .catch((e) => {
-        openSnackbar("Qualcosa è andato storto ❌");
+        openSnackbar("❌ " + e.message);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [category.id, onEditCallback, openSnackbar, values.name, values.parentCategoryId]);
+  }, [category.id, onEditCallback, openSnackbar, values.name, values.parentCategoryId, values.prices]);
 
   const onDelete = useCallback(() => {
     setLoading(true);
@@ -65,24 +77,12 @@ const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback 
         onEditCallback();
       })
       .catch((e) => {
-        openSnackbar("Qualcosa è andato storto ❌");
+        openSnackbar("❌ " + e.message);
       })
       .finally(() => {
         setLoading(false);
       });
   }, [category.id, onEditCallback, openSnackbar]);
-
-  const onDeleteCategoryPriceClick = useCallback(() => { }, []);
-
-  const createCategoryPrice = useCallback(() => {
-    setValues((prev) => ({
-      ...prev,
-      categoryPrices: [
-        ...prev.categoryPrices,
-        { id: generateUuid() },
-      ],
-    }))
-  }, []);
 
   // Category form
 
@@ -97,35 +97,24 @@ const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback 
     onFormValueChange("parentCategoryId", newValue || null);
   }, [onFormValueChange]);
 
-  // Category price form
-
-  const onPriceAccountTypeSelection = useCallback((id, newValue) => {
-    onFormPriceValueChange(id, "accountType", newValue);
-  }, [onFormPriceValueChange]);
-
   // 
 
   useEffect(() => {
     setValues({
       parentCategoryId: category.parentCategoryId,
       name: category.name,
-      categoryPrices: category.categoryPrices,
+      prices: getSelectOptionsFromConstant(ACCOUNT_TYPE).flatMap((at) => {
+        return getSelectOptionsFromConstant(SERVICE_TYPE).map((st) => ({
+          accountType: at.value,
+          serviceType: st.value,
+          price: category.categoryPrices?.find((x) => x.accountType === at.value && x.serviceType === st.value)?.price || 0,
+        }))
+      }),
     });
   }, [category])
 
   return (
     <>
-      <br></br>
-      <div className='row'>
-        <div className='col'>
-          <Select
-            label="Categoria padre"
-            options={parentCategoryOptions}
-            value={values.parentCategoryId}
-            setValue={onParentCategorySelection}
-          />
-        </div>
-      </div>
       <div className='row'>
         <div className='col'>
           <TextInput
@@ -138,56 +127,33 @@ const AdminCategorieModalEditCategory = ({ categories, category, onEditCallback 
       </div>
       <div className='row'>
         <div className='col'>
-          <span>Prezzi</span>
+          <Select
+            label="Categoria padre"
+            options={parentCategoryOptions}
+            value={values.parentCategoryId}
+            setValue={onParentCategorySelection}
+          />
         </div>
       </div>
       <div className='row'>
         <div className='col'>
           <div className={styles.tablePrezzi}>
-            <span>Id</span>
-            <span>Tipo account</span>
-            <span>Tipo servizio</span>
-            <span>Prezzo</span>
-            <span>Soglia gratuità</span>
-            <span></span>
-            {values.categoryPrices?.map((x) => (
-              <React.Fragment key={x.id}>
-                <span>{x.id}</span>
-                <Select
-                  clearable={false}
+            <label>Tipo account</label>
+            <label>Tipo servizio</label>
+            <label>Prezzo</label>
+            {values.prices?.sort(pricesSortingFn).map((x) => (
+              <React.Fragment key={x.accountType + "_" + x.serviceType}>
+                <TextInput value={getConstantDescriptionByValue(ACCOUNT_TYPE, x.accountType)} disabled={true} />
+                <TextInput value={getConstantDescriptionByValue(SERVICE_TYPE, x.serviceType)} disabled={true} />
+                {/* <span>{getConstantDescriptionByValue(SERVICE_TYPE, x.serviceType)}</span> */}
+                <TextInput value={x.price} setValue={(val) => onFormPriceValueChange(x, "price", val)} disabled={loading} />
+                {/* <TextInput
                   disabled={loading}
-                  options={getSelectOptionsFromConstant(ACCOUNT_TYPE)}
-                  setValue={(val) => onPriceAccountTypeSelection(x.id, val)}
-                  value={x.accountType}
-                />
-                <span>{x.serviceType}</span>
-                <TextInput
-                  disabled={loading}
-                  setValue={(val) => onFormPriceValueChange(x.id, "price", val)}
-                  value={x.price}
-                />
-                <TextInput
-                  disabled={loading}
-                  setValue={(val) => onFormPriceValueChange(x.id, "freeThreshold", val)}
+                  setValue={(val) => onFormPriceValueChange(x.uuid, "freeThreshold", val)}
                   value={x.freeThreshold}
-                />
-                <Button
-                  disabled={loading}
-                  onClick={() => onDeleteCategoryPriceClick(x)}
-                  icon="delete"
-                  size="mini"
-                />
+                /> */}
               </React.Fragment>
             ))}
-            <div className={styles.btnCrea}>
-              <Button
-                disabled={loading}
-                fullWidth
-                onClick={createCategoryPrice}
-                text="Crea nuovo prezzo categoria"
-                size="mini"
-              />
-            </div>
           </div>
         </div>
       </div>

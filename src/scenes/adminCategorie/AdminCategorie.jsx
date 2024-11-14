@@ -18,7 +18,7 @@ const AdminCategorie = () => {
     setLoading(true);
     apiPublic.GetCategories()
       .then(setCategories)
-      .catch(() => openSnackbar("Qualcosa è andato storto durante il caricamento delle categorie ❌"))
+      .catch((e) => openSnackbar("❌ " + e.message))
       .finally(() => setLoading(false));
   }, [openSnackbar]);
 
@@ -26,8 +26,8 @@ const AdminCategorie = () => {
     setLoading(true);
     apiAdministration.CreateCategory()
       .then(() => loadCategories())
-      .catch(() => {
-        openSnackbar("Qualcosa è andato storto durante la creazione di una categoria ❌");
+      .catch((e) => {
+        openSnackbar("❌ " + e.message);
         setLoading(false);
       });
   }, [loadCategories, openSnackbar]);
@@ -58,6 +58,7 @@ const AdminCategorie = () => {
           <span className='page-title'>Gestione delle categorie</span>
         </div>
       </div>
+      <br></br>
       <div className='row'>
         <div className='col'>
           <div className={styles.tableCategorie}>
