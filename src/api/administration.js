@@ -1,101 +1,44 @@
-import { post } from "./utils";
+import { post } from "../logic/api";
 
-const CONTROLLER_URL = "/api/administration";
-
-export async function CreateCategory() {
-  return await post(`${CONTROLLER_URL}/CreateCategory`);
+export async function CreateCategory(body) {
+  return await post("/api/administration/CreateCategory", body);
 }
 
-export async function EditCategory({ categoryId, name, parentCategoryId, prices }) {
-  return await post(`${CONTROLLER_URL}/EditCategory`, {
-    categoryId,
-    name,
-    parentCategoryId,
-    prices,
-  });
+export async function EditCategory(body) {
+  // categoryId - integer 
+  // name - string nullable
+  // parentCategoryId - integer 
+  // prices - array nullable
+  //   accountType - enum integer 
+  //   serviceType - enum integer 
+  //   price - integer 
+  return await post("/api/administration/EditCategory", body);
 }
 
-export async function DeleteCategory({ categoryId }) {
-  return await post(`${CONTROLLER_URL}/DeleteCategory`, {
-    categoryId
-  });
+export async function DeleteCategory(body) {
+  // categoryId - integer 
+  return await post("/api/administration/DeleteCategory", body);
 }
 
-export async function SetCategoryPrices({ categoryId, prices }) {
-  return await post(`${CONTROLLER_URL}/SetCategoryPrices`, {
-    categoryId,
-    prices,
-  });
+export async function GetAdvertismentsWaitingForValidation(body) {
+  return await post("/api/administration/GetAdvertismentsWaitingForValidation", body);
 }
 
-// export async function DeleteCategoryPrice({ categoryId, accountType, serviceType }) {
-//   return await post(`${CONTROLLER_URL}/DeleteCategoryPrice`, {
-//     categoryId,
-//     accountType,
-//     serviceType
-//   });
-// }
-
-// export async function CreatePaperCategory({ name }) {
-//   return await post(`${CONTROLLER_URL}/CreatePaperCategory`, {
-//     name
-//   });
-// }
-
-// export async function EditPaperCategory({ paperCategoryId, name }) {
-//   return await post(`${CONTROLLER_URL}/EditPaperCategory`, {
-//     paperCategoryId,
-//     name
-//   });
-// }
-
-// export async function DeletePaperCategory({ paperCategoryId }) {
-//   return await post(`${CONTROLLER_URL}/DeletePaperCategory`, {
-//     paperCategoryId
-//   });
-// }
-
-export async function GetAdvertismentsWaitingForValidation() {
-  return await post(`${CONTROLLER_URL}/GetAdvertismentsWaitingForValidation`);
+export async function ValidateAdvertisement(body) {
+  // advertisementId - integer 
+  return await post("/api/administration/ValidateAdvertisement", body);
 }
 
-export async function ValidateAdvertisement({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/ValidateAdvertisement`, {
-    advertisementId
-  });
+export async function RefuseAdvertisement(body) {
+  // advertisementId - integer 
+  return await post("/api/administration/RefuseAdvertisement", body);
 }
 
-export async function RefuseAdvertisement({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/RefuseAdvertisement`, {
-    advertisementId
-  });
+export async function GetPayments(body) {
+  return await post("/api/administration/GetPayments", body);
 }
 
-// export async function GetExportFile({ from, to }) {
-//   return await post(`${CONTROLLER_URL}/GetExportFile`, {
-//     from,
-//     to
-//   });
-// }
-
-export async function GetPayments() {
-  return await post(`${CONTROLLER_URL}/GetPayments`);
+export async function GetUsers(body) {
+  // page - integer 
+  return await post("/api/administration/GetUsers", body);
 }
-
-export async function GetUsers({ page }) {
-  return await post(`${CONTROLLER_URL}/GetUsers`, {
-    page
-  });
-}
-
-// export async function AddEdition({ date }) {
-//   return await post(`${CONTROLLER_URL}/AddEdition`, {
-//     date
-//   });
-// }
-
-// export async function DeleteEdition({ id }) {
-//   return await post(`${CONTROLLER_URL}/DeleteEdition`, {
-//     id
-//   });
-// }

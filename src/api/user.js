@@ -1,158 +1,85 @@
-import { post } from "./utils";
+import { post } from "../logic/api";
 
-const CONTROLLER_URL = "/api/user";
-
-export async function RestoreSignIn() {
-  return await post(`${CONTROLLER_URL}/RestoreSignIn`);
+export async function RestoreSignIn(body) {
+  return await post("/api/user/RestoreSignIn", body);
 }
 
-export async function CreateAdvertisement({
-  title,
-  description,
-  categoryId,
-  province,
-  city,
-  imagesBlobs
-}) {
-  return await post(`${CONTROLLER_URL}/CreateAdvertisement`, {
-    title,
-    description,
-    categoryId,
-    province,
-    city,
-    imagesBlobs
-  });
+export async function CreateAdvertisement(body) {
+  // title - string nullable
+  // description - string nullable
+  // categoryId - integer 
+  // province - string nullable
+  // city - string nullable
+  // imagesBlobs - array nullable
+  return await post("/api/user/CreateAdvertisement", body);
 }
 
-export async function EditAdvertisement({
-  advertisementId,
-  title,
-  description,
-  categoryId,
-  province,
-  city,
-  newImagesBlobs,
-  deletedImageIds
-}) {
-  return await post(`${CONTROLLER_URL}/EditAdvertisement`, {
-    advertisementId,
-    title,
-    description,
-    categoryId,
-    province,
-    city,
-    newImagesBlobs,
-    deletedImageIds
-  });
+export async function EditAdvertisement(body) {
+  // advertisementId - integer 
+  // title - string nullable
+  // description - string nullable
+  // categoryId - integer 
+  // province - string nullable
+  // city - string nullable
+  // newImagesBlobs - array nullable
+  // deletedImageIds - array nullable
+  return await post("/api/user/EditAdvertisement", body);
 }
 
-export async function DeleteAdvertisement({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/DeleteAdvertisement`, {
-    advertisementId
-  });
+export async function DeleteAdvertisement(body) {
+  // advertisementId - integer 
+  return await post("/api/user/DeleteAdvertisement", body);
 }
 
-export async function RepublishAdvertisement({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/RepublishAdvertisement`, {
-    advertisementId
-  });
+export async function RepublishAdvertisement(body) {
+  // advertisementId - integer 
+  return await post("/api/user/RepublishAdvertisement", body);
 }
 
-export async function SuspendAdvertisement({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/SuspendAdvertisement`, {
-    advertisementId
-  });
+export async function SuspendAdvertisement(body) {
+  // advertisementId - integer 
+  return await post("/api/user/SuspendAdvertisement", body);
 }
 
-// export async function UploadImage({ advertisementId, image, }) {
-//   return await post(`${CONTROLLER_URL}/UploadImage`, {
-//     advertisementId,
-//     image
-//   });
-// }
-
-// export async function DeleteImage({ imageId }) {
-//   return await post(`${CONTROLLER_URL}/DeleteImage`, {
-//     imageId
-//   });
-// }
-
-export async function EditUserPublicData({
-  userId,
-  advertisementName,
-  tel,
-  cel,
-  email
-}) {
-  return await post(`${CONTROLLER_URL}/EditUserPublicData`, {
-    userId,
-    advertisementName,
-    tel,
-    cel,
-    email
-  });
+export async function EditUserPublicData(body) {
+  // userId - integer 
+  // advertisementName - string nullable
+  // tel - string nullable
+  // cel - string nullable
+  // email - string nullable
+  return await post("/api/user/EditUserPublicData", body);
 }
 
-export async function EditUserBillingData({
-  userId,
-  name,
-  lastName,
-  street,
-  civic,
-  city,
-  zipCode,
-  province,
-  country,
-  codiceFiscale,
-  businessName,
-  partitaIva
-}) {
-  return await post(`${CONTROLLER_URL}/EditUserBillingData`, {
-    userId,
-    name,
-    lastName,
-    street,
-    civic,
-    city,
-    zipCode,
-    province,
-    country,
-    codiceFiscale,
-    businessName,
-    partitaIva
-  });
+export async function EditUserBillingData(body) {
+  // userId - integer 
+  // name - string nullable
+  // lastName - string nullable
+  // street - string nullable
+  // civic - string nullable
+  // city - string nullable
+  // zipCode - string nullable
+  // province - string nullable
+  // country - string nullable
+  // codiceFiscale - string nullable
+  // businessName - string nullable
+  // partitaIva - string nullable
+  return await post("/api/user/EditUserBillingData", body);
 }
 
-export async function PurchaseFeatured({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/PurchaseFeatured`, {
-    advertisementId
-  });
+export async function PurchaseFeatured(body) {
+  // advertisementId - integer 
+  return await post("/api/user/PurchaseFeatured", body);
 }
 
-export async function PurchasePublishOnline({ advertisementId }) {
-  return await post(`${CONTROLLER_URL}/PurchasePublishOnline`, {
-    advertisementId
-  });
+export async function PurchasePublishOnline(body) {
+  // advertisementId - integer 
+  return await post("/api/user/PurchasePublishOnline", body);
 }
 
-export async function GetMyPayments() {
-  return await post(`${CONTROLLER_URL}/GetMyPayments`);
+export async function GetMyPayments(body) {
+  return await post("/api/user/GetMyPayments", body);
 }
 
-export async function GetMyCreditTransactions() {
-  return await post(`${CONTROLLER_URL}/GetMyCreditTransactions`);
+export async function GetMyCreditTransactions(body) {
+  return await post("/api/user/GetMyCreditTransactions", body);
 }
-
-// export async function CreatePayment({ service, quantity }) {
-//   return await post(`${CONTROLLER_URL}/CreatePayment`, {
-//     service,
-//     quantity
-//   });
-// }
-
-// export async function ExecutePayment({ paymentID, payerID }) {
-//   return await post(`${CONTROLLER_URL}/ExecutePayment`, {
-//     paymentID,
-//     payerID
-//   });
-// }
