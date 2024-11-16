@@ -1,4 +1,4 @@
-import { BASE_URL } from "@api/utils"
+import { BASE_URL } from "./api"
 import * as apiUser from "@api/user";
 import noPhoto from "@assets/logo_header.png";
 

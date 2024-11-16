@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useMemo, useCallback } from "react";
 import moment from 'moment';
 import styles from "./annunci.module.css";
-import { BASE_URL } from "@api/utils"
+import { BASE_URL } from "@logic/api"
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AnnuncioPreview = ({

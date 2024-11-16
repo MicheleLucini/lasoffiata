@@ -3,7 +3,7 @@ import React, { useMemo, useCallback } from "react";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import PropTypes from "prop-types";
 // import Icon from "@components/icon";
-import { BASE_URL } from "@api/utils"
+import { BASE_URL } from "@logic/api"
 import styles from "./Home.module.css";
 
 const HomeAnnuncio = ({ annuncio, onAnnuncioClick }) => {
