@@ -8,6 +8,7 @@ import SelectProvince from "@templates/selectProvince";
 import TextInput from '@components/textInput';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { useDispatch } from "react-redux";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -23,6 +24,10 @@ const fromFileInputToBlobPromise = (file) => {
 };
 
 const AnnuncioCrea = () => {
+  const dispatch = useDispatch();
+  const { navigate } = useNavigator();
+  const { openSnackbar } = useSnackbars();
+
   const [loading, setLoading] = useState(false);
   const [formCategory, setFormCategory] = useState(null);
   const [formProvince, setFormProvince] = useState(null);
@@ -31,9 +36,6 @@ const AnnuncioCrea = () => {
   const [formDescrizione, setFormDescrizione] = useState("");
   const [formImages, setFormImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
-
-  const dispatch = useDispatch();
-  const { navigate } = useNavigator();
 
   const onCreaClick = useCallback(async () => {
     setLoading(true);
@@ -51,15 +53,17 @@ const AnnuncioCrea = () => {
       imagesBlobs: filesBlobs,
     }))
       .then(() => {
+        openSnackbar("✨ Annuncio creato!");
         navigate(ROUTES.HOME);
       })
       .catch((e) => {
+        openSnackbar("❌ " + e.message);
         setFormErrors(e.message);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [dispatch, navigate, formCategory, formCitta, formDescrizione, formProvince, formTitolo, formImages]);
+  }, [formImages, dispatch, formTitolo, formDescrizione, formCategory, formProvince, formCitta, openSnackbar, navigate]);
 
   return (
     <>

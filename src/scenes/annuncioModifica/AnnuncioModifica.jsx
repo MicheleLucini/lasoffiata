@@ -10,6 +10,7 @@ import TextInput from '@components/textInput';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import { getAdvertisementImageUrl } from "@logic/annuncio"
 import { useDispatch } from "react-redux";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const fromFileInputToBlobPromise = (file) => {
   return new Promise((resolve, reject) => {
@@ -25,6 +26,10 @@ const fromFileInputToBlobPromise = (file) => {
 };
 
 const AnnuncioModifica = () => {
+  const dispatch = useDispatch();
+  const { navigate, currentRoute } = useNavigator();
+  const { openSnackbar } = useSnackbars();
+
   const [loading, setLoading] = useState(false);
   const [initialValues, setInitialValues] = useState(null);
   const [formCategory, setFormCategory] = useState(null);
@@ -36,8 +41,6 @@ const AnnuncioModifica = () => {
   const [formDeletedImages, setFormDeletedImages] = useState([]);
   const [formErrors, setFormErrors] = useState(null);
 
-  const dispatch = useDispatch();
-  const { navigate, currentRoute } = useNavigator();
 
   const loadAnnuncio = useCallback(async () => {
     const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
@@ -68,13 +71,15 @@ const AnnuncioModifica = () => {
       deletedImageIds: formDeletedImages,
     }))
       .then(() => {
+        openSnackbar("✨ Modifiche salvate!");
         navigate(ROUTES.ANNUNCIO, [initialValues.id]);
       })
       .catch((e) => {
+        openSnackbar("❌ " + e.message);
         setFormErrors(e.message);
         setLoading(false);
       });
-  }, [formImages, dispatch, initialValues, formTitolo, formDescrizione, formCategory, formProvince, formCitta, formDeletedImages, navigate]);
+  }, [formImages, dispatch, initialValues.id, formTitolo, formDescrizione, formCategory, formProvince, formCitta, formDeletedImages, openSnackbar, navigate]);
 
   const removeImage = useCallback((id) => {
     setFormDeletedImages((prev) => prev.includes(id) ? prev : [...prev, id]);
