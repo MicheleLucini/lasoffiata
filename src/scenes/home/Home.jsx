@@ -13,29 +13,15 @@ import { ROUTES } from "@contexts/NavigatorContext";
 import { selectUser } from '@store/userSlice';
 import { useNavigator } from "@contexts/NavigatorContext";
 import { useSelector } from 'react-redux';
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const Home = () => {
-  const [featuredAdvertisements, setFeaturedAdvertisements] = useState([]);
-  const [loading, setLoading] = useState(true);
-  // const [searchInput, setSearchInput] = useState("");
-  // const [selectedAnnuncio, setSelectedAnnuncio] = useState(null);
-
   const user = useSelector(selectUser);
   const { navigate } = useNavigator();
-  // const { openModal } = useModals();
+  const { openSnackbar } = useSnackbars();
 
-  // const userIconLinkRoute = useMemo(() => (
-  //   user.isLogged ? ROUTES.MY_ACCOUNT : ROUTES.LOGIN
-  // ), [user.isLogged]);
-
-  // const onAnnuncioClick = useCallback((annuncio) => {
-  //   openModal({
-  //     title: annuncio.description,
-  //     children: (
-  //       <Annuncio initialAnnuncio={annuncio} />
-  //     ),
-  //   });
-  // }, [openModal]);
+  const [featuredAdvertisements, setFeaturedAdvertisements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const featuredAnnunciList = useMemo(() => (
     loading
@@ -50,30 +36,14 @@ const Home = () => {
 
   const loadFeaturedAdvertisements = useCallback(async () => {
     setLoading(true);
-    try {
-      const data = await apiPublic.GetFeaturedAdvertisements();
-      setFeaturedAdvertisements(data);
-    } catch {
-      setFeaturedAdvertisements([]);
-    }
-    setLoading(false);
-  }, []);
-
-  // const searchAdvertisements = useCallback(async ({ description, category, province }) => {
-  //   setLoadingSearchedAdvertisements(true);
-  //   try {
-  //     const data = await apiPublic.SearchAdvertisements({
-  //       description,
-  //       categoryId: category,
-  //       province,
-  //       page: 1,
-  //     });
-  //     setFeaturedAdvertisements(data);
-  //   } catch {
-  //     setFeaturedAdvertisements([]);
-  //   }
-  //   setLoadingSearchedAdvertisements(false);
-  // }, []);
+    apiPublic.GetFeaturedAdvertisements()
+      .then((data) => setFeaturedAdvertisements(data))
+      .catch((e) => {
+        openSnackbar("❌ " + e.message);
+        setFeaturedAdvertisements([]);
+      })
+      .finally(() => setLoading(false));
+  }, [openSnackbar]);
 
   useEffect(() => {
     loadFeaturedAdvertisements();
@@ -94,30 +64,30 @@ const Home = () => {
               <span>I miei annunci</span>
             </Link>
             {/* <Link route={userIconLinkRoute}>
-            <Icon
-              name="person"
-              fill={user.isLogged ? 1 : 0}
-              weight={400}
-              grade={0}
-              opticalSize={24}
-            />
-          </Link>
-          <Link route={ROUTES.HOME}>
-            <span>Gratis</span>
-          </Link>
-          {user.isLogged && (
-            <>
-              <Link route={ROUTES.HOME}>
-                <span>Messaggi</span>
-              </Link>
-              <Link route={ROUTES.ANNUNCIO_CREA}>
-                <span>Vendi</span>
-              </Link>
-            </>
-          )}
-          <Link route={ROUTES.HOME}>
-            <span>Categorie</span>
-          </Link> */}
+              <Icon
+                name="person"
+                fill={user.isLogged ? 1 : 0}
+                weight={400}
+                grade={0}
+                opticalSize={24}
+              />
+            </Link>
+            <Link route={ROUTES.HOME}>
+              <span>Gratis</span>
+            </Link>
+            {user.isLogged && (
+              <>
+                <Link route={ROUTES.HOME}>
+                  <span>Messaggi</span>
+                </Link>
+                <Link route={ROUTES.ANNUNCIO_CREA}>
+                  <span>Vendi</span>
+                </Link>
+              </>
+            )}
+            <Link route={ROUTES.HOME}>
+              <span>Categorie</span>
+            </Link> */}
           </div>
         </div>
       )}
