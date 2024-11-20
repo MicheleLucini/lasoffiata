@@ -4,6 +4,7 @@ import AdminCategorieModalEditCategory from './AdminCategorieModalEditCategory';
 import Button from '@components/button';
 import React, { useState, useCallback, useEffect } from "react";
 import styles from "./AdminCategorie.module.css";
+import { ACCOUNT_TYPE, SERVICE_TYPE, getConstantDescriptionByValue } from "@logic/constants";
 import { useModals } from "@contexts/ModalsContext";
 import { useSnackbars } from "@contexts/SnackbarsContext";
 
@@ -66,17 +67,25 @@ const AdminCategorie = () => {
             <span>Name</span>
             <span>CategoryPrices</span>
             <span></span>
+            <div className={styles.divider}></div>
             {categories.map((x) => (
               <React.Fragment key={x.id}>
                 <span>{x.id}</span>
                 <span>{x.name}</span>
-                <span>{x.categoryPrices}</span>
+                <span>
+                  {x.categoryPrices.map((cp) => (
+                    <span key={cp.accountType + "-" + cp.serviceType}>
+                      {getConstantDescriptionByValue(ACCOUNT_TYPE, cp.accountType) + "/" + getConstantDescriptionByValue(SERVICE_TYPE, cp.serviceType) + ": " + cp.price}
+                    </span>
+                  ))}
+                </span>
                 <Button
                   disabled={loading}
                   onClick={() => onEditCategoryClick(x)}
                   icon="edit"
                   size="mini"
                 />
+                <div className={styles.divider}></div>
               </React.Fragment>
             ))}
             <div className={styles.btnCrea}>

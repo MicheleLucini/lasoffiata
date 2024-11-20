@@ -3,10 +3,22 @@
   grid-template-columns: auto repeat(2, 1fr) auto;
   gap: 15px 10px;
   align-items: center;
+  /* border: 1px solid var(--blue-grey-lighten-3);
+  border-radius: 8px;
+  padding: 4px; */
 }
 
+.tableCategorie>span>span {
+  display: block;
+}
+
+.tableCategorie>.divider,
 .tableCategorie>.btnCrea {
   grid-column: 1 / 5;
+}
+
+.tableCategorie>.divider {
+  border-bottom: 1px solid var(--blue-grey-lighten-4);
 }
 
 /**/
