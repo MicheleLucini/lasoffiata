@@ -6,6 +6,7 @@
 import * as apiPublic from "@api/public";
 import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
 import Link from "@components/link";
+import Pubblicita from '@templates/pubblicita/Pubblicita';
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import SearchInput from "@components/searchInput";
 import styles from "./Home.module.css";
@@ -29,9 +30,15 @@ const Home = () => {
         // <HomeAnnuncioPlaceholder key={i} />
         <AnnuncioPreview key={i} loading />
       ))
-      : featuredAdvertisements.map((x) => (
-        <AnnuncioPreview key={x.id} annuncio={x} />
-      ))
+      : [
+        ...featuredAdvertisements.map((x, i) => (
+          <>
+            {i % 2 === 0 && <Pubblicita />}
+            <AnnuncioPreview key={x.id} annuncio={x} />
+          </>
+        )),
+        <Pubblicita />,
+      ]
   ), [loading, featuredAdvertisements]);
 
   const loadFeaturedAdvertisements = useCallback(async () => {
