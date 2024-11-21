@@ -5,7 +5,6 @@ const HomeAnnuncioPlaceholder = () => {
   return (
     <div className={`${styles.annuncio} ${styles.anteprimaAnnuncio}`}>
       <div className={styles.imageContainer} />
-      <span className={styles.price} />
       <span className={styles.title} />
       <span className={styles.place} />
     </div>

@@ -7,7 +7,10 @@ import { BASE_URL } from "@logic/api"
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AnnuncioPreview = ({
-  annuncio, loading, suppressNavigation, children
+  annuncio,
+  children,
+  loading,
+  suppressNavigation,
 }) => {
   const { navigate } = useNavigator();
 
@@ -50,7 +53,6 @@ const AnnuncioPreview = ({
       </div>
       {annuncio && !loading && (
         <div className={styles.mainInfo}>
-          <span className={styles.price}>€ 100</span>
           <span className={styles.title}>{annuncio.title}</span>
           <span className={styles.description}>{annuncio.description}</span>
           <span className={styles.extra}>

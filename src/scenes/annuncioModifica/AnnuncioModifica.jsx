@@ -43,23 +43,23 @@ const AnnuncioModifica = () => {
 
 
   const loadAnnuncio = useCallback(async () => {
-    const data = await apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] });
-    setInitialValues(data);
-    setFormCategory(data.categoryId); // 14
-    setFormProvince(data.province); // "CR"
-    setFormTitolo(data.title); // "test"
-    setFormCitta(data.city); // "test"
-    setFormDescrizione(data.description); // "test"
-    setFormDeletedImages([]);
+    apiPublic.GetAdvertisement({ advertisementId: currentRoute.params[0] })
+      .then((data) => {
+        setInitialValues(data);
+        setFormCategory(data.categoryId); // 14
+        setFormProvince(data.province); // "CR"
+        setFormTitolo(data.title); // "test"
+        setFormCitta(data.city); // "test"
+        setFormDescrizione(data.description); // "test"
+        setFormDeletedImages([]);
+      });
   }, [currentRoute])
 
   const onSalvaClick = useCallback(async () => {
     setLoading(true);
     setFormErrors(null);
-
     const filePromises = formImages.map(fromFileInputToBlobPromise);
     const filesBlobs = await Promise.all(filePromises);
-
     dispatch(logicAnnuncio.editAdvertisement({
       advertisementId: initialValues.id,
       title: formTitolo,
@@ -79,7 +79,7 @@ const AnnuncioModifica = () => {
         setFormErrors(e.message);
         setLoading(false);
       });
-  }, [formImages, dispatch, initialValues.id, formTitolo, formDescrizione, formCategory, formProvince, formCitta, formDeletedImages, openSnackbar, navigate]);
+  }, [formImages, dispatch, initialValues?.id, formTitolo, formDescrizione, formCategory, formProvince, formCitta, formDeletedImages, openSnackbar, navigate]);
 
   const removeImage = useCallback((id) => {
     setFormDeletedImages((prev) => prev.includes(id) ? prev : [...prev, id]);
@@ -191,6 +191,17 @@ const AnnuncioModifica = () => {
             // icon="save"
             onClick={onSalvaClick}
             text="Salva"
+          />
+        </div>
+      </div>
+      <br />
+      <div className='row'>
+        <div className='col col-flex-center'>
+          <Button
+            color="secondary"
+            icon="settings"
+            onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [initialValues.id])}
+            text="Gestisci annuncio"
           />
         </div>
       </div>

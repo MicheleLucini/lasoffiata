@@ -51,20 +51,29 @@ const AnnuncioGestisci = () => {
             annuncio={annuncio}
             loading={loading}
             suppressNavigation
-          />
+          >
+            <Button
+              color="secondary"
+              icon="edit"
+              onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
+              // size="mini"
+              text="Modifica"
+            />
+          </AnnuncioPreview>
         </div>
       </div>
-      <div className='row'>
+      {/* <div className='row'>
         <div className='col col-flex-center'>
           <Button
             color="secondary"
+            icon="edit"
             onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
             text="Modifica"
           // size="mini"
           />
         </div>
-      </div>
-      <br></br>
+      </div> */}
+      {/* <br></br> */}
       <div className='row'>
         <div className='col'>
           <Card>
@@ -104,43 +113,6 @@ const AnnuncioGestisci = () => {
                   color="secondary"
                   onClick={() => openSnackbar("TODO hehe ✨")}
                   text="Rimuovi"
-                  size="mini"
-                />
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <Card>
-            <div className='row'>
-              <div className='col'>
-                <span className='page-section'>Annuncio non su cartaceo</span>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col'>
-                <div className={styles.cartaceoWrapper}>
-                  <Icon
-                    fill={0}
-                    grade={0}
-                    name="newspaper"
-                    opticalSize={40}
-                    size={40}
-                    weight={400}
-                    className={styles.icon}
-                  />
-                  <span>Il tuo annuncio non verrà stampato sui volantini della soffiata!</span>
-                </div>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col col-flex-center'>
-                <Button
-                  color="primary"
-                  onClick={() => openSnackbar("TODO hehe ✨")}
-                  text="Pubblica"
                   size="mini"
                 />
               </div>

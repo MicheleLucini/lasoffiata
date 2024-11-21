@@ -102,7 +102,6 @@ const Annuncio = ({ initialAnnuncio }) => {
         <div className='col'>
           <div className={styles.infoPrincipali}>
             <span className={styles.titolo}>{annuncio.title}</span>
-            <span className={styles.prezzo}>100€</span>
             <span className={styles.descrizione}>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")} presso ${annuncio.city} (${annuncio.province})`}</span>
             <span className={styles.descrizione}>{`L'annuncio scadrà il ${moment(annuncio.expirationDate).format("D MMMM YYYY")}`}</span>
           </div>
@@ -125,8 +124,9 @@ const Annuncio = ({ initialAnnuncio }) => {
           <div className={styles.azioniPrincipali}>
             {isMyAnnuncio && (
               <Button
-                text="Gestisci"
+                icon="settings"
                 onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [annuncio.id])}
+                text="Gestisci"
               />
             )}
             <Button

@@ -32,7 +32,6 @@ const HomeAnnuncio = ({ annuncio, onAnnuncioClick }) => {
           />
         )}
       </div>
-      <span className={styles.price}>€ 100</span>
       <span className={styles.title}>{annuncio.title}</span>
       <span className={styles.place}>{`${annuncio.city} (${annuncio.province})`}</span>
       {/* <span className={styles.time}>{moment(annuncio.publishDate).format("D MMMM YYYY")}</span> */}

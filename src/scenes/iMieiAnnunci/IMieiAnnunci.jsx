@@ -21,14 +21,10 @@ const IMieiAnnunci = () => {
 
   const loadUserAdvertisements = useCallback(async () => {
     setLoading(true);
-    let data;
-    try {
-      data = await apiPublic.GetUserAdvertisements({ userId: user.id });
-    } catch {
-      data = [];
-    }
-    setAdvertisements(data);
-    setLoading(false);
+    apiPublic.GetUserAdvertisements({ userId: user.id })
+      .then((data) => setAdvertisements(data))
+      .catch(() => setAdvertisements([]))
+      .finally(() => setLoading(false));
   }, [user.id]);
 
   // const ripubblica = useCallback(async (id) => {
@@ -69,21 +65,20 @@ const IMieiAnnunci = () => {
 
   const annunciList = useMemo(() => (
     advertisements.map((x) => {
-      const isScaduto = moment().diff(x.expirationDate) > 0;
-      const isMaiStatoAttivato = x.publishDate === "0001-01-01T00:00:00Z";
-
+      // const isMaiStatoAttivato = x.publishDate === "0001-01-01T00:00:00Z";
       let icon = "event_available";
       let className = styles.success;
       let text = "Attivo";
-      if (isMaiStatoAttivato) {
-        icon = "savings";
-        className = styles.warning;
-        text = "Pagamento richiesto";
-      } else if (x.isSuspended) {
+      // if (isMaiStatoAttivato) {
+      //   icon = "savings";
+      //   className = styles.warning;
+      //   text = "Pagamento richiesto";
+      // } else       
+      if (x.isSuspended) {
         icon = "pause_circle";
         className = styles.error;
         text = "Sospeso";
-      } else if (isScaduto) {
+      } else if (x.isExpired) {
         icon = "event_busy";
         className = styles.error;
         text = "Scaduto";
