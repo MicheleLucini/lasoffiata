@@ -16,7 +16,7 @@ import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AnnuncioGestisci = () => {
   const [loading, setLoading] = useState(false);
-  const [annuncio, setAnnuncio] = useState(false);
+  const [annuncio, setAnnuncio] = useState(null);
 
   // const dispatch = useDispatch();
   const { navigate, currentRoute } = useNavigator();
@@ -27,9 +27,7 @@ const AnnuncioGestisci = () => {
   const loadAnnuncio = useCallback(() => {
     setLoading(true);
     apiPublic.GetAdvertisement({ advertisementId: idAnnuncio })
-      .then((data) => {
-        setAnnuncio(data);
-      })
+      .then((data) => setAnnuncio(data))
       .finally(() => setLoading(false));
   }, [idAnnuncio])
 
@@ -45,24 +43,26 @@ const AnnuncioGestisci = () => {
           <span className='page-title'>Gestisci annuncio</span>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          <AnnuncioPreview
-            annuncio={annuncio}
-            loading={loading}
-            suppressNavigation
-          >
-            <Button
-              color="secondary"
-              icon="edit"
-              onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
-              // size="mini"
-              text="Modifica"
-            />
-          </AnnuncioPreview>
-        </div>
-      </div>
-      {/* <div className='row'>
+      {annuncio && (
+        <>
+          <div className='row'>
+            <div className='col'>
+              <AnnuncioPreview
+                annuncio={annuncio}
+                loading={loading}
+                suppressNavigation
+              >
+                <Button
+                  color="secondary"
+                  icon="edit"
+                  onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
+                  // size="mini"
+                  text="Modifica"
+                />
+              </AnnuncioPreview>
+            </div>
+          </div>
+          {/* <div className='row'>
         <div className='col col-flex-center'>
           <Button
             color="secondary"
@@ -73,53 +73,55 @@ const AnnuncioGestisci = () => {
           />
         </div>
       </div> */}
-      {/* <br></br> */}
-      <div className='row'>
-        <div className='col'>
-          <Card>
-            <div className='row'>
-              <div className='col'>
-                <span className='page-section'>Annuncio online!</span>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col'>
-                <div className={styles.onlineWrapper}>
-                  <Icon
-                    fill={0}
-                    grade={0}
-                    name="public"
-                    opticalSize={40}
-                    size={40}
-                    weight={400}
-                    className={styles.icon}
-                  />
-                  <span>Il tuo annuncio è visibile online sulla soffiata!</span>
-                  <span>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
-                  <span>{`L'annuncio scadrà il ${moment(annuncio.expirationDate).format("D MMMM YYYY")}`}</span>
-                  <span>{`${moment(annuncio.expirationDate).diff(annuncio.publishDate, 'days')} giorni restanti`}</span>
+          {/* <br></br> */}
+          <div className='row'>
+            <div className='col'>
+              <Card>
+                <div className='row'>
+                  <div className='col'>
+                    <span className='page-section'>Annuncio online!</span>
+                  </div>
                 </div>
-              </div>
+                <div className='row'>
+                  <div className='col'>
+                    <div className={styles.onlineWrapper}>
+                      <Icon
+                        fill={0}
+                        grade={0}
+                        name="public"
+                        opticalSize={40}
+                        size={40}
+                        weight={400}
+                        className={styles.icon}
+                      />
+                      <span>Il tuo annuncio è visibile online sulla soffiata!</span>
+                      <span>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
+                      <span>{`L'annuncio scadrà il ${moment(annuncio.expirationDate).format("D MMMM YYYY")}`}</span>
+                      <span>{`${moment(annuncio.expirationDate).diff(annuncio.publishDate, 'days')} giorni restanti`}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className='row'>
+                  <div className='col col-flex-center'>
+                    <Button
+                      color="primary"
+                      onClick={() => openSnackbar("TODO hehe ✨")}
+                      text="Estendi"
+                      size="mini"
+                    />
+                    <Button
+                      color="secondary"
+                      onClick={() => openSnackbar("TODO hehe ✨")}
+                      text="Rimuovi"
+                      size="mini"
+                    />
+                  </div>
+                </div>
+              </Card>
             </div>
-            <div className='row'>
-              <div className='col col-flex-center'>
-                <Button
-                  color="primary"
-                  onClick={() => openSnackbar("TODO hehe ✨")}
-                  text="Estendi"
-                  size="mini"
-                />
-                <Button
-                  color="secondary"
-                  onClick={() => openSnackbar("TODO hehe ✨")}
-                  text="Rimuovi"
-                  size="mini"
-                />
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
