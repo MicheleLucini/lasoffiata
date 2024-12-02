@@ -1,19 +1,12 @@
 import * as apiPublic from "@api/public";
-import HomeAnnuncio from "../home/HomeAnnuncio";
-import HomeAnnuncioPlaceholder from "../home/HomeAnnuncioPlaceholder";
+import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
+import Pubblicita from '@templates/pubblicita/Pubblicita';
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import SearchInput from "@components/searchInput";
 import SelectCategory from "@templates/selectCategory";
 import SelectProvince from "@templates/selectProvince";
 import styles from "./Search.module.css";
 import { useCategories } from "@contexts/CategoriesContext";
-// import Annuncio from "@scenes/annuncio";
-// import Icon from "@components/icon";
-// import Link from "@components/link";
-// import { ROUTES } from "@contexts/NavigatorContext";
-// import { selectUser } from '@store/userSlice';
-// import { useModals } from "@contexts/ModalsContext";
-// import { useSelector } from 'react-redux';
 
 const Search = () => {
   const [loading, setLoading] = useState(false);
@@ -48,17 +41,17 @@ const Search = () => {
   const annunciList = useMemo(() => (
     loading
       ? [...Array(20)].map((_, i) => (
-        <HomeAnnuncioPlaceholder
-          key={i}
-        />
+        <AnnuncioPreview key={i} loading />
       ))
-      : advertisements.map((x) => (
-        <HomeAnnuncio
-          key={x.id}
-          annuncio={x}
-        // onAnnuncioClick={onAnnuncioClick}
-        />
-      ))
+      : [
+        ...advertisements.map((x, i) => (
+          <>
+            {i % 2 === 0 && <Pubblicita />}
+            <AnnuncioPreview key={x.id} annuncio={x} />
+          </>
+        )),
+        <Pubblicita />,
+      ]
   ), [loading, advertisements]);
 
   // const loadAdvertisements = useCallback(async () => {

@@ -18,8 +18,9 @@
 
 .wrapperAnnunci {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px 12px;
+  /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
+  /* gap: 20px 12px; */
+  gap: 10px;
 }
 
 .wrapperAnnunci>span {

@@ -6,7 +6,7 @@
 .footer>.footerContent {
   display: grid;
   gap: 5px;
-  padding: 30px 20px 90px;
+  padding: 20px 20px 90px;
   justify-items: center;
 }
 

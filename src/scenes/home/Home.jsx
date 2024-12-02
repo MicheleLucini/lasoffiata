@@ -1,7 +1,3 @@
-// import Annuncio from "@scenes/annuncio";
-// import AnnuncioPreviewPlaceholder from '@templates/annunci/AnnuncioPreviewPlaceholder';
-// import HomeAnnuncio from "./HomeAnnuncio";
-// import HomeAnnuncioPlaceholder from "./HomeAnnuncioPlaceholder";
 // import { useModals } from "@contexts/ModalsContext";
 import * as apiPublic from "@api/public";
 import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
@@ -27,7 +23,6 @@ const Home = () => {
   const featuredAnnunciList = useMemo(() => (
     loading
       ? [...Array(20)].map((_, i) => (
-        // <HomeAnnuncioPlaceholder key={i} />
         <AnnuncioPreview key={i} loading />
       ))
       : [
