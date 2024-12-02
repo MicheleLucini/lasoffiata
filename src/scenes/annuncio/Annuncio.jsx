@@ -1,5 +1,6 @@
 import * as apiPublic from "@api/public";
 import Button from "@components/button";
+import Card from '@components/card';
 import DetailsGrid from '@components/detailsGrid';
 import PropTypes from "prop-types";
 import React, { useState, useMemo, useCallback, useEffect } from "react";
@@ -141,38 +142,49 @@ const Annuncio = ({ initialAnnuncio }) => {
       <br></br>
       <div className='row'>
         <div className='col'>
-          <span className="page-section">Dettagli</span>
+          <Card>
+            <div className='row'>
+              <div className='col'>
+                <span className="page-section">Dettagli</span>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <DetailsGrid
+                  labels={["Categoria", "Condizione", "Descrizione"]}
+                  values={[getCategoryDescriptionById(annuncio.categoryId), "Usato - Buono", annuncio.description]}
+                />
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
       <div className='row'>
         <div className='col'>
-          <DetailsGrid
-            labels={["Categoria", "Condizione", "Descrizione"]}
-            values={[getCategoryDescriptionById(annuncio.categoryId), "Usato - Buono", annuncio.description]}
-          />
-        </div>
-      </div>
-      <br></br>
-      <div className='row'>
-        <div className='col'>
-          <span className="page-section">Informazioni sul venditore</span>
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <DetailsGrid
-            labels={["Username", "Email", "Cellulare", "Telefono"]}
-            values={[annuncio.user.advertisementName, annuncio.user.email, annuncio.user.cel, annuncio.user.tel]}
-          />
-        </div>
-      </div>
-      <div className='row'>
-        <div className='col'>
-          <Button
-            onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
-            size="mini"
-            text="Visita il profilo del venditore"
-          />
+          <Card>
+            <div className='row'>
+              <div className='col'>
+                <span className="page-section">Informazioni sul venditore</span>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <DetailsGrid
+                  labels={["Username", "Email", "Cellulare", "Telefono"]}
+                  values={[annuncio.user.advertisementName, annuncio.user.email, annuncio.user.cel, annuncio.user.tel]}
+                />
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col'>
+                <Button
+                  onClick={() => navigate(ROUTES.UTENTE, [annuncio.user.id])}
+                  size="mini"
+                  text="Visita il profilo del venditore"
+                />
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </>

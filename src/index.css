@@ -105,11 +105,11 @@ a {
 .page-title,
 .page-section {
   display: block;
-  text-align: center;
   font-family: "Young Serif";
 }
 
 .page-title {
+  text-align: center;
   font-size: 18px;
   line-height: 21px;
   color: var(--primary-text)
