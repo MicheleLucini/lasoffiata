@@ -107,3 +107,41 @@
     background-position: 100% 0;
   }
 }
+
+/* COLORI */
+
+.annuncioPreview .imageContainer.purple {
+  background-color: #f3e5f5;
+}
+
+.annuncioPreview .imageContainer.purple>.imagePlaceholderIcon {
+  color: #ab47bc;
+  opacity: 1;
+}
+
+.annuncioPreview .imageContainer.blue {
+  background-color: #e3f2fd;
+}
+
+.annuncioPreview .imageContainer.blue>.imagePlaceholderIcon {
+  color: #42a5f5;
+  opacity: 1;
+}
+
+.annuncioPreview .imageContainer.green {
+  background-color: #e8f5e9;
+}
+
+.annuncioPreview .imageContainer.green>.imagePlaceholderIcon {
+  color: #66bb6a;
+  opacity: 1;
+}
+
+.annuncioPreview .imageContainer.amber {
+  background-color: #fff3e0;
+}
+
+.annuncioPreview .imageContainer.amber>.imagePlaceholderIcon {
+  color: #ffa726;
+  opacity: 1;
+}

@@ -1,6 +1,6 @@
 import Icon from "@components/icon";
 import PropTypes from "prop-types";
-import React, { useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import moment from 'moment';
 import styles from "./annunci.module.css";
 import { BASE_URL } from "@logic/api"
@@ -14,12 +14,24 @@ const AnnuncioPreview = ({
 }) => {
   const { navigate } = useNavigator();
 
+  const [imageLinkBroken, setImageLinkBroken] = useState(false);
+
   const photoUrl = useMemo(() => {
-    if (!annuncio || !annuncio.images || annuncio.images.length === 0) {
+    if (imageLinkBroken || !annuncio || !annuncio.images || annuncio.images.length === 0) {
       return "";
     }
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
-  }, [annuncio]);
+  }, [annuncio, imageLinkBroken]);
+
+  const imageContainerColor = useMemo(() => {
+    if (photoUrl) return "";
+    return [
+      styles.purple,
+      styles.blue,
+      styles.green,
+      styles.amber,
+    ].at(Math.floor(Math.random() * 3));
+  }, [photoUrl]);
 
   const isMaiStatoAttivato = useMemo(() => {
     return annuncio?.publishDate === "0001-01-01T00:00:00Z";
@@ -33,11 +45,12 @@ const AnnuncioPreview = ({
 
   return (
     <div className={styles.annuncioPreview + " " + (loading ? styles.loading : "")} onClick={onClick}>
-      <div className={styles.imageContainer}>
+      <div className={styles.imageContainer + " " + imageContainerColor}>
         {photoUrl ? (
           <img
             src={photoUrl}
             alt={`Immagine annuncio ${annuncio.title}`}
+            onError={() => setImageLinkBroken(true)}
           />
         ) : (
           <Icon
