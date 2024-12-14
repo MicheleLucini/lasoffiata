@@ -105,8 +105,17 @@ const MyAccount = () => {
             <div className='col'>
               <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_CATEGORIE)}>
                 <span>Gestisci categorie</span>
-                <p></p>
+                <p>Gestisci le categorie della Soffiata, solo per admin.</p>
                 {iconRenderer("category")}
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              <div className={styles.card + " " + styles.admin} onClick={() => navigate(ROUTES.ADMIN_ANNUNCI_E_UTENTI)}>
+                <span>Gestisci annunci e utenti</span>
+                <p>Gestisci annunci e utenti della Soffiata, solo per admin.</p>
+                {iconRenderer("rule")}
               </div>
             </div>
           </div>

@@ -1,98 +1,87 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import * as apiAdministration from "@api/administration";
-
+// import * as apiPublic from "@api/public";
+// import AdminCategorieModalEditCategory from './AdminCategorieModalEditCategory';
+// import Button from '@components/button';
+import React, { useState, useCallback, useEffect } from "react";
 import styles from "./AdminAnnunciEUtenti.module.css";
+// import { ACCOUNT_TYPE, SERVICE_TYPE, getConstantDescriptionByValue } from "@logic/constants";
+// import { useModals } from "@contexts/ModalsContext";
+import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AdminAnnunciEUtenti = () => {
-  const [annunci, setAnnunci] = useState(null);
+  const { openSnackbar } = useSnackbars();
+  // const { openModal, closeAllModals } = useModals();
+
   const [loading, setLoading] = useState(false);
-  const [formErrors, setFormErrors] = useState(null);
-  const { navigate } = useNavigator();
+  const [advertisments, setAdvertisments] = useState([]);
 
-  const loadAnnunci = useCallback(async () => {
-    const data = await apiAdministration.GetAdvertismentsWaitingForValidation();
-    setAnnunci(data);
-  }, []);
-
-  const onRifiutaClick = useCallback(async (id) => {
+  const loadCategories = useCallback(() => {
     setLoading(true);
-    setFormErrors(null);
+    apiAdministration.GetAdvertismentsWaitingForValidation()
+      .then(setAdvertisments)
+      .catch((e) => openSnackbar("❌ " + e.message))
+      .finally(() => setLoading(false));
+  }, [openSnackbar]);
 
-    apiAdministration.RefuseAdvertisement({
-      id: id
-    })
-      .then(() => {
-        loadAnnunci();
-      })
-      .catch((e) => {
-        setFormErrors(e.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [loadAnnunci]);
+  // const createCategory = useCallback(() => {
+  //   setLoading(true);
+  //   apiAdministration.CreateCategory()
+  //     .then(() => loadCategories())
+  //     .catch((e) => {
+  //       openSnackbar("❌ " + e.message);
+  //       setLoading(false);
+  //     });
+  // }, [loadCategories, openSnackbar]);
 
-  const onApprovaClick = useCallback(async (id) => {
-    setLoading(true);
-    setFormErrors(null);
-
-    apiAdministration.ValidateAdvertisement({
-      id: id
-    })
-      .then(() => {
-        loadAnnunci();
-      })
-      .catch((e) => {
-        setFormErrors(e.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [loadAnnunci]);
+  // const onEditCategoryClick = useCallback((category) => {
+  //   openModal({
+  //     title: "Modifica categoria " + (category.name || "senza nome"),
+  //     children: <AdminCategorieModalEditCategory
+  //       categories={categories}
+  //       category={category}
+  //       onEditCallback={() => {
+  //         closeAllModals();
+  //         loadCategories();
+  //       }}
+  //     />,
+  //   });
+  // }, [categories, closeAllModals, loadCategories, openModal]);
 
   useEffect(() => {
-    loadAnnunci();
-  }, [loadAnnunci]);
-
-  const annunciList = useMemo(() => {
-    return annunci?.map((x) =>
-      <div key={x.id}>
-        Titolo: {x.title}<br />
-        Descrizione: {x.description}<br />
-
-        <button
-          onClick={() => navigate(ROUTES.ANNUNCIO, [x.id])}
-          disabled={loading}>
-          visualizza
-        </button>
-
-        <button
-          disabled={loading}>
-          modifica
-        </button>
-
-        <button
-          onClick={() => onApprovaClick(x.id)}
-          disabled={loading}>
-          approva
-        </button>
-
-        <button
-          onClick={() => onRifiutaClick(x.id)}
-          disabled={loading}>
-          rifiuta
-        </button>
-      </div>)
-  }, [annunci, loading, onApprovaClick, onRifiutaClick, navigate]);
+    loadCategories();
+  }, [loadCategories])
 
   return (
     <>
-      <h1>Validazione annunci</h1>
-      <div className={styles.wrapperAnnunci}>
-        {annunciList}
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <span className='page-title'>Gestione annunci e utenti</span>
+        </div>
       </div>
-      {formErrors && <span className={`${styles.formMessage} ${styles.error}`}>{formErrors}</span>}
+      <br></br>
+      <div className='row'>
+        <div className='col'>
+          <div className={styles.tableAnnunci}>
+            <span>Id</span>
+            <span>Colonna A</span>
+            <div className={styles.divider}></div>
+            {advertisments.map((x) => (
+              <React.Fragment key={x.id}>
+                <span>{x.id}</span>
+                <span>{JSON.stringify(x)}</span>
+                {/* <Button
+                  disabled={loading}
+                  onClick={() => onEditCategoryClick(x)}
+                  icon="edit"
+                  size="mini"
+                /> */}
+                <div className={styles.divider}></div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 };
