@@ -76,7 +76,19 @@ const Balance = () => {
         <div className='col'>
           <div className={styles.option + (check10 ? " " + styles.selected : "")} onClick={onCheck10Change}>
             <Checkbox value={check10} setValue={onCheck10Change} />
+            <span>5</span>
+          </div>
+          <div className={styles.option + (check10 ? " " + styles.selected : "")} onClick={onCheck10Change}>
+            <Checkbox value={check10} setValue={onCheck10Change} />
             <span>10</span>
+          </div>
+          <div className={styles.option + (check10 ? " " + styles.selected : "")} onClick={onCheck10Change}>
+            <Checkbox value={check10} setValue={onCheck10Change} />
+            <span>15</span>
+          </div>
+          <div className={styles.option + (check10 ? " " + styles.selected : "")} onClick={onCheck10Change}>
+            <Checkbox value={check10} setValue={onCheck10Change} />
+            <span>20</span>
           </div>
           <div className={styles.option + (check25 ? " " + styles.selected : "")} onClick={onCheck25Change}>
             <Checkbox value={check25} setValue={onCheck25Change} />
@@ -89,6 +101,10 @@ const Balance = () => {
           <div className={styles.option + (check100 ? " " + styles.selected : "")} onClick={onCheck100Change}>
             <Checkbox value={check100} setValue={onCheck100Change} />
             <span>100</span>
+          </div>
+          <div className={styles.option + (check100 ? " " + styles.selected : "")} onClick={onCheck100Change}>
+            <Checkbox value={check100} setValue={onCheck100Change} />
+            <span>500</span>
           </div>
         </div>
       </div>
