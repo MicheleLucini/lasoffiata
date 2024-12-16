@@ -1,24 +1,27 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { CategoriesProvider } from "@contexts/CategoriesContext";
-import { ModalsProvider } from "@contexts/ModalsContext";
-import { DialogsProvider } from "@contexts/DialogsContext";
-import { SnackbarsProvider } from "@contexts/SnackbarsContext";
-import { NavigatorProvider } from "@contexts/NavigatorContext";
+import 'moment/locale/it';
 import * as logicUser from "@logic/user";
-import Snackbars from "@templates/snackbars";
-import Modals from "@templates/modals";
-import Dialogs from "@templates/dialogs";
-import AppTopBar from "./AppTopBar";
+import AppFooter from "./AppFooter";
 import AppNavBar from "./AppNavBar";
 import AppRouting from "./AppRouting";
-import AppFooter from "./AppFooter";
+import AppTopBar from "./AppTopBar";
+import Dialogs from "@templates/dialogs";
+import Modals from "@templates/modals";
+import React, { useEffect } from "react";
+import Snackbars from "@templates/snackbars";
+import moment from "moment";
 import styles from "./App.module.css";
+import { CategoriesProvider } from "@contexts/CategoriesContext";
+import { DialogsProvider } from "@contexts/DialogsContext";
+import { ModalsProvider } from "@contexts/ModalsContext";
+import { NavigatorProvider } from "@contexts/NavigatorContext";
+import { SnackbarsProvider } from "@contexts/SnackbarsContext";
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    moment.locale('it');
     dispatch(logicUser.restoreSignIn());
   }, [dispatch]);
 
