@@ -128,6 +128,11 @@ function getRouteFromWindowLocation(defaultRoute = ROUTES.HOME) {
   return validRoute || defaultRoute;
 }
 
+const calculateUrl = (route, params = null) => {
+  const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
+  return `${BASE_URL}${route.url}${formattedParams}${window.location.search}`;
+};
+
 function NavigatorProvider({ children }) {
   const [history, setHistory] = useState([]);
   const [currentRoute, setCurrentRoute] = useState(null);
@@ -142,8 +147,7 @@ function NavigatorProvider({ children }) {
     // console.log("navigating to", route.title);
     changePageTitle(route.title);
 
-    const formattedParams = params ? `/${params.map((x) => encodeURIComponent(x)).join("/")}` : "";
-    const destinationUrl = `${BASE_URL}${route.url}${formattedParams}${window.location.search}`;
+    const destinationUrl = calculateUrl(route, params);
 
     if (dontChangeState) {
       window.history.replaceState({}, "", destinationUrl);
@@ -159,6 +163,11 @@ function NavigatorProvider({ children }) {
     window.scrollTo(0, 0);
     closeAllModals();
   }, [changePageTitle, closeAllModals]);
+
+  const newWindow = useCallback((route, params = null) => {
+    const destinationUrl = calculateUrl(route, params);
+    window.open(destinationUrl, '_blank').focus();
+  }, []);
 
   const onPopState = useCallback(() => {
     navigate(
@@ -196,12 +205,20 @@ function NavigatorProvider({ children }) {
   }, [currentRoute]);
 
   const navigatorContextValue = useMemo(() => ({
-    history,
-    currentRoute,
-    navigate,
-    checkCurrentRoute,
     changePageTitle,
-  }), [history, currentRoute, navigate, checkCurrentRoute, changePageTitle]);
+    checkCurrentRoute,
+    currentRoute,
+    history,
+    navigate,
+    newWindow,
+  }), [
+    changePageTitle,
+    checkCurrentRoute,
+    currentRoute,
+    history,
+    navigate,
+    newWindow
+  ]);
 
   return (
     <NavigatorContext.Provider value={navigatorContextValue}>
