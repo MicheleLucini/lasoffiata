@@ -63,6 +63,8 @@ const Balance = () => {
     });
   }, [openModal]);
 
+  const formatCents = (cents) => (cents / 100).toFixed(2).replace('.', ',');
+
   // useEffect(() => {
   //   const urlParams = new URLSearchParams(window.location.search);
   //   const paymentID = urlParams.get("paymentId");
@@ -108,7 +110,7 @@ const Balance = () => {
               opticalSize={40}
               size={40}
             />
-            <span>{user.credits}</span>
+            <span>{formatCents(user.credits)}</span>
           </div>
         </div>
       </div>

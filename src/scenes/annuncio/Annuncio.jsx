@@ -108,9 +108,9 @@ const Annuncio = ({ initialAnnuncio }) => {
           </div>
         </div>
       </div>
-      <div className='row'>
-        <div className='col'>
-          {isMyAnnuncio ? (
+      {(isMyAnnuncio || user.isAdmin) && (
+        <div className='row'>
+          <div className='col'>
             <Button
               color="primary"
               fullWidth
@@ -118,16 +118,21 @@ const Annuncio = ({ initialAnnuncio }) => {
               onClick={() => navigate(ROUTES.ANNUNCIO_GESTISCI, [annuncio.id])}
               text="Gestisci"
             />
-          ) : (
+          </div>
+        </div>
+      )}
+      {(!isMyAnnuncio || user.isAdmin) && (
+        <div className='row'>
+          <div className='col'>
             <Button
               color="primary"
               fullWidth
               onClick={() => { }}
               text="Invia un messaggio al venditore"
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
       <div className='row'>
         <div className='col'>
           <div className={styles.azioniPrincipali}>

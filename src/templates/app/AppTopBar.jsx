@@ -22,6 +22,8 @@ const AppTopBar = () => {
     !!user.credits || user.credits === 0
   ), [user.credits]);
 
+  const formatCents = (cents) => (cents / 100).toFixed(2).replace('.', ',');
+
   // const userIconLinkRoute = useMemo(() => (
   //   user.isLogged ? ROUTES.PERSONAL_INFO : ROUTES.LOGIN
   // ), [user.isLogged]);
@@ -70,7 +72,7 @@ const AppTopBar = () => {
                 grade={0}
                 opticalSize={24}
               />
-              <span>{user.credits}</span>
+              <span>{formatCents(user.credits)}</span>
             </div>
           </Link>
         )}
