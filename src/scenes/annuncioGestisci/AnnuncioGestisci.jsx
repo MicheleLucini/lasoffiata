@@ -12,6 +12,7 @@ import React, { useMemo, useState, useCallback, useEffect } from "react";
 import moment from 'moment';
 import styles from "./AnnuncioGestisci.module.css";
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
+import { getStatoAnnuncio } from "@logic/annuncio";
 import { useSnackbars } from "@contexts/SnackbarsContext";
 
 const AnnuncioGestisci = () => {
@@ -23,6 +24,8 @@ const AnnuncioGestisci = () => {
   const { openSnackbar } = useSnackbars();
 
   const idAnnuncio = useMemo(() => currentRoute.params[0], [currentRoute.params]);
+
+  const statoAnnuncio = useMemo(() => getStatoAnnuncio(annuncio), [annuncio]);
 
   const loadAnnuncio = useCallback(() => {
     setLoading(true);
@@ -56,43 +59,30 @@ const AnnuncioGestisci = () => {
                   color="secondary"
                   icon="edit"
                   onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
-                  // size="mini"
                   text="Modifica"
                 />
               </AnnuncioPreview>
             </div>
           </div>
-          {/* <div className='row'>
-        <div className='col col-flex-center'>
-          <Button
-            color="secondary"
-            icon="edit"
-            onClick={() => navigate(ROUTES.ANNUNCIO_MODIFICA, [annuncio.id])}
-            text="Modifica"
-          // size="mini"
-          />
-        </div>
-      </div> */}
-          {/* <br></br> */}
           <div className='row'>
             <div className='col'>
               <Card>
                 <div className='row'>
                   <div className='col'>
-                    <span className='page-section'>Annuncio online!</span>
+                    <span className='page-section'>Annuncio {statoAnnuncio.text}!</span>
                   </div>
                 </div>
                 <div className='row'>
                   <div className='col'>
                     <div className={styles.onlineWrapper}>
                       <Icon
+                        className={styles.icon + " " + (statoAnnuncio.error ? styles.error : "") + " " + (statoAnnuncio.warning ? styles.warning : "")}
                         fill={0}
                         grade={0}
-                        name="public"
+                        name={statoAnnuncio.icon}
                         opticalSize={40}
                         size={40}
                         weight={400}
-                        className={styles.icon}
                       />
                       <span>Il tuo annuncio è visibile online sulla soffiata!</span>
                       <span>{`Annuncio pubblicato il ${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>

@@ -4,11 +4,11 @@ import moment from 'moment';
 import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 import Button from '@components/button';
 import Icon from "@components/icon";
-import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
+import { getStatoAnnuncio } from "@logic/annuncio";
 import { BASE_URL } from "@api/utils"
 import styles from "./IMieiAnnunci.module.css";
 
-const RigaAnnuncio = ({ 
+const RigaAnnuncio = ({
   annuncio, loading, // onRipubblica, onSospendi, onElimina,
 }) => {
   const { navigate } = useNavigator();
@@ -20,53 +20,9 @@ const RigaAnnuncio = ({
     return `${BASE_URL}/images/${annuncio.userId}/${annuncio.id}/${annuncio.images[0].id}.jpg`;
   }, [annuncio.id, annuncio.images, annuncio.userId]);
 
-  const isScaduto = useMemo(() => {
-    return moment().diff(annuncio.expirationDate) > 0;
-  }, [annuncio.expirationDate]);
-
-  const isMaiStatoAttivato = useMemo(() => {
-    return annuncio.publishDate === "0001-01-01T00:00:00Z";
-  }, [annuncio.publishDate]);
-
   const statoAnnuncio = useMemo(() => {
-    let icon = "event_available";
-    let className = styles.success;
-    let text = "Attivo";
-    if (isMaiStatoAttivato) {
-      icon = "savings";
-      className = styles.warning;
-      text = "Pagamento richiesto";
-    } else if (annuncio.isSuspended) {
-      icon = "pause_circle";
-      className = styles.error;
-      text = "Sospeso";
-    } else if (isScaduto) {
-      icon = "event_busy";
-      className = styles.error;
-      text = "Scaduto";
-    } else if (checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus)) {
-      icon = "hourglass_empty";
-      className = "";
-      text = "In attesa di verifica";
-    } else if (checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus)) {
-      icon = "block";
-      className = styles.error;
-      text = "Rifiutato";
-    }
-    return (
-      <span className={styles.status + " " + className}>
-        <Icon
-          name={icon}
-          size={18}
-          fill={1}
-          weight={400}
-          grade={-25}
-          opticalSize={20}
-        />
-        {text}
-      </span>
-    );
-  }, [annuncio.isSuspended, annuncio.validationStatus, isMaiStatoAttivato, isScaduto]);
+    return getStatoAnnuncio(annuncio);
+  }, [annuncio]);
 
   return (
     <>
@@ -95,10 +51,20 @@ const RigaAnnuncio = ({
         <span className={styles.title} onClick={() => navigate(ROUTES.ANNUNCIO, [annuncio.id])}>{annuncio.title}</span>
         <span className={styles.description}>{annuncio.description}</span>
         <span className={styles.extra}>{`${annuncio.city} (${annuncio.province})`}</span>
-        <span className={styles.extra}>{isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
+        <span className={styles.extra}>{statoAnnuncio.isMaiStatoAttivato ? "" : `${moment(annuncio.publishDate).format("D MMMM YYYY")}`}</span>
       </div>
       <div className={styles.actions}>
-        {statoAnnuncio}
+        <span className={[styles.status, statoAnnuncio.error ? styles.error : "", statoAnnuncio.warning ? styles.warning : ""].join(" ")}>
+          <Icon
+            fill={1}
+            grade={-25}
+            name={statoAnnuncio.icon}
+            opticalSize={20}
+            size={18}
+            weight={400}
+          />
+          {statoAnnuncio.text}
+        </span>
         <Button
           icon="settings"
           text="Gestisci"

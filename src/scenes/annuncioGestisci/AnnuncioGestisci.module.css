@@ -55,3 +55,23 @@
 .cartaceoWrapper>*:last-child {
   font-size: 16px;
 }
+
+/**/
+
+.icon.warning {
+  background-color: #fff3e0;
+  border-color: #ffcc80;
+  color: #e65100;
+}
+
+.icon.error {
+  background-color: #ffb4ab;
+  border-color: #ef9a9a;
+  color: #690005;
+}
+
+.icon.success {
+  background-color: #e8f5e9;
+  border-color: #c8e6c9;
+  color: #1b5e20;
+}

@@ -29,7 +29,7 @@
   color: #263238;
 }
 
-.actions .status.pending {
+.actions .status.warning {
   background-color: #fff3e0;
   border-color: #ffcc80;
   color: #e65100;

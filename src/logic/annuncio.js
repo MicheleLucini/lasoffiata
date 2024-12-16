@@ -1,6 +1,8 @@
-import { BASE_URL } from "./api"
 import * as apiUser from "@api/user";
+import moment from 'moment';
 import noPhoto from "@assets/logo_header.png";
+import { BASE_URL } from "./api"
+import { checkConstant, VALIDATION_STATUS } from "@logic/constants";
 
 export function getAdvertisementImageUrl({ userId, advertisementId, imageId }) {
   if (!userId || !advertisementId || !imageId) {
@@ -81,3 +83,44 @@ export const editAdvertisement = ({
     deletedImageIds,
   });
 };
+
+export const getStatoAnnuncio = (annuncio) => {
+  if (!annuncio) return {};
+  let error = false;
+  let icon = "event_available";
+  let text = "Attivo";
+  let warning = false;
+  const isScaduto = moment().diff(annuncio.expirationDate) > 0;
+  const isMaiStatoAttivato = annuncio.publishDate === "0001-01-01T00:00:00Z";
+  if (isMaiStatoAttivato) {
+    icon = "savings";
+    warning = true;
+    text = "Pagamento richiesto";
+  } else if (annuncio.isSuspended) {
+    icon = "pause_circle";
+    error = true;
+    text = "Sospeso";
+  } else if (isScaduto) {
+    icon = "event_busy";
+    error = true;
+    text = "Scaduto";
+  } else if (checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus)) {
+    icon = "hourglass_empty";
+    text = "In attesa di verifica";
+    warning = true;
+  } else if (checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus)) {
+    icon = "block";
+    error = true;
+    text = "Rifiutato";
+  }
+  return {
+    error,
+    icon,
+    isMaiStatoAttivato,
+    isScaduto,
+    text,
+    warning: warning && !error,
+    ok: !error && !warning,
+  };
+};
+
