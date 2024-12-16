@@ -92,7 +92,13 @@ export const getStatoAnnuncio = (annuncio) => {
   let warning = false;
   const isScaduto = moment().diff(annuncio.expirationDate) > 0;
   const isMaiStatoAttivato = annuncio.publishDate === "0001-01-01T00:00:00Z";
-  if (isMaiStatoAttivato) {
+  const isRifiutato = checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus);
+  const isWaiting = checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus);
+  if (isRifiutato) {
+    icon = "block";
+    error = true;
+    text = "Rifiutato";
+  } else if (isMaiStatoAttivato) {
     icon = "savings";
     warning = true;
     text = "Pagamento richiesto";
@@ -104,23 +110,21 @@ export const getStatoAnnuncio = (annuncio) => {
     icon = "event_busy";
     error = true;
     text = "Scaduto";
-  } else if (checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus)) {
+  } else if (isWaiting) {
     icon = "hourglass_empty";
     text = "In attesa di verifica";
     warning = true;
-  } else if (checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus)) {
-    icon = "block";
-    error = true;
-    text = "Rifiutato";
   }
   return {
     error,
     icon,
     isMaiStatoAttivato,
+    isRifiutato,
     isScaduto,
+    isWaiting,
+    ok: !error && !warning,
     text,
     warning: warning && !error,
-    ok: !error && !warning,
   };
 };
 
