@@ -93,7 +93,7 @@ export const getStatoAnnuncio = (annuncio) => {
   const isScaduto = moment().diff(annuncio.expirationDate) > 0;
   const isMaiStatoAttivato = annuncio.publishDate === "0001-01-01T00:00:00Z";
   const isRifiutato = checkConstant(VALIDATION_STATUS.REFUSED, annuncio.validationStatus);
-  const isWaiting = checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus);
+  const isInAttesaDiVerifica = checkConstant(VALIDATION_STATUS.WAITING, annuncio.validationStatus);
   if (isRifiutato) {
     icon = "block";
     error = true;
@@ -110,7 +110,7 @@ export const getStatoAnnuncio = (annuncio) => {
     icon = "event_busy";
     error = true;
     text = "Scaduto";
-  } else if (isWaiting) {
+  } else if (isInAttesaDiVerifica) {
     icon = "hourglass_empty";
     text = "In attesa di verifica";
     warning = true;
@@ -118,11 +118,11 @@ export const getStatoAnnuncio = (annuncio) => {
   return {
     error,
     icon,
+    isInAttesaDiVerifica,
     isMaiStatoAttivato,
     isRifiutato,
     isScaduto,
-    isWaiting,
-    ok: !error && !warning,
+    isSuccess: !error && !warning,
     text,
     warning: warning && !error,
   };

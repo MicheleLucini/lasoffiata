@@ -16,8 +16,10 @@
 }
 
 .statoWrapper>.icon {
-  /* background-color: #e8f5e9; */
-  color: #4caf50;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 7px;
+  border: 1px solid transparent;
   border-radius: 50%;
 }
 
