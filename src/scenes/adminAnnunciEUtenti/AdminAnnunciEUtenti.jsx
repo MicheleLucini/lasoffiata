@@ -1,21 +1,19 @@
 import * as apiAdministration from "@api/administration";
-// import * as apiPublic from "@api/public";
-// import AdminCategorieModalEditCategory from './AdminCategorieModalEditCategory';
-// import Button from '@components/button';
+import AnnuncioPreview from '@templates/annunci/AnnuncioPreview';
+import Button from '@components/button';
 import React, { useState, useCallback, useEffect } from "react";
 import styles from "./AdminAnnunciEUtenti.module.css";
-// import { ACCOUNT_TYPE, SERVICE_TYPE, getConstantDescriptionByValue } from "@logic/constants";
-// import { useModals } from "@contexts/ModalsContext";
 import { useSnackbars } from "@contexts/SnackbarsContext";
+import { ROUTES, useNavigator } from "@contexts/NavigatorContext";
 
 const AdminAnnunciEUtenti = () => {
+  const { newWindow } = useNavigator();
   const { openSnackbar } = useSnackbars();
-  // const { openModal, closeAllModals } = useModals();
 
   const [loading, setLoading] = useState(false);
   const [advertisments, setAdvertisments] = useState([]);
 
-  const loadCategories = useCallback(() => {
+  const loadAnnunciDaValidare = useCallback(() => {
     setLoading(true);
     apiAdministration.GetAdvertismentsWaitingForValidation()
       .then(setAdvertisments)
@@ -23,33 +21,29 @@ const AdminAnnunciEUtenti = () => {
       .finally(() => setLoading(false));
   }, [openSnackbar]);
 
-  // const createCategory = useCallback(() => {
-  //   setLoading(true);
-  //   apiAdministration.CreateCategory()
-  //     .then(() => loadCategories())
-  //     .catch((e) => {
-  //       openSnackbar("❌ " + e.message);
-  //       setLoading(false);
-  //     });
-  // }, [loadCategories, openSnackbar]);
+  const validateAdvertisement = useCallback((annuncio) => {
+    setLoading(true);
+    apiAdministration.ValidateAdvertisement({ advertisementId: annuncio.id })
+      .then(() => loadAnnunciDaValidare())
+      .catch((e) => {
+        openSnackbar("❌ " + e.message);
+        setLoading(false);
+      });
+  }, [loadAnnunciDaValidare, openSnackbar]);
 
-  // const onEditCategoryClick = useCallback((category) => {
-  //   openModal({
-  //     title: "Modifica categoria " + (category.name || "senza nome"),
-  //     children: <AdminCategorieModalEditCategory
-  //       categories={categories}
-  //       category={category}
-  //       onEditCallback={() => {
-  //         closeAllModals();
-  //         loadCategories();
-  //       }}
-  //     />,
-  //   });
-  // }, [categories, closeAllModals, loadCategories, openModal]);
+  const refuseAdvertisement = useCallback((annuncio) => {
+    setLoading(true);
+    apiAdministration.RefuseAdvertisement({ advertisementId: annuncio.id })
+      .then(() => loadAnnunciDaValidare())
+      .catch((e) => {
+        openSnackbar("❌ " + e.message);
+        setLoading(false);
+      });
+  }, [loadAnnunciDaValidare, openSnackbar]);
 
   useEffect(() => {
-    loadCategories();
-  }, [loadCategories])
+    loadAnnunciDaValidare();
+  }, [loadAnnunciDaValidare])
 
   return (
     <>
@@ -63,19 +57,55 @@ const AdminAnnunciEUtenti = () => {
       <div className='row'>
         <div className='col'>
           <div className={styles.tableAnnunci}>
-            <span>Id</span>
-            <span>Colonna A</span>
+            <span></span>
+            <span>Elenco annunci in attesa di validazione</span>
             <div className={styles.divider}></div>
             {advertisments.map((x) => (
               <React.Fragment key={x.id}>
                 <span>{x.id}</span>
-                <span>{JSON.stringify(x)}</span>
-                {/* <Button
-                  disabled={loading}
-                  onClick={() => onEditCategoryClick(x)}
-                  icon="edit"
-                  size="mini"
-                /> */}
+                <div>
+                  <AnnuncioPreview
+                    annuncio={x}
+                    suppressNavigation
+                  >
+                    <div className={styles.azioniAnnuncio}>
+                      <Button
+                        color="primary"
+                        disabled={loading}
+                        icon="thumb_up"
+                        onClick={() => validateAdvertisement(x)}
+                        size="mini"
+                        text="Valida"
+                      />
+                      <Button
+                        color="secondary"
+                        disabled={loading}
+                        icon="thumb_down"
+                        onClick={() => refuseAdvertisement(x)}
+                        size="mini"
+                        text="Rifiuta"
+                      />
+                    </div>
+                    <div className={styles.azioniAnnuncio}>
+                      <Button
+                        color="secondary"
+                        disabled={loading}
+                        icon="open_in_new"
+                        onClick={() => newWindow(ROUTES.ANNUNCIO, [x.id])}
+                        size="mini"
+                        text="Annuncio"
+                      />
+                      <Button
+                        color="secondary"
+                        disabled={loading}
+                        icon="open_in_new"
+                        onClick={() => newWindow(ROUTES.UTENTE, [x.userId])}
+                        size="mini"
+                        text={"Utente " + x.user.advertisementName}
+                      />
+                    </div>
+                  </AnnuncioPreview>
+                </div>
                 <div className={styles.divider}></div>
               </React.Fragment>
             ))}
